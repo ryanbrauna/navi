@@ -3,6 +3,7 @@ package com.navi.controllers;
 import com.navi.config.DatabaseConfig;
 import com.navi.models.Endereco;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,13 +15,28 @@ import java.sql.Statement;
 @RestController
 public class EnderecoController {
 
-    Endereco endereco;
+    Endereco endereco = new Endereco();
 
     DatabaseConfig database = new DatabaseConfig();
 
+    @GetMapping("/endereco")
+    public ResponseEntity getEndereco() {
+        String select = String.format("SELECT * FROM public.endereco");
+
+        try (Statement statement = database.connect().createStatement();
+              ResultSet resultSet = statement.executeQuery(select)) {
+            this.endereco.displayEndereco(resultSet);
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok().build();
+    }
+
     @PostMapping("/cadastro/endereco")
     public Long create(Endereco novoEndereco) throws SQLException {
-        String insert = String.format("INSERT INTO public.endereco(\n\t n_cep, logradoruro, bairro, localidade, uf, numero, complemento)\n\tVALUES (?, ?, ?, ?, ?, ?, ?);");
+        String insert = String.format("INSERT INTO public.endereco(n_cep, logradoruro, bairro, localidade, uf, numero, complemento) VALUES (?, ?, ?, ?, ?, ?, ?);");
         long id = 0;
 
         try ( PreparedStatement preparedStatement = database.connect().prepareStatement(insert, Statement.RETURN_GENERATED_KEYS)) {

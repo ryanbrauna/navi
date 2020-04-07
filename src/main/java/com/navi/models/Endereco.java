@@ -1,6 +1,8 @@
 package com.navi.models;
 
 import javax.persistence.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 @Entity
 @Table(name = "Endereco")
@@ -17,6 +19,18 @@ public class Endereco {
     private String uf;
     private Integer numero;
     private String complememnto;
+
+    public void displayEndereco(ResultSet resultSet) throws SQLException {
+        while (resultSet.next()) {
+            System.out.println(resultSet.getInt("n_cep")  + "\t"
+            + resultSet.getString("logradouro")  + "\t"
+            + resultSet.getString("bairro")  + "\t"
+            + resultSet.getString("localidade")  + "\t"
+            + resultSet.getString("uf")  + "\t"
+            + resultSet.getInt("numero")  + "\t"
+            + resultSet.getString("complemento"));
+        }
+    }
 
     public Long getId() {
         return id;
