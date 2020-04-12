@@ -1,70 +1,59 @@
 package com.navi.controllers;
 
-import com.navi.config.DatabaseConfig;
 import com.navi.models.Endereco;
+import com.navi.repositories.EnderecoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.Optional;
 
 @RestController
 public class EnderecoController {
 
-    Endereco endereco = new Endereco();
+    @Autowired
+    private EnderecoRepository repository;
 
-    DatabaseConfig database = new DatabaseConfig();
-
-    @GetMapping("/endereco")
-    public ResponseEntity getEndereco() {
-        String select = String.format("SELECT * FROM public.endereco");
-
-        try (Statement statement = database.connect().createStatement();
-              ResultSet resultSet = statement.executeQuery(select)) {
-            this.endereco.displayEndereco(resultSet);
+    @GetMapping
+    public ResponseEntity getEnderecos() {
+        if (repository.findAll().isEmpty()) {
+            return ResponseEntity.noContent().build();
         }
-        catch (SQLException e) {
-            System.out.println(e.getMessage());
-            return ResponseEntity.notFound().build();
+        else {
+            return ResponseEntity.ok(repository.findAll());
         }
-        return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/cadastro/endereco")
-    public Long create(Endereco novoEndereco) throws SQLException {
-        String insert = String.format("INSERT INTO public.endereco(n_cep, logradoruro, bairro, localidade, uf, numero, complemento) VALUES (?, ?, ?, ?, ?, ?, ?);");
-        long id = 0;
+    @PostMapping
+    public ResponseEntity createEndereco(@RequestBody Endereco novoEndereco) {
+        repository.save(novoEndereco);
 
-        try ( PreparedStatement preparedStatement = database.connect().prepareStatement(insert, Statement.RETURN_GENERATED_KEYS)) {
-            {
-                preparedStatement.setInt(1, novoEndereco.getN_cep());
-                preparedStatement.setString(2, novoEndereco.getLogradouro());
-                preparedStatement.setString(3, novoEndereco.getBairro());
-                preparedStatement.setString(4, novoEndereco.getLocalidade());
-                preparedStatement.setString(5, novoEndereco.getUf());
-                preparedStatement.setInt(6, novoEndereco.getNumero());
-                preparedStatement.setString(7, novoEndereco.getComplememnto());
+        return ResponseEntity.created(null).build();
+    }
 
-                int affectedRows = preparedStatement.executeUpdate();
-                if (affectedRows > 0) {
-                    try (ResultSet resultSet = preparedStatement.getGeneratedKeys()) {
-                        if (resultSet.next()) {
-                            id = resultSet.getLong(1);
-                        }
-                    } catch (SQLException e) {
-                        System.out.println(e.getMessage());
-                    }
-                }
-            }
+    @PutMapping("/{id}")
+    public ResponseEntity updateEndereco(
+            @PathVariable Long id,
+            @RequestBody Endereco enderecoAtualizado) {
+
+        Endereco endereco = this.repository.findById(id).get();
+        Optional<Endereco> searchEndereco = this.repository.findById(id);
+
+        if (searchEndereco.isPresent()) {
+            endereco.setN_cep(enderecoAtualizado.getN_cep());
+            endereco.setLogradouro(enderecoAtualizado.getLogradouro());
+            endereco.setBairro(enderecoAtualizado.getBairro());
+            endereco.setLocalidade(enderecoAtualizado.getLocalidade());
+            endereco.setUf(enderecoAtualizado.getUf());
+            endereco.setNumero(enderecoAtualizado.getNumero());
+            endereco.setComplememnto(enderecoAtualizado.getComplememnto());
+
+            this.repository.save(endereco);
+            return ResponseEntity.ok(endereco);
         }
-        catch (SQLException e) {
-            System.out.println(e.getMessage());
+        else {
+            return ResponseEntity.notFound().build();
         }
-        return id;
     }
 
 }
