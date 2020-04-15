@@ -29,7 +29,9 @@ public class Endereco {
     private Integer numero;
 
     @Column(name = "complemento", length = 50)
-    private String complememnto;
+    private String complemento;
+
+
 
 
     public Integer getId() {
@@ -89,10 +91,10 @@ public class Endereco {
     }
 
     public String getComplememnto() {
-        return complememnto;
+        return complemento;
     }
 
     public void setComplememnto(String complememnto) {
-        this.complememnto = complememnto;
+        this.complemento = complememnto;
     }
 }
