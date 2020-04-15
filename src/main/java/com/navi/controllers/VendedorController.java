@@ -1,41 +1,56 @@
 package com.navi.controllers;
 
-import com.navi.database.VendedorDAO;
 import com.navi.models.Vendedor;
 import com.navi.repositories.VendedorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 public class VendedorController {
 
     @Autowired
-    VendedorRepository repository;
+    private VendedorRepository repository;
 
-    private VendedorDAO vendedorDAO = new VendedorDAO();
+    @PostMapping("cadastro/vendedor")
+    public ResponseEntity createVendedor(@RequestBody Vendedor novoVendedor) {
+        repository.save(novoVendedor);
 
-    @PostMapping("/cadastro/vendedor")
-    public String create(@RequestBody Vendedor novoVendedor) {
-
-        Boolean criou = vendedorDAO.createVendedor(novoVendedor);
-
-        repository.save(new Vendedor(novoVendedor.getNome(), novoVendedor.getEmail(), novoVendedor.getSenha(),
-                novoVendedor.getTelefone(), novoVendedor.getTelefone()));
-
-        return "Usuario criado";
+        return ResponseEntity.created(null).body(novoVendedor);
     }
 
-    @DeleteMapping("/vendedor/excluir")
-    public String delete(@RequestBody Vendedor vendedor) {
+    @PutMapping("vendedor/{cnpj}")
+    public ResponseEntity updateVendedor(
+            @PathVariable Integer cnpj,
+            @RequestBody Vendedor vendedorAtualizado) {
 
-        Boolean deletou = vendedorDAO.deleteVendedor(vendedor);
+        Vendedor vendedor = this.repository.findByCNPJ(cnpj);
+        Optional<Vendedor> searchVendedor = this.repository.findById(cnpj);
+
+        if (searchVendedor.isPresent()) {
+            vendedor.setNome(vendedorAtualizado.getNome());
+            vendedor.setEmail(vendedorAtualizado.getEmail());
+            vendedor.setSenha(vendedorAtualizado.getSenha());
+            vendedor.setTelefone(vendedorAtualizado.getTelefone());
+            vendedor.setN_cnpj(vendedorAtualizado.getN_cnpj());
+
+            this.repository.save(vendedor);
+            return ResponseEntity.ok(vendedor);
+        }
+        else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("vendedor/excluir/{cnpj}")
+    public ResponseEntity deleteVendedor(
+            @PathVariable Integer cnpj) {
+        Vendedor vendedor = this.repository.findByCNPJ(cnpj);
 
         repository.delete(vendedor);
-
-        return "Usuario deletado";
+        return ResponseEntity.ok().build();
     }
 
 }

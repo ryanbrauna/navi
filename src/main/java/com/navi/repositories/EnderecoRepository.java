@@ -4,14 +4,14 @@ import com.navi.models.Endereco;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 
-public interface EnderecoRepository extends JpaRepository<Endereco, Long> {
+public interface EnderecoRepository extends JpaRepository<Endereco, Integer> {
 
     @Override
-    List<Endereco> findAllById(Iterable<Long> iterable);
+    List<Endereco> findAllById(Iterable<Integer> iterable);
 
     List<Endereco> findAllByCEP(Integer cep);
 
-    Endereco findById(Integer id);
+    Optional<Endereco> findById(Integer id);
 }

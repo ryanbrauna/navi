@@ -33,7 +33,7 @@ public class EnderecoController {
 
     @PutMapping("/{id}")
     public ResponseEntity updateEndereco(
-            @PathVariable Long id,
+            @PathVariable Integer id,
             @RequestBody Endereco enderecoAtualizado) {
 
         Endereco endereco = this.repository.findById(id).get();

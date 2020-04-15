@@ -5,8 +5,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface VendedorRepository extends JpaRepository<Vendedor, Long> {
+public interface VendedorRepository extends JpaRepository<Vendedor, Integer> {
 
-    List<Vendedor> findByCNPJ(String cnpj);
+    Vendedor findByCNPJ(Integer cnpj);
+
+    Vendedor Login(String email, String senha);
 
 }
