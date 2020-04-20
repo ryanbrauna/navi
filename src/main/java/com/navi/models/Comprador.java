@@ -38,17 +38,6 @@ public class Comprador {
     @OneToOne(mappedBy = "fk_endereco")
     private Endereco fk_endereco;
 
-
-    public Comprador(Long id_comprador, String nome, @Email(message = "* Email é obrigatório") String email, @Length(min = 5, message = "A senha deve ter mais de 5 caracteres") String senha, String telefone, @Length(min = 11, max = 11) Integer n_cpf, Endereco fk_endereco) {
-        this.id_comprador = id_comprador;
-        this.nome = nome;
-        this.email = email;
-        this.senha = senha;
-        this.telefone = telefone;
-        this.n_cpf = n_cpf;
-        this.fk_endereco = fk_endereco;
-    }
-
     public Long getId_comprador() { return id_comprador; }
 
     public String getNome() { return nome; }

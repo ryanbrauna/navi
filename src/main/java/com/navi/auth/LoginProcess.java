@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class VendedorProcess {
+public class LoginProcess {
 
     private VendedorRepository repositoryVendedor;
     private CompradorRepository repositoryComprador;

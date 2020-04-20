@@ -1,7 +1,6 @@
 package com.navi.controllers;
 
 import com.navi.models.Comprador;
-import com.navi.models.Vendedor;
 import com.navi.repositories.CompradorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
