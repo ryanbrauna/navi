@@ -40,7 +40,7 @@ public class EnderecoController {
         Optional<Endereco> searchEndereco = this.repository.findById(id);
 
         if (searchEndereco.isPresent()) {
-            endereco.setN_cep(enderecoAtualizado.getN_cep());
+            endereco.setCep(enderecoAtualizado.getCep());
             endereco.setLogradouro(enderecoAtualizado.getLogradouro());
             endereco.setBairro(enderecoAtualizado.getBairro());
             endereco.setLocalidade(enderecoAtualizado.getLocalidade());

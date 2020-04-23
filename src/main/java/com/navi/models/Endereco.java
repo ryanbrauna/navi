@@ -11,7 +11,7 @@ public class Endereco {
     private Integer id;
 
     @Column(name = "n_cep")
-    private Integer n_cep;
+    private Integer cep;
 
     @Column(name = "logradouro", length = 100 )
     private String logradouro;
@@ -31,9 +31,6 @@ public class Endereco {
     @Column(name = "complemento", length = 50)
     private String complemento;
 
-
-
-
     public Integer getId() {
         return id;
     }
@@ -42,12 +39,12 @@ public class Endereco {
         this.id = id;
     }
 
-    public Integer getN_cep() {
-        return n_cep;
+    public Integer getCep() {
+        return cep;
     }
 
-    public void setN_cep(Integer n_cep) {
-        this.n_cep = n_cep;
+    public void setCep(Integer cep) {
+        this.cep = cep;
     }
 
     public String getLogradouro() {
