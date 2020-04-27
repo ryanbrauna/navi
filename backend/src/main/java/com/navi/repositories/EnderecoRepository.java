@@ -8,10 +8,9 @@ import java.util.Optional;
 
 public interface EnderecoRepository extends JpaRepository<Endereco, Integer> {
 
-    @Override
-    List<Endereco> findAllById(Iterable<Integer> iterable);
+    List<Endereco> findAllByCep(Integer cep);
 
-    List<Endereco> findAllByCEP(Integer cep);
+    Endereco findByCep (Integer cep);
 
     Optional<Endereco> findById(Integer id);
 }

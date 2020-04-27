@@ -14,14 +14,14 @@ public class VendedorController {
     @Autowired
     private VendedorRepository repository;
 
-    @PostMapping("cadastro/vendedor")
+    @PostMapping("/cadastro/vendedor")
     public ResponseEntity createVendedor(@RequestBody Vendedor novoVendedor) {
         repository.save(novoVendedor);
 
         return ResponseEntity.created(null).body(novoVendedor);
     }
 
-    @PutMapping("vendedor/{cnpj}")
+    @PutMapping("/vendedor/{cnpj}")
     public ResponseEntity updateVendedor(
             @PathVariable Integer cnpj,
             @RequestBody Vendedor vendedorAtualizado) {
@@ -44,7 +44,7 @@ public class VendedorController {
         }
     }
 
-    @DeleteMapping("vendedor/excluir/{cnpj}")
+    @DeleteMapping("/vendedor/excluir/{cnpj}")
     public ResponseEntity deleteVendedor(
             @PathVariable Integer cnpj) {
         Vendedor vendedor = this.repository.findByCnpj(cnpj);
