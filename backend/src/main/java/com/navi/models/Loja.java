@@ -23,11 +23,9 @@ public class Loja {
     private String descricao;
 
     @OneToOne
-    @Column(name = "fk_endereco")
     private Endereco endereco;
 
     @OneToOne
-    @Column(name = "fk_vendedor")
     private Vendedor vendedor;
 
     public Integer getId() {
