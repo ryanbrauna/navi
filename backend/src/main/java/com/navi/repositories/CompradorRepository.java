@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface CompradorRepository extends JpaRepository<Comprador, Integer> {
 
-    Comprador findByCpf (Integer cpf);
+    Comprador findByCpf (String cpf);
 
     List<Comprador> findByLogin (String email, String senha);
 

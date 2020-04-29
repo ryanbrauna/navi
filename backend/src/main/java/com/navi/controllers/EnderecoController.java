@@ -48,7 +48,7 @@ public class EnderecoController {
 
     @PostMapping("/cadastro/comprador/{cpf}/endereco")
     public ResponseEntity createEnderecoByComprador(
-            @PathVariable Integer cpf,
+            @PathVariable String cpf,
             @RequestBody Endereco novoEndereco) {
 
          repository.save(novoEndereco);

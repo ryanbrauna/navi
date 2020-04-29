@@ -23,11 +23,11 @@ public class VendedorController {
 
     @PutMapping("/vendedor/{cnpj}")
     public ResponseEntity updateVendedor(
-            @PathVariable Integer cnpj,
+            @PathVariable String cnpj,
             @RequestBody Vendedor vendedorAtualizado) {
 
         Vendedor vendedor = this.repository.findByCnpj(cnpj);
-        Optional<Vendedor> searchVendedor = this.repository.findById(cnpj);
+        Optional<Vendedor> searchVendedor = this.repository.searchCnpj(cnpj);
 
         if (searchVendedor.isPresent()) {
             vendedor.setNome(vendedorAtualizado.getNome());
@@ -46,7 +46,7 @@ public class VendedorController {
 
     @DeleteMapping("/vendedor/excluir/{cnpj}")
     public ResponseEntity deleteVendedor(
-            @PathVariable Integer cnpj) {
+            @PathVariable String cnpj) {
         Vendedor vendedor = this.repository.findByCnpj(cnpj);
 
         repository.delete(vendedor);

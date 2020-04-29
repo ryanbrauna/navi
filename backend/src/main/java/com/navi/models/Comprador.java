@@ -29,7 +29,7 @@ public class Comprador {
     private String telefone;
 
     @Column(name = "n_cpf")
-    private Integer cpf;
+    private String cpf;
 
     @OneToOne
     private Endereco endereco;
@@ -62,15 +62,19 @@ public class Comprador {
         return senha;
     }
 
+    public String getTelefone() { return telefone; }
+
+    public void setTelefone(String telefone) { this.telefone = telefone; }
+
     public void setSenha(String senha) {
         this.senha = senha;
     }
 
-    public Integer getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(Integer cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 

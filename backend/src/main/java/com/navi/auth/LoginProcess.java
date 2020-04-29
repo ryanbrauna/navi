@@ -6,9 +6,12 @@ import com.navi.repositories.CompradorRepository;
 import com.navi.repositories.VendedorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 public class LoginProcess {
@@ -19,28 +22,62 @@ public class LoginProcess {
     @Autowired
     VendedorRepository vendedorRepository;
 
+    private Comprador comprador;
+    private Vendedor vendedor;
+    private boolean logado = false;
+    List list;
+
+
     @GetMapping("/login")
     public ResponseEntity loginUser(
             @RequestBody String email, String senha) {
 
-        Comprador comprador;
-        Vendedor vendedor;
+        while (!logado) {
+            try {
 
-        if (vendedorRepository.findByLogin(email, senha).isEmpty()) {
-            return ResponseEntity.notFound().build();
+                if (vendedorRepository.findByLogin(email, senha).isEmpty()) {
+                    return ResponseEntity.notFound().build();
+                }
+                else if (compradorRepository.findByLogin(email, senha).isEmpty()) {
+                    return ResponseEntity.notFound().build();
+                }
+                else {
+                    if (vendedorRepository.findByLogin(email, senha).isEmpty()) {
+                        this.comprador = compradorRepository.findByLogin(email, senha).get(0);
+                        list.add(this.comprador);
+                        logado = true;
+                        return ResponseEntity.accepted().body(comprador);
+                    }
+                    else {
+                        this.vendedor = vendedorRepository.findByLogin(email, senha).get(0);
+                        list.add(vendedor);
+                        logado = true;
+                        return ResponseEntity.accepted().body(vendedor);
+                    }
+                }
+            } catch (Exception e) {
+                System.out.println(e);
+            }
         }
-        else if (compradorRepository.findByLogin(email, senha).isEmpty()) {
-            return ResponseEntity.notFound().build();
+        return ResponseEntity.accepted().body(list);
+    }
+
+    public Comprador getComprador() {
+        return comprador;
+    }
+
+    public Vendedor getVendedor() {
+        return vendedor;
+    }
+
+    @DeleteMapping("/logof")
+    public ResponseEntity logofUser() {
+        if (list.isEmpty()) {
+            return ResponseEntity.noContent().build();
         }
         else {
-            if (vendedorRepository.findByLogin(email, senha).isEmpty()) {
-                comprador = compradorRepository.findByLogin(email, senha).get(0);
-                return ResponseEntity.accepted().body(comprador);
-            }
-            else {
-                vendedor = vendedorRepository.findByLogin(email, senha).get(0);
-                return ResponseEntity.accepted().body(vendedor);
-            }
+            list.clear();
+            return ResponseEntity.ok().build();
         }
     }
 

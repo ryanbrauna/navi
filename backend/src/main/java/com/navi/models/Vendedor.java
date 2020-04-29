@@ -34,7 +34,7 @@ public class Vendedor {
     private String telefone;
 
     @Column(name = "n_cnpj")
-    private Integer cnpj;
+    private String cnpj;
 
     public Integer getId() { return id; }
 
@@ -56,7 +56,7 @@ public class Vendedor {
 
     public void setTelefone(String telefone) { this.telefone = telefone; }
 
-    public Integer getCnpj() { return cnpj; }
+    public String getCnpj() { return cnpj; }
 
-    public void setCnpj(Integer cnpj) { this.cnpj = cnpj; }
+    public void setCnpj(String cnpj) { this.cnpj = cnpj; }
 }

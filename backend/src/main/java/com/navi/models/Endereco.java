@@ -12,7 +12,7 @@ public class Endereco {
     private Integer id;
 
     @Column(name = "n_cep")
-    private Integer cep;
+    private String cep;
 
     @Column(name = "logradouro", length = 100 )
     private String logradouro;
@@ -40,11 +40,11 @@ public class Endereco {
         this.id = id;
     }
 
-    public Integer getCep() {
+    public String getCep() {
         return cep;
     }
 
-    public void setCep(Integer cep) {
+    public void setCep(String cep) {
         this.cep = cep;
     }
 

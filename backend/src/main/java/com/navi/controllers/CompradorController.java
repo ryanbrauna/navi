@@ -1,7 +1,10 @@
 package com.navi.controllers;
 
+import com.navi.api.SMSApi;
 import com.navi.models.Comprador;
 import com.navi.repositories.CompradorRepository;
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,9 +15,18 @@ public class CompradorController {
     @Autowired
     private CompradorRepository repository;
 
+
     @PostMapping("/cadastro/comprador")
     public ResponseEntity createComprador(@RequestBody Comprador novoComprador) {
         repository.save(novoComprador);
+
+        Twilio.init(SMSApi.getAccountSid(), SMSApi.getAuthToken());
+        Message message = Message.creator(
+                new com.twilio.type.PhoneNumber("+12183878263"),
+                new com.twilio.type.PhoneNumber(novoComprador.getTelefone()),
+                "Olá" + novoComprador.getNome() + ", seja bem-vindo a Navi").create();
+
+        System.out.println(message.getSid());
         return ResponseEntity.ok(novoComprador);
     }
 
@@ -28,9 +40,18 @@ public class CompradorController {
         }
     }
 
+    @GetMapping("/comprador/{cpf}")
+    public ResponseEntity getCompradorByCpf(
+            @RequestBody String cpf) {
+        Comprador search;
+        search = repository.findByCpf(cpf);
+        return ResponseEntity.ok(cpf);
+
+    }
+
     @PutMapping("/comprador/{cpf}/atualizar")
     public ResponseEntity updateComprador(
-            @PathVariable Integer cpf,
+            @PathVariable String cpf,
             @RequestBody Comprador compradorAtualizado) {
 
         Comprador comprador = repository.findByCpf(cpf);
@@ -48,7 +69,7 @@ public class CompradorController {
     }
 
     @DeleteMapping("/comprador/{cpf}/excluir")
-    public ResponseEntity deleteComprador( @PathVariable Integer cpf) {
+    public ResponseEntity deleteComprador( @PathVariable String cpf) {
         Comprador search = repository.findByCpf(cpf);
 
         repository.delete(search);
