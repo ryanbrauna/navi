@@ -51,17 +51,17 @@ public class EnderecoController {
             @PathVariable String cpf,
             @RequestBody Endereco novoEndereco) {
 
-         repository.save(novoEndereco);
-
         Comprador compradorCadastrado = compradorRepository.findByCpf(cpf);
+
         compradorCadastrado.setEndereco(novoEndereco);
+        repository.save(novoEndereco);
 
         return ResponseEntity.ok(compradorCadastrado);
     }
 
     @PostMapping("/cadastro/vendedor/{cnpj}/loja/endereco")
     public ResponseEntity createEnderecoByLoja(
-            @PathVariable Integer cnpj,
+            @PathVariable String cnpj,
             @RequestBody Endereco novoEndereco) {
 
         repository.save(novoEndereco);
