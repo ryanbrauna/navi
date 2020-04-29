@@ -1,0 +1,16 @@
+.text-navbar * {
+    color: #13bdf2 !important;
+}
+
+.link-nav {
+    font-weight: 700;
+}
+
+.link-nav-btn{
+    border: 1px solid #13bdf2 !important;
+    border-radius: 5px;
+    padding: 7px 15px;
+}.link-nav-btn:hover{
+    background-color: #13bdf2 !important;
+    color: #fff !important;
+}

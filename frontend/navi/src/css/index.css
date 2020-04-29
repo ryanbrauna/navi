@@ -1,0 +1,163 @@
+/* CSS MAIN */
+body {
+  background-image: url(../img/bg-login.jpg);
+  background-size: cover;
+}
+
+/* @media only screen and (max-width: 600px) {
+  .brand-logo {
+    margin-left: 0;
+  }
+} */
+
+.painel {
+  height: 430px;
+  background-color: white;
+  border-radius: 5px;
+  margin-top: 70px;
+  padding-top: 4%;
+  text-align: center;
+  color: #0b99e9;
+}
+
+.box {
+  margin-top: 100px;
+  background-color: white;
+  width: 100%;
+  overflow: auto;
+}
+
+#sobre {
+  padding-top: 20px;
+  text-align: center;
+}
+
+.box hr {
+  height: 2px;
+  border: none;
+  margin-bottom: 30px;
+  background-color: #56ccf2;
+  width: 70%;
+}
+
+.card-panel {
+  min-height: 230px;
+  background-color: #56ccf2;
+  padding: 30px;
+  font-size: 16px;
+}
+
+.card-panel p {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.bg-opacy-black {
+  background-color: black;
+  opacity: 0.5;
+}
+
+.legend {
+  text-align: center;
+  padding: 5px 0;
+  width: 120px;
+  overflow: auto;
+  position: relative;
+  bottom: 7%;
+  margin: auto;
+  background-color: #000;
+  color: #fff;
+  font-weight: 700;
+}
+
+#fim .grey {
+  padding: 40px 0;
+}
+
+#fim img {
+  width: 200px;
+  height: 150px;
+  display: inline-block;
+  margin-right: 15%;
+}
+
+#fim img:last-child {
+  margin-right: 0;
+}
+
+#fim {
+  background-color: black;
+  padding: 20px 0;
+  text-align: center;
+  color: white;
+}
+
+.fundo-azul {
+  position: relative;
+  width: 1450px;
+  height: 400px;
+  left: -4%;
+  top: 123px;
+
+  background: #2fa8d3;
+  transform: rotate(-10deg);
+}
+
+.caixa-azul {
+  width: 100%;
+  height: 750px;
+  overflow: hidden;
+}
+
+.caixa-texto {
+  background-color: #fff;
+  padding: 30px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  top: -235px;
+  width: 540px;
+  height: 315px;
+  font-size: 25px;
+}
+
+.caixa-texto p {
+  text-align: justify;
+}
+
+.caixa-email {
+  font-size: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #000;
+  color: #fff;
+}
+
+.contrate {
+  margin-top: 30px;
+}
+
+#parceiros {
+  text-align: center;
+}
+.logo-parceiras {
+  display: block;
+  margin: 0 auto;
+}
+
+/* formatando formulario */
+.form-control {
+  border: none !important;
+  border-bottom: 1px solid #ced4da !important;
+  border-radius: 0px !important;
+  background-color: transparent !important;
+}.form-control:focus{
+  border-bottom: 2px solid #0b99e9 !important;
+  box-shadow: none !important;
+}
+
+.form-label{
+  font-size: 14px;
+}
