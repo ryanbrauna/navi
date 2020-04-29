@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface VendedorRepository extends JpaRepository<Vendedor, Integer> {
 
-    Vendedor findByCnpj(Integer cnpj);
+    Vendedor findByCnpj (Integer cnpj);
+
+    List<Vendedor> findByLogin (String email, String senha);
 
 }
