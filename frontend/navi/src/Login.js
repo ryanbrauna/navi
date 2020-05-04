@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './css/Login.css'
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 // Components
 import NavbarInst from './NavbarInst';
@@ -14,7 +15,19 @@ import {
     Button
 } from 'react-bootstrap';
 
-class Login extends Component {
+export default class Login extends Component {
+
+    constructor(props){
+        super(props);
+        this.state = {
+            user : []
+        };
+    }
+
+    componentDidMount(){
+        axios.get("")
+    }
+
     render() {
         return (
             <div>
@@ -48,5 +61,3 @@ class Login extends Component {
         );
     }
 }
-
-export default Login;
