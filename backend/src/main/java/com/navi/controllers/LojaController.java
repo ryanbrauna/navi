@@ -22,7 +22,7 @@ public class LojaController {
     @PostMapping("/cadastro/vendedor/{cnpj}/loja")
     public ResponseEntity createLoja(
             @RequestBody Loja novaLoja,
-            @PathVariable Integer cnpj) {
+            @PathVariable String cnpj) {
 
         Vendedor vendedor = vendedorRepository.findByCnpj(cnpj);
 

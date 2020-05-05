@@ -12,7 +12,7 @@ import javax.persistence.*;
 public class Comprador {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id_comprador")
     private Integer id;
 

@@ -27,9 +27,7 @@ public class VendedorController {
             @RequestBody Vendedor vendedorAtualizado) {
 
         Vendedor vendedor = this.repository.findByCnpj(cnpj);
-        Optional<Vendedor> searchVendedor = this.repository.searchCnpj(cnpj);
 
-        if (searchVendedor.isPresent()) {
             vendedor.setNome(vendedorAtualizado.getNome());
             vendedor.setEmail(vendedorAtualizado.getEmail());
             vendedor.setSenha(vendedorAtualizado.getSenha());
@@ -38,10 +36,7 @@ public class VendedorController {
 
             this.repository.save(vendedor);
             return ResponseEntity.ok(vendedor);
-        }
-        else {
-            return ResponseEntity.notFound().build();
-        }
+
     }
 
     @DeleteMapping("/vendedor/excluir/{cnpj}")

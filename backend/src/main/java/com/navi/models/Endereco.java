@@ -7,29 +7,29 @@ import javax.persistence.*;
 public class Endereco {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id_vendedor")
     private Integer id;
 
     @Column(name = "n_cep")
     private String cep;
 
-    @Column(name = "logradouro", length = 100 )
+    @Column(name = "logradouro")
     private String logradouro;
 
-    @Column(name = "bairro", length = 100)
+    @Column(name = "bairro")
     private String bairro;
 
-    @Column(name = "localidade", length = 100)
+    @Column(name = "localidade")
     private String localidade;
 
-    @Column(name = "uf", length = 2)
+    @Column(name = "uf")
     private String uf;
 
     @Column(name = "numero")
     private Integer numero;
 
-    @Column(name = "complemento", length = 50)
+    @Column(name = "complemento")
     private String complemento;
 
     public Integer getId() {
