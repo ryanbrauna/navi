@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Endereco {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id_vendedor")
     private Integer id;
 
