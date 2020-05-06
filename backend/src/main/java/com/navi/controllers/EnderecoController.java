@@ -52,10 +52,10 @@ public class EnderecoController {
             @PathVariable String cpf,
             @RequestBody Endereco novoEndereco) {
 
-         repository.save(novoEndereco);
-
         Comprador compradorCadastrado = compradorRepository.findByCpf(cpf);
+
         compradorCadastrado.setEndereco(novoEndereco);
+        repository.save(novoEndereco);
 
         return ResponseEntity.ok(compradorCadastrado);
     }

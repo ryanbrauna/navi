@@ -33,27 +33,37 @@ public class LoginProcess {
         while (!logado) {
             try {
 
-                if (vendedorRepository.findByLogin(email, senha).isEmpty()) {
-                    return ResponseEntity.notFound().build();
-                }
-                else if (compradorRepository.findByLogin(email, senha).isEmpty()) {
-                    return ResponseEntity.notFound().build();
-                }
-                else {
-                    if (vendedorRepository.findByLogin(email, senha).isEmpty()) {
-                        this.comprador = compradorRepository.findByLogin(email, senha).get(0);
-                        list.add(this.comprador);
-                        logado = true;
-                        return ResponseEntity.accepted().body(comprador);
+                if (vendedorRepository.findByEmail(email).isEmpty()) {
+                    if (compradorRepository.findByEmail(email).isEmpty()) {
+                        return ResponseEntity.notFound().build();
                     }
                     else {
-                        this.vendedor = vendedorRepository.findByLogin(email, senha).get(0);
-                        list.add(vendedor);
-                        logado = true;
-                        return ResponseEntity.accepted().body(vendedor);
+                        this.comprador = compradorRepository.findByEmail(email).get(0);
+                        if (comprador.getSenha().equals(senha)) {
+                            list.add(comprador);
+                            logado = true;
+                            return ResponseEntity.accepted().body(list);
+                        }
+                        else {
+                            return ResponseEntity.notFound().build();
+                        }
                     }
                 }
-            } catch (Exception e) {
+                else {
+                    this.vendedor = vendedorRepository.findByEmail(email).get(0);
+                    if (vendedor.getSenha().equals(senha)) {
+                        if (list.contains(comprador)) {
+                            return ResponseEntity.status(401).build();
+                        }
+                        else {
+                            list.add(vendedor);
+                            logado = true;
+                            return ResponseEntity.accepted().body(list);
+                        }
+                    }
+                }
+            }
+            catch (Exception e) {
                 System.out.println(e);
             }
         }
