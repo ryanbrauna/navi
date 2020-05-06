@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin(origins = "localhost:3000")
 public class EnderecoController {
 
     @Autowired
@@ -61,7 +62,7 @@ public class EnderecoController {
 
     @PostMapping("/cadastro/vendedor/{cnpj}/loja/endereco")
     public ResponseEntity createEnderecoByLoja(
-            @PathVariable Integer cnpj,
+            @PathVariable String cnpj,
             @RequestBody Endereco novoEndereco) {
 
         repository.save(novoEndereco);

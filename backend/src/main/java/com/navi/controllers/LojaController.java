@@ -6,12 +6,10 @@ import com.navi.repositories.LojaRepository;
 import com.navi.repositories.VendedorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin(origins = "localhost:3000")
 public class LojaController {
 
     @Autowired
@@ -22,7 +20,7 @@ public class LojaController {
     @PostMapping("/cadastro/vendedor/{cnpj}/loja")
     public ResponseEntity createLoja(
             @RequestBody Loja novaLoja,
-            @PathVariable Integer cnpj) {
+            @PathVariable String cnpj) {
 
         Vendedor vendedor = vendedorRepository.findByCnpj(cnpj);
 
