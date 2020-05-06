@@ -9,8 +9,9 @@ import java.util.Optional;
 
 public interface VendedorRepository extends JpaRepository<Vendedor, Integer> {
 
-    Vendedor findByCnpj (String cnpj);
+    List<Vendedor> findByCnpj (String cnpj);
 
     List<Vendedor> findByEmail (String email);
 
+    Vendedor findOneByEmail (String email);
 }

@@ -9,10 +9,12 @@ import java.util.List;
 
 public interface CompradorRepository extends JpaRepository<Comprador, Integer> {
 
-    Comprador findByCpf (String cpf);
+    List<Comprador> findByCpf (String cpf);
 
     @Query("select c from Comprador c where c.email = ?1")
     List<Comprador> findByEmail (String email);
+
+    Comprador findOneByEmail (String email);
 
 
 }

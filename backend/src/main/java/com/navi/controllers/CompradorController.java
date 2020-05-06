@@ -45,9 +45,13 @@ public class CompradorController {
     public ResponseEntity getCompradorByCpf(
             @RequestBody String cpf) {
         Comprador search;
-        search = repository.findByCpf(cpf);
-        return ResponseEntity.ok(cpf);
-
+        if (repository.findByCpf(cpf).isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        else {
+            search = repository.findByCpf(cpf).get(0);
+            return ResponseEntity.ok(search);
+        }
     }
 
     @PutMapping("/comprador/{cpf}/atualizar")
@@ -55,7 +59,7 @@ public class CompradorController {
             @PathVariable String cpf,
             @RequestBody Comprador compradorAtualizado) {
 
-        Comprador comprador = repository.findByCpf(cpf);
+        Comprador comprador = repository.findByCpf(cpf).get(0);
 
         comprador.setNome(compradorAtualizado.getNome());
         comprador.setEmail(compradorAtualizado.getEmail());
@@ -71,7 +75,7 @@ public class CompradorController {
 
     @DeleteMapping("/comprador/{cpf}/excluir")
     public ResponseEntity deleteComprador( @PathVariable String cpf) {
-        Comprador search = repository.findByCpf(cpf);
+        Comprador search = repository.findByCpf(cpf).get(0);
 
         repository.delete(search);
         return ResponseEntity.ok(search);

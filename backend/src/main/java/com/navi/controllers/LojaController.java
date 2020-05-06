@@ -17,14 +17,14 @@ public class LojaController {
     @Autowired
     private VendedorRepository vendedorRepository;
 
-    @PostMapping("/cadastro/vendedor/{cnpj}/loja")
+    @PostMapping("/cadastro/vendedor/{id}/loja")
     public ResponseEntity createLoja(
             @RequestBody Loja novaLoja,
-            @PathVariable String cnpj) {
+            @PathVariable Integer id) {
 
-        Vendedor vendedor = vendedorRepository.findByCnpj(cnpj);
-
+        Vendedor vendedor = vendedorRepository.findById(id).get();
         novaLoja.setVendedor(vendedor);
+
         repository.save(novaLoja);
 
         return ResponseEntity.ok(novaLoja);

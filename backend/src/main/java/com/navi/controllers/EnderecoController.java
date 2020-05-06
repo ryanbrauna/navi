@@ -52,7 +52,7 @@ public class EnderecoController {
             @PathVariable String cpf,
             @RequestBody Endereco novoEndereco) {
 
-        Comprador compradorCadastrado = compradorRepository.findByCpf(cpf);
+        Comprador compradorCadastrado = compradorRepository.findByCpf(cpf).get(0);
 
         compradorCadastrado.setEndereco(novoEndereco);
         repository.save(novoEndereco);
@@ -67,7 +67,7 @@ public class EnderecoController {
 
         repository.save(novoEndereco);
 
-        Vendedor vendedorCadastrado = vendedorRepository.findByCnpj(cnpj);
+        Vendedor vendedorCadastrado = vendedorRepository.findByCnpj(cnpj).get(0);
         Loja lojaCadastrada = lojaRepository.findByVendedor(vendedorCadastrado);
         lojaCadastrada.setEndereco(novoEndereco);
 
