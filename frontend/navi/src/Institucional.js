@@ -17,7 +17,7 @@ class Institucional extends Component {
     render() {
         return (
             <div className="body">
-                <NavbarInst/>
+                <NavbarInst />
 
                 <Row className="justify-content-center m-0">
                     <Col sm="9">
@@ -109,7 +109,7 @@ class Institucional extends Component {
                             </Col>
                             <Col>
                                 <Image
-                                    src={require('./img/C&C_logo.jpeg')}
+                                    src={require('./img/logo-dicico.png')}
                                     width="200"
                                     height="100"
                                     className="my-1 logo-parceiras"
@@ -117,7 +117,7 @@ class Institucional extends Component {
                             </Col>
                             <Col>
                                 <Image
-                                    src={require('./img/C&C_logo.jpeg')}
+                                    src={require('./img/logo-telhanorte.png')}
                                     width="200"
                                     height="100"
                                     className="my-1 logo-parceiras"
@@ -125,7 +125,7 @@ class Institucional extends Component {
                             </Col>
                             <Col>
                                 <Image
-                                    src={require('./img/C&C_logo.jpeg')}
+                                    src={require('./img/logo-merlin.png')}
                                     width="200"
                                     height="100"
                                     className="my-1 logo-parceiras"

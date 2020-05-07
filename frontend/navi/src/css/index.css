@@ -143,8 +143,13 @@ body {
   text-align: center;
 }
 .logo-parceiras {
+  border-radius: 5px;;
   display: block;
   margin: 0 auto;
+}
+.text-parceiras{
+  margin-right: 10px;
+  color: white;
 }
 
 /* formatando formulario */

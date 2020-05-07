@@ -16,5 +16,6 @@ public interface CompradorRepository extends JpaRepository<Comprador, Integer> {
 
     Comprador findOneByEmail (String email);
 
+    List<Comprador>findByNome(String nome);
 
 }

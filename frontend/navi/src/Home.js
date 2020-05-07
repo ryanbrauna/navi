@@ -15,8 +15,8 @@ import './css/Home.css'
 class Home extends Component {
     render() {
         return (
-            <div>
-                <h1>Bem-vindo a HomePage</h1>
+            <div className="bemvindo">
+                <h1>Bem-vindo Comprador a pagina HOME</h1>
             </div>
         );
     }
