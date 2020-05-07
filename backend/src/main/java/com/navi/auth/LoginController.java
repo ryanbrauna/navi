@@ -3,9 +3,14 @@ package com.navi.auth;
 import com.navi.repositories.CompradorRepository;
 import com.navi.repositories.VendedorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class LoginController {
@@ -15,6 +20,8 @@ public class LoginController {
 
     @Autowired
     private VendedorRepository vendedorRepository;
+
+    private List lista = new ArrayList();
 
     public Boolean validarLogin(String email, String senha) {
         if (compradorRepository.findOneByEmail(email) != null &&
@@ -29,14 +36,25 @@ public class LoginController {
                 return true;
             }
             else {
-                return false;
+                lista.add(compradorRepository.findByEmail(email));
+                return true;
             }
         }
     }
 
     @GetMapping("/login")
-    public Boolean logar(@RequestBody String email, String senha) {
-        return validarLogin(email, senha);
+    public ResponseEntity logar(@RequestBody String email, String senha) {
+
+        lista.add(compradorRepository.findByEmail(email));
+
+        return ResponseEntity.ok(true);
+    }
+
+    @DeleteMapping("/logof")
+    public ResponseEntity logof() {
+        lista.clear();
+
+        return ResponseEntity.ok(lista);
     }
 
 
