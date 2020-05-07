@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000")
 public class VendedorController {
 
     @Autowired
@@ -47,6 +47,16 @@ public class VendedorController {
 
         repository.delete(vendedor);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/vendedores")
+    public ResponseEntity getVendedores() {
+        if (repository.findAll().isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        else {
+            return ResponseEntity.ok(repository.findAll());
+        }
     }
 
 }
