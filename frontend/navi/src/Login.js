@@ -39,23 +39,41 @@ export default class Login extends Component {
     }
 
     login() {
-        console.log(this.state.compradores[0]);
+        console.log(this.state.compradores);
+        console.log(this.state.vendedores);
+        var autenticador = true;
+        debugger;
 
-        if (this.state.compradores[0].email == (this.state.email) &&
-            this.state.compradores[0].senha == (this.state.senha)) {
-            window.location = "/home";
-        } else {
-            if (this.state.vendedores[0].email == (this.state.email) &&
-                this.state.vendedores[0].senha == (this.state.senha)) {
+        for (let i = 0; i < this.state.compradores.length; i++) {
+            if (this.state.compradores[i].email == (this.state.email) &&
+                this.state.compradores[i].senha == (this.state.senha)) {
                 window.location = "/home";
+                break;
             } else {
-                swal({
-                    title: "Atenção!",
-                    text: "Seu email ou senha estão incorretos!",
-                    icon: "warning",
-                    button: "OK",
-                });
+                autenticador = false;
             }
+        }
+
+        if (!autenticador) {
+            for (let i = 0; i < this.state.vendedores.length; i++) {
+                if (this.state.vendedores[i].email == (this.state.email) &&
+                this.state.vendedores[i].senha == (this.state.senha)) {
+                    window.location = "/home";
+                    autenticador = true;
+                    break;
+                } else {
+                    autenticador = false;
+                }
+            }
+        }
+
+        if(!autenticador){
+            swal({
+                title: "Atenção!",
+                text: "Seu email ou senha estão incorretos!",
+                icon: "warning",
+                button: "OK",
+            });
         }
     }
 

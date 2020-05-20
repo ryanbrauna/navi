@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './css/Cadastro.css';
 // import { Link } from 'react-router-dom';
+import axios from 'axios';
+import swal from 'sweetalert';
 
 // Components
 import NavbarInst from './NavbarInst';
@@ -37,21 +39,59 @@ class Cadastro extends Component {
         show: false
     }
 
-    submitCad = event => {
-        alert(
-            "Tipo:" + this.state.tipo +
-            "\nNome:" + this.state.nome +
-            "\nCPF:" + this.state.CPF +
-            "\nEmail:" + this.state.email +
-            "\nTelefone:" + this.state.telefone +
-            "\nSenha:" + this.state.senha +
-            "\nConfSenha:" + this.state.confSenha
-        );
+    submitCad = e => {
+        e.preventDefault();
+        
+        if (this.state.tipo == "C") {
+            axios.post("http://localhost:8080/cadastro/comprador", {
+                "nome": this.state.nome,
+                "email": this.state.email,
+                "senha": this.state.senha,
+                "cpf": this.state.CPF
+            }).then(response => {
+                if (response.data != null) {
+                    this.setState(this.initialState);
+                    swal({
+                        title: "Sucesso!",
+                        text: "Você foi cadastrado com sucesso",
+                        icon: "success",
+                        button: "OK",
+                    }).then(() => {
+                        window.location = "/login";
+                    });
+                } else {
+                    debugger;
+                    alert(response);
+                }
+            });
+        } else {
+            axios.post("http://localhost:8080/cadastro/vendedor", {
+                "nome": this.state.nome,
+                "email": this.state.email,
+                "senha": this.state.senha,
+                "cnpj": this.state.CPF
+            }).then(response => {
+                if (response.data != null) {
+                    this.setState(this.initialState);
+                    swal({
+                        title: "Sucesso!",
+                        text: "Você foi cadastrado com sucesso",
+                        icon: "success",
+                        button: "OK",
+                    }).then(() => {
+                        window.location = "/login";
+                    });
+                } else {
+                    debugger;
+                    alert(response);
+                }
+            });
+        }
     }
 
-    cadChange = event => {
+    cadChange = e => {
         this.setState({
-            [event.target.name]: event.target.value
+            [e.target.name]: e.target.value
         });
     }
 
