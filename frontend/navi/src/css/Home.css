@@ -1,5 +1,16 @@
-.bemvindo{
-    background-color: white;
-    text-align: center;
-    padding: 1em 0;
+.sidebar {
+    width: 300px;
+    position: fixed;
+    float: left;
+    min-height: 50em;
+}
+
+.icon {
+    margin-top: -5px;
+    margin-right: 10px;
+}
+
+.flex-column a {
+    font-size: 18px;
+    margin: 5px 0;
 }

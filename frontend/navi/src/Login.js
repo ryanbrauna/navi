@@ -45,8 +45,8 @@ export default class Login extends Component {
         debugger;
 
         for (let i = 0; i < this.state.compradores.length; i++) {
-            if (this.state.compradores[i].email == (this.state.email) &&
-                this.state.compradores[i].senha == (this.state.senha)) {
+            if (this.state.compradores[i].email.eq(this.state.email) &&
+                this.state.compradores[i].senha.eq(this.state.senha)) {
                 window.location = "/home";
                 break;
             } else {
@@ -56,8 +56,8 @@ export default class Login extends Component {
 
         if (!autenticador) {
             for (let i = 0; i < this.state.vendedores.length; i++) {
-                if (this.state.vendedores[i].email == (this.state.email) &&
-                this.state.vendedores[i].senha == (this.state.senha)) {
+                if (this.state.vendedores[i].email.eq(this.state.email) &&
+                    this.state.vendedores[i].senha.eq(this.state.senha)) {
                     window.location = "/home";
                     autenticador = true;
                     break;
@@ -67,7 +67,7 @@ export default class Login extends Component {
             }
         }
 
-        if(!autenticador){
+        if (!autenticador) {
             swal({
                 title: "Atenção!",
                 text: "Seu email ou senha estão incorretos!",

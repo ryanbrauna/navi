@@ -42,7 +42,7 @@ class Cadastro extends Component {
     submitCad = e => {
         e.preventDefault();
         
-        if (this.state.tipo == "C") {
+        if (this.state.tipo.eq("C")) {
             axios.post("http://localhost:8080/cadastro/comprador", {
                 "nome": this.state.nome,
                 "email": this.state.email,
