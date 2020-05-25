@@ -11,7 +11,7 @@ import javax.validation.constraints.Email;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "Vendedor")
+@Table(name = "user_vendedor")
 public class Vendedor {
 
     @Id

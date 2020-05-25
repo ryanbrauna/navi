@@ -3,7 +3,7 @@ package com.navi.models;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Endereco")
+@Table(name = "endereco")
 public class Endereco {
 
     @Id
