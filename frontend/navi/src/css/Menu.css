@@ -1,3 +1,8 @@
 .espaco-topo{
     margin-top: 66px;
 }
+
+.nome-user{
+    position: relative;
+    top: -10px;
+}

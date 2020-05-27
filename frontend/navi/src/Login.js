@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './css/Login.css'
-//import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import swal from 'sweetalert';
 
@@ -39,15 +39,18 @@ export default class Login extends Component {
     }
 
     login() {
-        console.log(this.state.compradores);
-        console.log(this.state.vendedores);
+        // console.log(this.state.compradores);
+        // console.log(this.state.vendedores);
         var autenticador = true;
         debugger;
 
         for (let i = 0; i < this.state.compradores.length; i++) {
-            if (this.state.compradores[i].email.eq(this.state.email) &&
-                this.state.compradores[i].senha.eq(this.state.senha)) {
+            if (this.state.compradores[i].email == (this.state.email) &&
+                this.state.compradores[i].senha == (this.state.senha)) {
+                sessionStorage.setItem('@NAVI/nome', this.state.compradores[i].nome);
+                sessionStorage.setItem('@NAVI/tipo', "Comprador");
                 window.location = "/home";
+                autenticador = true;
                 break;
             } else {
                 autenticador = false;
@@ -56,8 +59,10 @@ export default class Login extends Component {
 
         if (!autenticador) {
             for (let i = 0; i < this.state.vendedores.length; i++) {
-                if (this.state.vendedores[i].email.eq(this.state.email) &&
-                    this.state.vendedores[i].senha.eq(this.state.senha)) {
+                if (this.state.vendedores[i].email == (this.state.email) &&
+                    this.state.vendedores[i].senha == (this.state.senha)) {
+                    sessionStorage.setItem('@NAVI/nome', this.state.vendedores[i].nome);
+                    sessionStorage.setItem('@NAVI/tipo', "Vendedor");
                     window.location = "/home";
                     autenticador = true;
                     break;
@@ -96,9 +101,12 @@ export default class Login extends Component {
                                 <Form.Label className="text-muted">Digite sua senha Senha.</Form.Label>
                             </Form.Group>
 
-                            {/* <Link className="text-light" to="/home"> */}
-                            <Button variant="primary" onClick={this.login}>Entrar</Button>
-                            {/* </Link> */}
+                            <Button variant="primary w-25" onClick={this.login}>Entrar</Button>
+                            <div className="text-center mt-3">
+                                <span className="text-muted">Não possui uma conta no NAVI?</span>
+                                <br />
+                                <Link to="/cadastro">Fazer Cadastro</Link>
+                            </div>
                         </Form>
                     </Col>
                 </Row>
