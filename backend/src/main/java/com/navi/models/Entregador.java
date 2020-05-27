@@ -1,19 +1,14 @@
 package com.navi.models;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
-@Table(name = "user_comprador")
-public class Comprador {
+@Table(name = "user_entregador")
+public class Entregador {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id_comprador")
+    @Column(name = "id_entregador")
     private Integer id;
 
     @Column(name = "nome", length = 100)
@@ -25,14 +20,15 @@ public class Comprador {
     @Column(name = "senha", length = 100)
     private String senha;
 
-    @Column(name = "telefone", length = 20)
-    private String telefone;
-
-    @Column(name = "n_cpf")
+    @Column(name = "n_cpf", length = 20)
     private String cpf;
 
-    @OneToOne
-    private Endereco endereco;
+    @Column(name = "n_cnh", length = 20)
+    private String cnh;
+
+    @JoinColumn(name = "id_vendedor")
+    @ManyToOne
+    private Vendedor vendedor;
 
     public Integer getId() {
         return id;
@@ -62,10 +58,6 @@ public class Comprador {
         return senha;
     }
 
-    public String getTelefone() { return telefone; }
-
-    public void setTelefone(String telefone) { this.telefone = telefone; }
-
     public void setSenha(String senha) {
         this.senha = senha;
     }
@@ -78,11 +70,19 @@ public class Comprador {
         this.cpf = cpf;
     }
 
-    public Endereco getEndereco() {
-        return endereco;
+    public String getCnh() {
+        return cnh;
     }
 
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
+    public void setCnh(String cnh) {
+        this.cnh = cnh;
+    }
+
+    public Vendedor getVendedor() {
+        return vendedor;
+    }
+
+    public void setVendedor(Vendedor vendedor) {
+        this.vendedor = vendedor;
     }
 }
