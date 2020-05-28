@@ -14,7 +14,6 @@ import {
 import HomeIcon from '@material-ui/icons/Home';
 import MapIcon from '@material-ui/icons/Map';
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
-import RoomIcon from '@material-ui/icons/Room';
 
 export default class NavbarInst extends Component {
     render() {
@@ -55,15 +54,12 @@ export default class NavbarInst extends Component {
                         <MapIcon className="icon" />
                         <span>Maps BETA</span>
                     </Nav.Link>
-                    <Nav.Link href="/home">
+                    <Nav.Link href="/pedidoscomprador">
                         <LibraryBooksIcon className="icon" />
                         <span>Meus Pedidos</span>
                     </Nav.Link>
-                    <Nav.Link href="/home">
-                        <RoomIcon className="icon" />
-                        <span>Acompanhar entrega</span>
-                    </Nav.Link>
                 </Nav>
+                <div className="espaco-menu" />
             </div>
         );
     }

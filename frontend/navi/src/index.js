@@ -4,6 +4,7 @@ import Institucional from './Institucional';
 import Cadastro from './Cadastro';
 import Login from './Login';
 import Home from './Home';
+import PedidosComprador from './PedidosComprador';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 
@@ -15,6 +16,7 @@ ReactDOM.render(
       <Route path="/cadastro" component={Cadastro} />
       <Route path="/login" component={Login} />
       <Route path="/home" component={Home} />
+      <Route path="/pedidoscomprador" component={PedidosComprador} />
       <Route path="*" component={<div>404</div>} />
     </Switch>
   </BrowserRouter>

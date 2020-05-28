@@ -6,3 +6,15 @@
     position: relative;
     top: -10px;
 }
+
+.espaco-menu{
+    min-height: 50em;
+    width: 300px;
+    float: left;
+}
+
+.sidebar {
+    width: 300px;
+    min-height: 50em;
+    position: fixed;
+}
