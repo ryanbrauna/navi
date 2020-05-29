@@ -80,6 +80,21 @@ public class PedidoController {
         }
     }
 
+    @GetMapping("/{cnpj}/pedidos/{cpf}")
+    public ResponseEntity getPedidosByComprador (
+            @PathVariable String cnpj,
+            @PathVariable String cpf) {
+        if (vendedorRepository.findByCnpj(cnpj).isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        else {
+            Comprador search = compradorRepository.findByCpf(cpf).get(0);
+
+            List listaDePedidos = repository.findAllByComprador(search);
+            return ResponseEntity.ok(listaDePedidos);
+        }
+    }
+
     @GetMapping("/{cpf}/pedidos")
     public ResponseEntity getPedidosComprador (
             @PathVariable String cpf) {
