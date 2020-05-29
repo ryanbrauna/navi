@@ -32,7 +32,7 @@ public class PedidoController {
     @Autowired
     private EntregadorRepository entregadorRepository;
 
-    @PostMapping("/{cnpj}/pedidos/registrar")
+    @PostMapping("vendedor/{cnpj}/pedidos/registrar")
     public ResponseEntity createPedido(
             @PathVariable String cnpj,
             @RequestParam(required = true) String cpf,
@@ -52,7 +52,7 @@ public class PedidoController {
         }
     }
 
-    @GetMapping("/{cnpj}/pedidos")
+    @GetMapping("vendedor/{cnpj}/pedidos")
     public ResponseEntity getPedidosLoja (
             @PathVariable String cnpj) {
         if (vendedorRepository.findByCnpj(cnpj).isEmpty()) {
@@ -66,7 +66,7 @@ public class PedidoController {
         }
     }
 
-    @GetMapping("/{cnpj}/pedidos/{numeroDoPedido}")
+    @GetMapping("vendedor/{cnpj}/pedidos/{numeroDoPedido}")
     public ResponseEntity getOnePedidoLoja (
             @PathVariable String cnpj,
             @PathVariable Integer numeroDoPedido) {
@@ -80,7 +80,7 @@ public class PedidoController {
         }
     }
 
-    @GetMapping("/{cnpj}/pedidos/{cpf}")
+    @GetMapping("vendedor/{cnpj}/pedidos/comprador/{cpf}")
     public ResponseEntity getPedidosByComprador (
             @PathVariable String cnpj,
             @PathVariable String cpf) {
@@ -95,7 +95,7 @@ public class PedidoController {
         }
     }
 
-    @GetMapping("/{cpf}/pedidos")
+    @GetMapping("comprador/{cpf}/pedidos")
     public ResponseEntity getPedidosComprador (
             @PathVariable String cpf) {
         if (compradorRepository.findByCpf(cpf).isEmpty()) {
@@ -109,7 +109,7 @@ public class PedidoController {
         }
     }
 
-    @GetMapping("/{cpf}/pedidos/{numeroDoPedido}")
+    @GetMapping("comprador/{cpf}/pedidos/{numeroDoPedido}")
     public ResponseEntity getOnePedidoComprador (
             @PathVariable String cpf,
             @PathVariable Integer numeroDoPedido) {
@@ -123,7 +123,7 @@ public class PedidoController {
         }
     }
 
-    @PutMapping("/{cnpj}/pedidos/{numeroDoPedido}")
+    @PutMapping("vendedor/{cnpj}/pedidos/{numeroDoPedido}")
     public ResponseEntity updateEstado (
             @PathVariable String cnpj,
             @PathVariable Integer numeroDoPedido,
@@ -141,7 +141,7 @@ public class PedidoController {
         }
     }
 
-    @DeleteMapping("/{cnpj}/pedidos/{numeroDoPedido}/excluir")
+    @DeleteMapping("vendedor/{cnpj}/pedidos/{numeroDoPedido}/excluir")
     public ResponseEntity deletePedido (
             @PathVariable String cnpj,
             @PathVariable Integer numeroDoPedido) {
