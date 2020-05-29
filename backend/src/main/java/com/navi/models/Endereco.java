@@ -8,7 +8,7 @@ public class Endereco {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id_vendedor")
+    @Column(name = "id_endereco")
     private Integer id;
 
     @Column(name = "n_cep")
