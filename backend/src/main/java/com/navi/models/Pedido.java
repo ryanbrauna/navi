@@ -20,9 +20,8 @@ public class Pedido {
     @Column(name = "preco")
     private Double preco;
 
-
     @Column(name = "anotacoes")
-    private String anotacoes;
+    private String anotacoes = "Nenhuma";
 
     @Column(name = "estado")
     private String estado = "Pedido Registrado";
