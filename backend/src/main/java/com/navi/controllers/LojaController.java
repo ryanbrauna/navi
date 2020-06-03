@@ -17,17 +17,56 @@ public class LojaController {
     @Autowired
     private VendedorRepository vendedorRepository;
 
-    @PostMapping("/cadastro/vendedor/{id}/loja")
+    @PostMapping("/cadastro/vendedor/{cnpj}/loja")
     public ResponseEntity createLoja(
             @RequestBody Loja novaLoja,
-            @PathVariable Integer id) {
+            @PathVariable String cnpj) {
 
-        Vendedor vendedor = vendedorRepository.findById(id).get();
+        Vendedor vendedor = vendedorRepository.findByCnpj(cnpj).get(0);
         novaLoja.setVendedor(vendedor);
 
         repository.save(novaLoja);
 
         return ResponseEntity.ok(novaLoja);
+    }
+
+    @GetMapping("/lojas")
+    public ResponseEntity getLojas () {
+        if (repository.findAll().isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        else {
+            return ResponseEntity.ok(repository.findAll());
+        }
+    }
+
+    @GetMapping("/vendedor/{cnpj}/lojas")
+    public ResponseEntity getLoja (
+            @PathVariable String cnpj) {
+        if (repository.findAll().isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        else {
+            Vendedor vendedor = vendedorRepository.findByCnpj(cnpj).get(0);
+            Loja loja = repository.findByVendedor(vendedor);
+
+            return ResponseEntity.ok(loja);
+        }
+    }
+
+    @PutMapping("/vendedor/{cnpj}/loja")
+    public ResponseEntity updateLoja (
+            @PathVariable String cnpj,
+            @RequestBody Loja lojaAtualizada) {
+        Loja loja = repository.findByVendedor(vendedorRepository.findByCnpj(cnpj).get(0));
+
+        loja.setNome(lojaAtualizada.getNome());
+        loja.setDescricao(lojaAtualizada.getDescricao());
+        loja.setEndereco(lojaAtualizada.getEndereco());
+        loja.setVendedor(vendedorRepository.findByCnpj(cnpj).get(0));
+
+        repository.save(loja);
+        return ResponseEntity.ok(loja);
     }
 
 }

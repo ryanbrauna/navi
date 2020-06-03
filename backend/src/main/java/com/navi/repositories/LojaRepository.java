@@ -5,6 +5,8 @@ import com.navi.models.Loja;
 import com.navi.models.Vendedor;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 public interface LojaRepository extends JpaRepository<Loja, Integer> {
 
     Loja findByEndereco(Endereco endereco);

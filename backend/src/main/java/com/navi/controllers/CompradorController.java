@@ -43,13 +43,12 @@ public class CompradorController {
 
     @GetMapping("/comprador/{cpf}")
     public ResponseEntity getCompradorByCpf(
-            @RequestBody String cpf) {
-        Comprador search;
+            @PathVariable String cpf) {
         if (repository.findByCpf(cpf).isEmpty()) {
             return ResponseEntity.notFound().build();
         }
         else {
-            search = repository.findByCpf(cpf).get(0);
+            Comprador search = repository.findByCpf(cpf).get(0);
             return ResponseEntity.ok(search);
         }
     }
