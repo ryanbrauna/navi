@@ -20,7 +20,7 @@ INSERT INTO public.user_entregador(
 
 INSERT INTO public.user_entregador(
 	id_entregador, n_cnh, n_cpf, email, nome, senha, id_vendedor)
-	VALUES (2, '111111111', '111111111', 'm.oliveira@email.com', 'Mario Oliveira', '1234', 1);
+	VALUES (2, '1111111111', '11111111111', 'm.oliveira@email.com', 'Mario Oliveira', '1234', 1);
 
 INSERT INTO public.user_comprador(
 	id_comprador, n_cpf, email, nome, senha, telefone, endereco_id_endereco)
