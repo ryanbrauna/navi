@@ -23,6 +23,7 @@ export default class Login extends Component {
         this.state = {
             compradores: [],
             vendedores: [],
+            entregadores: [],
             email: '',
             senha: ''
         };
@@ -36,11 +37,12 @@ export default class Login extends Component {
         axios.get("http://localhost:8080/vendedores").then((data) => {
             this.setState({ vendedores: data.data })
         });
+        axios.get("http://localhost:8080/entregadores").then((data) => {
+            this.setState({ entregadores: data.data })
+        });
     }
 
     login() {
-        // console.log(this.state.compradores);
-        // console.log(this.state.vendedores);
         var autenticador = true;
         debugger;
 
@@ -63,6 +65,21 @@ export default class Login extends Component {
                     this.state.vendedores[i].senha == (this.state.senha)) {
                     sessionStorage.setItem('@NAVI/nome', this.state.vendedores[i].nome);
                     sessionStorage.setItem('@NAVI/tipo', "Vendedor");
+                    window.location = "/home";
+                    autenticador = true;
+                    break;
+                } else {
+                    autenticador = false;
+                }
+            }
+        }
+
+        if (!autenticador) {
+            for (let i = 0; i < this.state.entregadores.length; i++) {
+                if (this.state.entregadores[i].email == (this.state.email) &&
+                    this.state.entregadores[i].senha == (this.state.senha)) {
+                    sessionStorage.setItem('@NAVI/nome', this.state.entregadores[i].nome);
+                    sessionStorage.setItem('@NAVI/tipo', "Entregador");
                     window.location = "/home";
                     autenticador = true;
                     break;
