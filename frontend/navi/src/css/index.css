@@ -4,12 +4,6 @@ body {
   background-size: cover;
 }
 
-/* @media only screen and (max-width: 600px) {
-  .brand-logo {
-    margin-left: 0;
-  }
-} */
-
 .painel {
   height: 430px;
   background-color: white;

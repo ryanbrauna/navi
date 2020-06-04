@@ -42,7 +42,7 @@ class Cadastro extends Component {
     submitCad = e => {
         e.preventDefault();
         
-        if (this.state.tipo.eq("C")) {
+        if (this.state.tipo == "C") {
             axios.post("http://localhost:8080/cadastro/comprador", {
                 "nome": this.state.nome,
                 "email": this.state.email,
@@ -110,7 +110,7 @@ class Cadastro extends Component {
                 <NavbarInst />
 
                 <Container>
-                    <div className="cadastro px-5 py-3 rounded shadow">
+                    <div className="cadastro my-3 px-5 py-3 rounded shadow">
                         <h4 className="mb-3">Cadastro</h4>
                         <Form onSubmit={this.submitCad} id="formCad">
                             <Row>
@@ -140,7 +140,8 @@ class Cadastro extends Component {
                                     />
                                 </Col>
                             </Row>
-                            <div style={{ display: + this.state.show ? "block" : "none" }}>
+                            <div className="mt-3" style={{ display: + this.state.show ? "block" : "none" }}>
+                                <p className="my-2 text-danger text-atencao-cad">Os campos com "*" é obrigatorio o preencher.</p>
                                 <Form.Row>
                                     <Form.Group className="mr-4" as={Col} controlId="formNome">
                                         <Form.Control required
@@ -149,7 +150,7 @@ class Cadastro extends Component {
                                             value={nome}
                                             onChange={this.cadChange}
                                         />
-                                        <Form.Label>Digite seu Nome.</Form.Label>
+                                        <Form.Label><span className="text-danger">*</span> Digite seu Nome.</Form.Label>
                                     </Form.Group>
 
                                     <Form.Group className="mr-4" as={Col} controlId="formCPF">
@@ -159,7 +160,7 @@ class Cadastro extends Component {
                                             value={CPF}
                                             onChange={this.cadChange}
                                         />
-                                        <Form.Label>Digite seu CPF.</Form.Label>
+                                        <Form.Label><span className="text-danger">*</span> Digite seu CPF.</Form.Label>
                                     </Form.Group>
                                 </Form.Row>
 
@@ -172,7 +173,7 @@ class Cadastro extends Component {
                                             value={email}
                                             onChange={this.cadChange}
                                         />
-                                        <Form.Label>Digite seu endereço de E-mail.</Form.Label>
+                                        <Form.Label><span className="text-danger">*</span> Digite seu endereço de E-mail.</Form.Label>
                                     </Form.Group>
 
                                     <Form.Group className="mr-4" as={Col} controlId="formTelefone">
@@ -195,7 +196,7 @@ class Cadastro extends Component {
                                             value={senha}
                                             onChange={this.cadChange}
                                         />
-                                        <Form.Label>Digite uma senha Senha.</Form.Label>
+                                        <Form.Label><span className="text-danger">*</span> Digite uma senha Senha.</Form.Label>
                                     </Form.Group>
 
                                     <Form.Group className="mr-4" as={Col} controlId="formConfSenha">
@@ -206,18 +207,19 @@ class Cadastro extends Component {
                                             value={confSenha}
                                             onChange={this.cadChange}
                                         />
-                                        <Form.Label>Confirme a senha Senha.</Form.Label>
+                                        <Form.Label><span className="text-danger">*</span> Confirme a senha Senha.</Form.Label>
                                     </Form.Group>
                                 </Form.Row>
 
                                 {/* <Link className="text-light" to="/login"> */}
-                                <Button className="mt-3 px-5" variant="primary" type="submit">Cadastrar</Button>
+                                <Button className="mt-3 px-5" variant="primary" type="submit"> Cadastrar</Button>
                                 {/* </Link> */}
                             </div>
                         </Form>
                     </div>
                 </Container>
 
+                <div style={{height: "64px"}}></div>
                 <div id="fim" className="fixed-bottom">
                     <span> NAVI © 2020</span>
                 </div >

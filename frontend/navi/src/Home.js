@@ -18,6 +18,12 @@ export default class Home extends Component {
         zoom: 11
     };
 
+    componentDidMount() {
+        if(sessionStorage.getItem('@NAVI/tipo') != "Comprador"){
+            window.location = "/pedidos"
+        }
+    }
+
     render() {
         return (
             <div>

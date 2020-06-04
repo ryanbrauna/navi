@@ -10,5 +10,8 @@
 .cadastro {
     width: 100%;
     background-color: white;
-    margin: 10px 0 50px;
+}
+
+.text-atencao-cad{
+    font-size: 13px;
 }

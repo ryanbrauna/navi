@@ -6,6 +6,13 @@ import { Link } from 'react-router-dom';
 import { Image, Navbar, Nav } from 'react-bootstrap';
 
 class NavbarInst extends Component {
+
+    componentDidMount() {
+        if(sessionStorage.getItem('@NAVI/nome') != null){
+            window.location = "/home";
+        }
+    }
+
     render() {
         return (
             <Navbar fixed="top" bg="light" variant="light" className="text-navbar">
