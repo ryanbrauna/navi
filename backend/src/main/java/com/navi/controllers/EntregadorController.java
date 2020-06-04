@@ -35,6 +35,18 @@ public class EntregadorController {
         }
     }
 
+    @GetMapping("/entregadores")
+    public ResponseEntity getAllEntregadores () {
+        if (repository.findAll().isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        else {
+            List listaDeEntregadores = repository.findAll();
+
+            return ResponseEntity.ok(listaDeEntregadores);
+        }
+    }
+
     @GetMapping("/{cnpj}/entregadores")
     public ResponseEntity getEntregadores (
             @PathVariable String cnpj) {

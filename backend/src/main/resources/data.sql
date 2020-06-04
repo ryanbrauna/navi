@@ -18,6 +18,10 @@ INSERT INTO public.user_entregador(
 	id_entregador, n_cnh, n_cpf, email, nome, senha, id_vendedor)
 	VALUES (1, '2222222222', '22222222222', 'j.oliveira@email.com', 'João Oliveira', '1234', 1);
 
+INSERT INTO public.user_entregador(
+	id_entregador, n_cnh, n_cpf, email, nome, senha, id_vendedor)
+	VALUES (2, '111111111', '111111111', 'm.oliveira@email.com', 'Mario Oliveira', '1234', 1);
+
 INSERT INTO public.user_comprador(
 	id_comprador, n_cpf, email, nome, senha, telefone, endereco_id_endereco)
 	VALUES (1, '34857844898', 'r.brauna@email.com', 'Ryan Brauna', '12345', '11986743588', 1);
