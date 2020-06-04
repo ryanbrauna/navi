@@ -77,7 +77,7 @@ export default class Home extends Component {
 
         swal({
             title: "Sucesso!",
-            text: "Os dados do entregador foram atualizados.",
+            text: "Entregador cadastrado.",
             icon: "success",
             button: "OK",
         }).then(() => window.location.reload());

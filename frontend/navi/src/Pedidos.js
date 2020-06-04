@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import './css/PedidosComprador.css';
 import { Link } from 'react-router-dom';
 import swal from 'sweetalert';
 
@@ -29,21 +28,21 @@ export default class Home extends Component {
         this.state = this.initialState;
     }
 
-    salvarEntregador = () => {
+    salvarPedido = () => {
         swal({
             title: "Sucesso!",
-            text: "Os dados do entregador foram atualizados.",
+            text: "Os dados do Pedido foram atualizados.",
             icon: "success",
             button: "OK",
         }).then(() => { this.initialModal() });
     }
 
-    editarEntregador = () => {
+    editarPedido = () => {
         this.setState({
             formDisabled: false,
             btnDanger: "Cancelar",
             btnPrimary: "Salvar",
-            onClickBtnPrimary: this.salvarEntregador
+            onClickBtnPrimary: this.salvarPedido
         })
     }
 
@@ -51,33 +50,31 @@ export default class Home extends Component {
         this.setState({
             showModal: false,
             formDisabled: true,
-            btnDanger: "Excluir Entregador",
+            btnDanger: "Excluir Pedido",
             btnPrimary: "Alterar Cadastro",
-            onClickBtnPrimary: this.editarEntregador
+            onClickBtnPrimary: this.editarPedido
         });
     }
 
     initialState = {
         showModal: false,
         formDisabled: true,
-        btnDanger: "Excluir Entregador",
+        btnDanger: "Excluir Pedido",
         btnPrimary: "Alterar Cadastro",
-        onClickBtnPrimary: this.editarEntregador,
+        onClickBtnPrimary: this.editarPedido,
         hideFormCad: "d-none",
-        nomeEntregador: "",
-        emailEntregador: "",
-        senhaEntregador: "",
-        cpfEntregador: "",
-        cnpjEntregador: ""
-
+        nomePedido: "",
+        precoPedido: "",
+        descPedido: "",
+        anotacaoPedido: ""
     }
 
-    cadastarEntregador = e => {
+    cadastarPedido = e => {
         e.preventDefault();
 
         swal({
             title: "Sucesso!",
-            text: "Os dados do entregador foram atualizados.",
+            text: "Pedido registrado.",
             icon: "success",
             button: "OK",
         }).then(() => window.location.reload());
@@ -100,7 +97,7 @@ export default class Home extends Component {
                         <Col>
                             <div className="d-inline span-link" onClick={() => { this.setState({ hideFormCad: "" }) }}>
                                 <AddIcon className="icon" />
-                                <span>Cadastrar um novo entregador</span>
+                                <span>Registrar um novo pedido</span>
                             </div>
                             <div
                                 className={"float-right " + hideFormCad}
@@ -113,25 +110,25 @@ export default class Home extends Component {
                     </Row>
                     <Row className={hideFormCad}>
                         <Col>
-                            <Form className="mt-3" onSubmit={this.cadastarEntregador}>
-                                <p className="my-2 text-danger text-atencao-cad">É necessário preencher todos os campos para realizar o cadastro.</p>
+                            <Form className="mt-3" onSubmit={this.cadastarPedido}>
+                                <p className="my-2 text-danger text-atencao-cad">É necessário preencher todos os campos com " * " para realizar o registro.</p>
                                 <Row>
                                     <Col>
                                         <Form.Group>
-                                            <Form.Label className="mb-0">Nome Completo:</Form.Label>
+                                            <Form.Label className="mb-0"><span className="text-danger">*</span> Nome do Pedido:</Form.Label>
                                             <Form.Control
                                                 type="text"
-                                                placeholder="Nome completo do entregador"
+                                                placeholder="Nome do Pedido"
                                                 required
                                             />
                                         </Form.Group>
                                     </Col>
                                     <Col>
                                         <Form.Group>
-                                            <Form.Label className="mb-0">E-mail:</Form.Label>
+                                            <Form.Label className="mb-0"><span className="text-danger">*</span> Preço:</Form.Label>
                                             <Form.Control
-                                                type="email"
-                                                placeholder="E-mail do entregador"
+                                                type="text"
+                                                placeholder="R$ 00,00"
                                                 required
                                             />
                                         </Form.Group>
@@ -140,38 +137,29 @@ export default class Home extends Component {
                                 <Row>
                                     <Col>
                                         <Form.Group>
-                                            <Form.Label className="mb-0">Senha:</Form.Label>
+                                            <Form.Label className="mb-0"><span className="text-danger">*</span> Descrição:</Form.Label>
                                             <Form.Control
-                                                type="password"
-                                                placeholder="Senha do entregador"
+                                                as="textarea"
+                                                placeholder="Descrição do Pedido..."
+                                                rows={3}
                                                 required
                                             />
                                         </Form.Group>
                                     </Col>
                                     <Col>
                                         <Form.Group>
-                                            <Form.Label className="mb-0">CPF:</Form.Label>
+                                            <Form.Label className="mb-0">Anotação:</Form.Label>
                                             <Form.Control
-                                                type="text"
-                                                placeholder="CPF do entregador"
-                                                required
+                                                as="textarea"
+                                                placeholder="Anotação do Pedido..."
+                                                rows={3}
                                             />
                                         </Form.Group>
                                     </Col>
                                 </Row>
                                 <Row>
                                     <Col>
-                                        <Form.Group>
-                                            <Form.Label className="mb-0">CNH:</Form.Label>
-                                            <Form.Control
-                                                type="text"
-                                                placeholder="CNH do entregador"
-                                                required
-                                            />
-                                        </Form.Group>
-                                    </Col>
-                                    <Col>
-                                        <Button className="btn-cad-entregador px-4" type="submit">Cadastrar</Button>
+                                        <Button className="float-right px-4" type="submit">Registrar</Button>
                                     </Col>
                                 </Row>
                             </Form>
