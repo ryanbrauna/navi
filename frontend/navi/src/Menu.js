@@ -7,8 +7,7 @@ import Avatar from '@material-ui/core/Avatar';
 import {
     Image,
     Navbar,
-    Nav,
-    Dropdown
+    Nav
 } from 'react-bootstrap';
 
 //Icons
@@ -21,7 +20,6 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 export default class NavbarInst extends Component {
 
     componentDidMount() {
-        debugger
         this.verficarUsuario();
     }
 
@@ -57,7 +55,7 @@ export default class NavbarInst extends Component {
                     <LibraryBooksIcon className="icon" />
                     <span>Pedidos</span>
                 </Nav.Link>
-                <Nav.Link href="/home">
+                <Nav.Link href="/entregadores">
                     <AccountCircleIcon className="icon" />
                     <span>Entregadores</span>
                 </Nav.Link>
@@ -100,17 +98,18 @@ export default class NavbarInst extends Component {
                         <span className="mr-3 text-dark nome-user">Olá, {sessionStorage.getItem('@NAVI/nome')}</span>
                         <Avatar
                             className="d-inline-block"
-                            alt="Remy Sharp"
                             src={require('./img/caminhao-style.jpg')}
                         />
-                        <a href="#" className="nome-user ml-3" onClick={() => {
-                            sessionStorage.removeItem('@NAVI/tipo');
-                            sessionStorage.removeItem('@NAVI/nome');
-                            this.verficarUsuario();
-                        }}>
+                        <span
+                            className="nome-user ml-3 span-link"
+                            onClick={() => {
+                                sessionStorage.removeItem('@NAVI/tipo');
+                                sessionStorage.removeItem('@NAVI/nome');
+                                this.verficarUsuario();
+                            }}>
                             <ExitToAppIcon className="icon" />
                             <span>Sair</span>
-                        </a>
+                        </span>
                     </div>
                 </Navbar>
                 <div className="espaco-topo" />

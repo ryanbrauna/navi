@@ -1,6 +1,6 @@
 /* CSS MAIN */
 body {
-  background-image: url(../img/bg-login.jpg);
+  background-image: url(../img/bg-page.jpg);
   background-size: cover;
 }
 
@@ -159,4 +159,27 @@ body {
 
 .form-label{
   font-size: 14px;
+}
+
+.avatar-entregador{
+  width: 50px !important;
+  height: 50px !important;
+}
+.avatar-entregador-modal{
+  width: 100px !important;
+  height: 100px !important;
+  border-radius: 10% !important;
+}
+
+.span-link{
+  cursor: pointer;
+  color: #13bdf2 !important;
+}.span-link:hover{
+  color: #137ff2 !important;
+}
+
+.btn-cad-entregador{
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }

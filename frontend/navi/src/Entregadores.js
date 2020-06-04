@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-// import './css/PedidosComprador.css';
-import { Link } from 'react-router-dom';
+// import './css/index.css';
+import Avatar from '@material-ui/core/Avatar';
 import swal from 'sweetalert';
 
 // Components
@@ -18,7 +18,7 @@ import {
 } from 'react-bootstrap';
 
 //Icon
-import RoomIcon from '@material-ui/icons/Room';
+import PersonIcon from '@material-ui/icons/Person';
 import AddIcon from '@material-ui/icons/Add';
 import CloseIcon from '@material-ui/icons/Close';
 
@@ -85,6 +85,8 @@ export default class Home extends Component {
 
     render() {
         const { showModal, formDisabled, btnDanger, btnPrimary, onClickBtnPrimary, hideFormCad } = this.state;
+        const handleShow = () => { this.setState({ showModal: true }) };
+        const handleClose = () => { this.initialModal() };
 
         return (
             <div>
@@ -93,7 +95,7 @@ export default class Home extends Component {
                 <div className="p-4 bg-white">
                     <Row>
                         <Col>
-                            <h4 className="text-primary mb-4 font-weight-light">Pedidos</h4>
+                            <h4 className="text-primary mb-4 font-weight-light">Entregadores</h4>
                         </Col>
                     </Row>
                     <Row>
@@ -179,25 +181,101 @@ export default class Home extends Component {
                     </Row>
                 </div>
 
-                <div className="p-4 d-flex">
+                <div className="d-flex p-4">
                     <Card style={{ width: '18rem' }}>
-                        <Card.Img variant="top" src={require('./img/caminhao-de-costa.jpg')} />
                         <Card.Body>
-                            <Card.Title className="text-primary">Revestimento</Card.Title>
-                            <Card.Text>
-                                <span>Joli Material de Construção</span>
-                                <br/>
-                                <span className="text-muted">(11) 99876-5432</span>
-                            </Card.Text>
+                            <Row>
+                                <Col sm={3}>
+                                    <Avatar
+                                        className="avatar-entregador"
+                                        src={require('./img/caminhao-de-costa.jpg')}
+                                    />
+                                </Col>
+                                <Col>
+                                    <Card.Text>
+                                        <span>Fulano</span>
+                                        <br />
+                                        <span className="text-muted">Fulano@Tal.com</span>
+                                    </Card.Text>
+                                </Col>
+                            </Row>
                         </Card.Body>
                         <Card.Footer >
-                            <Link to="/home">
-                                <RoomIcon className="icon" />
-                                <span>Acompanhar entrega</span>
-                            </Link>
+                            <span className="span-link" onClick={handleShow}>
+                                <PersonIcon className="icon" />
+                                <span>Vizualizar</span>
+                            </span>
                         </Card.Footer>
                     </Card>
                 </div>
+
+                <Modal show={showModal} onHide={handleClose}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>
+                            <span>Fulano</span>
+                        </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Form>
+                            <Form.Group>
+                                <Form.Label className="mb-0">Nome Completo:</Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    placeholder="Nome completo do entregador"
+                                    value="Fulano de Tal"
+                                    disabled={formDisabled}
+                                />
+                            </Form.Group>
+                            <Form.Group>
+                                <Form.Label className="mb-0">E-mail:</Form.Label>
+                                <Form.Control
+                                    type="email"
+                                    placeholder="E-mail do entregador"
+                                    value="Fulano@Tal.com"
+                                    disabled={formDisabled}
+                                />
+                            </Form.Group>
+                            <Form.Group>
+                                <Form.Label className="mb-0">Senha:</Form.Label>
+                                <Form.Control
+                                    type="password"
+                                    placeholder="Senha do entregador"
+                                    value="Fulano de Tal"
+                                    disabled={formDisabled}
+                                />
+                            </Form.Group>
+                            <Form.Group>
+                                <Form.Label className="mb-0">CPF:</Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    placeholder="CPF do entregador"
+                                    value="123456789123"
+                                    disabled={formDisabled}
+                                />
+                            </Form.Group>
+                            <Form.Group>
+                                <Form.Label className="mb-0">CNH:</Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    placeholder="CNH do entregador"
+                                    value="12345678912"
+                                    disabled={formDisabled}
+                                />
+                            </Form.Group>
+                            <Form.Group>
+                                <Form.Label>Imagem do entregador:</Form.Label>
+                                <Avatar
+                                    className="avatar-entregador-modal"
+                                    src={require('./img/caminhao-de-costa.jpg')}
+                                />
+                            </Form.Group>
+                        </Form>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="danger" onClick={handleClose}>{btnDanger}</Button>
+                        <Button variant="primary" onClick={onClickBtnPrimary}>{btnPrimary}</Button>
+                    </Modal.Footer>
+                </Modal>
             </div>
         );
     }
