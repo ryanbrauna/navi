@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 // import './css/index.css';
 import Avatar from '@material-ui/core/Avatar';
 import swal from 'sweetalert';
+import axios from 'axios';
 
 // Components
 import Menu from './Menu';
@@ -29,37 +30,38 @@ export default class Home extends Component {
         this.state = this.initialState;
     }
 
+    componentDidMount() {
+        axios.get(`http://localhost:8080/${sessionStorage.getItem('@NAVI/cod')}/entregadores`).then((data) => {
+            this.setState({ listEntregadores: data.data });
+            console.log(this.state.listEntregadores);
+        });
+    }
+
     salvarEntregador = () => {
         swal({
             title: "Sucesso!",
             text: "Os dados do entregador foram atualizados.",
             icon: "success",
             button: "OK",
-        }).then(() => { this.initialModal() });
+        }).then(() => window.location.reload());
     }
 
     editarEntregador = () => {
         this.setState({
             formDisabled: false,
+            inputSenha: "text",
             btnDanger: "Cancelar",
             btnPrimary: "Salvar",
             onClickBtnPrimary: this.salvarEntregador
         })
     }
 
-    initialModal = () => {
-        this.setState({
-            showModal: false,
-            formDisabled: true,
-            btnDanger: "Excluir Entregador",
-            btnPrimary: "Alterar Cadastro",
-            onClickBtnPrimary: this.editarEntregador
-        });
-    }
-
     initialState = {
+        listEntregadores: [],
+        entregadorModal: {},
         showModal: false,
         formDisabled: true,
+        inputSenha: "password",
         btnDanger: "Excluir Entregador",
         btnPrimary: "Alterar Cadastro",
         onClickBtnPrimary: this.editarEntregador,
@@ -70,6 +72,18 @@ export default class Home extends Component {
         cpfEntregador: "",
         cnpjEntregador: ""
 
+    }
+
+    initialModal = () => {
+        this.setState({
+            entregadorModal: {},
+            showModal: false,
+            formDisabled: true,
+            inputSenha: "password",
+            btnDanger: "Excluir Entregador",
+            btnPrimary: "Alterar Cadastro",
+            onClickBtnPrimary: this.editarEntregador
+        });
     }
 
     cadastarEntregador = e => {
@@ -83,10 +97,26 @@ export default class Home extends Component {
         }).then(() => window.location.reload());
     }
 
+    handleShow = entregador => {
+        this.setState({
+            showModal: true,
+            entregadorModal: entregador
+        })
+    };
+    handleClose = () => { this.initialModal() };
+
     render() {
-        const { showModal, formDisabled, btnDanger, btnPrimary, onClickBtnPrimary, hideFormCad } = this.state;
-        const handleShow = () => { this.setState({ showModal: true }) };
-        const handleClose = () => { this.initialModal() };
+        const {
+            listEntregadores,
+            entregadorModal,
+            showModal,
+            formDisabled,
+            inputSenha,
+            btnDanger,
+            btnPrimary,
+            onClickBtnPrimary,
+            hideFormCad
+        } = this.state;
 
         return (
             <div>
@@ -181,38 +211,46 @@ export default class Home extends Component {
                     </Row>
                 </div>
 
-                <div className="p-4" style={{margin: "0 0 0 250px"}}>
-                    <Card style={{ width: '18rem' }}>
-                        <Card.Body>
-                            <Row>
-                                <Col sm={3}>
-                                    <Avatar
-                                        className="avatar-entregador"
-                                        src={require('./img/caminhao-de-costa.jpg')}
-                                    />
+                <div className="p-4" style={{ margin: "0 0 0 250px" }}>
+                    <Row>
+                        {listEntregadores.map(entregador => {
+                            return (
+                                <Col lg={4}>
+                                    <Card className="mb-3 shadow">
+                                        <Card.Body>
+                                            <Row>
+                                                <Col sm={3}>
+                                                    <Avatar
+                                                        className="avatar-entregador mx-auto"
+                                                        src={require('./img/caminhao-de-costa.jpg')}
+                                                    />
+                                                </Col>
+                                                <Col>
+                                                    <Card.Text>
+                                                        <span>{entregador.nome}</span>
+                                                        <br />
+                                                        <span className="text-muted">{entregador.email}</span>
+                                                    </Card.Text>
+                                                </Col>
+                                            </Row>
+                                        </Card.Body>
+                                        <Card.Footer >
+                                            <span className="span-link" onClick={() => this.handleShow(entregador)}>
+                                                <PersonIcon className="icon" />
+                                                <span>Vizualizar</span>
+                                            </span>
+                                        </Card.Footer>
+                                    </Card>
                                 </Col>
-                                <Col>
-                                    <Card.Text>
-                                        <span>Fulano</span>
-                                        <br />
-                                        <span className="text-muted">Fulano@Tal.com</span>
-                                    </Card.Text>
-                                </Col>
-                            </Row>
-                        </Card.Body>
-                        <Card.Footer >
-                            <span className="span-link" onClick={handleShow}>
-                                <PersonIcon className="icon" />
-                                <span>Vizualizar</span>
-                            </span>
-                        </Card.Footer>
-                    </Card>
+                            );
+                        })}
+                    </Row>
                 </div>
 
-                <Modal show={showModal} onHide={handleClose}>
+                <Modal show={showModal} onHide={this.handleClose}>
                     <Modal.Header closeButton>
                         <Modal.Title>
-                            <span>Fulano</span>
+                            <span>{entregadorModal.nome}</span>
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
@@ -222,7 +260,7 @@ export default class Home extends Component {
                                 <Form.Control
                                     type="text"
                                     placeholder="Nome completo do entregador"
-                                    value="Fulano de Tal"
+                                    value={entregadorModal.nome}
                                     disabled={formDisabled}
                                 />
                             </Form.Group>
@@ -231,16 +269,16 @@ export default class Home extends Component {
                                 <Form.Control
                                     type="email"
                                     placeholder="E-mail do entregador"
-                                    value="Fulano@Tal.com"
+                                    value={entregadorModal.email}
                                     disabled={formDisabled}
                                 />
                             </Form.Group>
                             <Form.Group>
                                 <Form.Label className="mb-0">Senha:</Form.Label>
                                 <Form.Control
-                                    type="password"
+                                    type={inputSenha}
                                     placeholder="Senha do entregador"
-                                    value="Fulano de Tal"
+                                    value={entregadorModal.senha}
                                     disabled={formDisabled}
                                 />
                             </Form.Group>
@@ -249,7 +287,7 @@ export default class Home extends Component {
                                 <Form.Control
                                     type="text"
                                     placeholder="CPF do entregador"
-                                    value="123456789123"
+                                    value={entregadorModal.cpf}
                                     disabled={formDisabled}
                                 />
                             </Form.Group>
@@ -258,7 +296,7 @@ export default class Home extends Component {
                                 <Form.Control
                                     type="text"
                                     placeholder="CNH do entregador"
-                                    value="12345678912"
+                                    value={entregadorModal.cnh}
                                     disabled={formDisabled}
                                 />
                             </Form.Group>
@@ -272,7 +310,7 @@ export default class Home extends Component {
                         </Form>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button variant="danger" onClick={handleClose}>{btnDanger}</Button>
+                        <Button variant="danger" onClick={this.handleClose}>{btnDanger}</Button>
                         <Button variant="primary" onClick={onClickBtnPrimary}>{btnPrimary}</Button>
                     </Modal.Footer>
                 </Modal>

@@ -81,7 +81,6 @@ export default class NavbarInst extends Component {
     render() {
         return (
             <div>
-                {console.log(sessionStorage.getItem('@NAVI/tipo'))}
                 <Navbar fixed="top" bg="light" variant="light" className="text-navbar shadow-sm">
                     <Navbar.Brand>
                         <Link to="/home">
@@ -105,6 +104,7 @@ export default class NavbarInst extends Component {
                             onClick={() => {
                                 sessionStorage.removeItem('@NAVI/tipo');
                                 sessionStorage.removeItem('@NAVI/nome');
+                                sessionStorage.removeItem('@NAVI/cod');
                                 this.verficarUsuario();
                             }}>
                             <ExitToAppIcon className="icon" />

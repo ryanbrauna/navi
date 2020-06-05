@@ -50,6 +50,7 @@ export default class Login extends Component {
             if (this.state.compradores[i].email == (this.state.email) &&
                 this.state.compradores[i].senha == (this.state.senha)) {
                 sessionStorage.setItem('@NAVI/nome', this.state.compradores[i].nome);
+                sessionStorage.setItem('@NAVI/cod', this.state.compradores[i].cpf);
                 sessionStorage.setItem('@NAVI/tipo', "Comprador");
                 window.location = "/home";
                 autenticador = true;
@@ -64,6 +65,7 @@ export default class Login extends Component {
                 if (this.state.vendedores[i].email == (this.state.email) &&
                     this.state.vendedores[i].senha == (this.state.senha)) {
                     sessionStorage.setItem('@NAVI/nome', this.state.vendedores[i].nome);
+                    sessionStorage.setItem('@NAVI/cod', this.state.vendedores[i].cnpj);
                     sessionStorage.setItem('@NAVI/tipo', "Vendedor");
                     window.location = "/home";
                     autenticador = true;
@@ -79,6 +81,7 @@ export default class Login extends Component {
                 if (this.state.entregadores[i].email == (this.state.email) &&
                     this.state.entregadores[i].senha == (this.state.senha)) {
                     sessionStorage.setItem('@NAVI/nome', this.state.entregadores[i].nome);
+                    sessionStorage.setItem('@NAVI/cod', this.state.entregadores[i].cpf);
                     sessionStorage.setItem('@NAVI/tipo', "Entregador");
                     window.location = "/home";
                     autenticador = true;
