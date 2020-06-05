@@ -8,13 +8,13 @@
 }
 
 .espaco-menu{
-    min-height: 50em;
-    width: 300px;
+    min-height: 10em;
+    width: 250px;
     float: left;
 }
 
 .sidebar {
-    width: 300px;
-    min-height: 50em;
+    width: 250px;
+    min-height: 40em;
     position: fixed;
 }

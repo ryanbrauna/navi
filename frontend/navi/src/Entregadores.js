@@ -181,7 +181,7 @@ export default class Home extends Component {
                     </Row>
                 </div>
 
-                <div className="d-flex p-4">
+                <div className="p-4" style={{margin: "0 0 0 250px"}}>
                     <Card style={{ width: '18rem' }}>
                         <Card.Body>
                             <Row>

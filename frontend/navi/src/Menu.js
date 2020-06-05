@@ -36,10 +36,10 @@ export default class NavbarInst extends Component {
                     <HomeIcon className="icon" />
                     <span>Procurar Loja</span>
                 </Nav.Link>
-                <Nav.Link href="https://guilherme-mendes.outsystemscloud.com/GoogleMapsDemo/HomeEntry.aspx?_ts=637219615460909232">
+                {/* <Nav.Link href="https://guilherme-mendes.outsystemscloud.com/GoogleMapsDemo/HomeEntry.aspx?_ts=637219615460909232">
                     <MapIcon className="icon" />
                     <span>Maps BETA</span>
-                </Nav.Link>
+                </Nav.Link> */}
                 <Nav.Link href="/pedidos">
                     <LibraryBooksIcon className="icon" />
                     <span>Meus Pedidos</span>
