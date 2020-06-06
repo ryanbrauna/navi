@@ -14,7 +14,8 @@ import {
     Col,
     Container,
     Form,
-    Button
+    Button,
+    Spinner
 } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -24,8 +25,8 @@ class Cadastro extends Component {
     constructor(props) {
         super(props);
         this.state = this.initialState;
-        this.cadChange = this.cadChange.bind(this);
         this.submitCad = this.submitCad.bind(this);
+        this.cadChange = this.cadChange.bind(this);
     }
 
     initialState = {
@@ -51,68 +52,90 @@ class Cadastro extends Component {
     }
 
     submitCad = e => {
-        alert("ta funcionando o cad")
-        e.preventDefault();
-        debugger;
         this.setState({ loading: true })
-        // if (this.state.tipo == "C") {
-        //     axios.post("http://navi--api.herokuapp.com/cadastro/comprador", {
-        //         "nome": this.state.nome,
-        //         "email": this.state.email,
-        //         "senha": this.state.senha,
-        //         "cpf": this.state.cod,
-        //         "telefone": this.state.telefone
-        //     }).then(responseCA => {
-        //         if (responseCA.data != null) {
-        //             axios.post(`http://navi--api.herokuapp.com/cadastro/comprador/${this.state.cod}/endereco`, {
-        //                 "cep": this.state.cep,
-        //                 "logradouro": this.state.logradouro,
-        //                 "bairro": this.state.bairro,
-        //                 "localidade": this.state.localidade,
-        //                 "uf": this.state.uf,
-        //                 "numero": this.state.numero,
-        //                 "complemento": this.state.complemento
-        //             }).then(responseCB => {
-        //                 if (responseCB.data != null) {
-        //                     this.setState(this.initialState);
-        //                     swal({
-        //                         title: "Sucesso!",
-        //                         text: "Você foi cadastrado com sucesso",
-        //                         icon: "success",
-        //                         button: "OK",
-        //                     }).then(() => {
-        //                         window.location = "/login";
-        //                     });
-        //                 } else {
-        //                     alert(responseCB);
-        //                 }
-        //             });
-        //         } else {
-        //             alert(responseCA);
-        //         }
-        //     });
-        // } else {
-        //     axios.post("http://navi--api.herokuapp.com/cadastro/vendedor", {
-        //         "nome": this.state.nome,
-        //         "email": this.state.email,
-        //         "senha": this.state.senha,
-        //         "cnpj": this.state.cod
-        //     }).then(response => {
-        //         if (response.data != null) {
-        //             this.setState(this.initialState);
-        //             swal({
-        //                 title: "Sucesso!",
-        //                 text: "Você foi cadastrado com sucesso",
-        //                 icon: "success",
-        //                 button: "OK",
-        //             }).then(() => {
-        //                 window.location = "/login";
-        //             });
-        //         } else {
-        //             alert(response);
-        //         }
-        //     });
-        // }
+        e.preventDefault();
+
+        if (this.state.tipo == "C") {
+            axios.post("http://navi--api.herokuapp.com/cadastro/comprador", {
+                "nome": this.state.nome,
+                "email": this.state.email,
+                "senha": this.state.senha,
+                "cpf": this.state.cod,
+                "telefone": this.state.telefone
+            }).then(responseCA => {
+                if (responseCA.data != null) {
+                    axios.post(`http://navi--api.herokuapp.com/cadastro/comprador/${this.state.cod}/endereco`, {
+                        "cep": this.state.cep,
+                        "logradouro": this.state.logradouro,
+                        "bairro": this.state.bairro,
+                        "localidade": this.state.localidade,
+                        "uf": this.state.uf,
+                        "numero": this.state.numero,
+                        "complemento": this.state.complemento
+                    }).then(responseCB => {
+                        if (responseCB.data != null) {
+                            this.setState(this.initialState);
+                            swal({
+                                title: "Sucesso!",
+                                text: "Você foi cadastrado com sucesso",
+                                icon: "success",
+                                button: "OK",
+                            }).then(() => {
+                                window.location = "/login";
+                            });
+                        } else {
+                            alert(responseCB);
+                        }
+                    });
+                } else {
+                    alert(responseCA);
+                }
+            });
+        } else {
+            axios.post("http://navi--api.herokuapp.com/cadastro/vendedor", {
+                "nome": this.state.nome,
+                "email": this.state.email,
+                "senha": this.state.senha,
+                "cnpj": this.state.cod
+            }).then(responseVA => {
+                if (responseVA.data != null) {
+                    axios.post(`http://navi--api.herokuapp.com/cadastro/vendedor/${this.state.cod}/loja`, {
+                        "nome": this.state.nomeLoja,
+                        "descricao": this.state.descLoja
+                    }).then(responseVB => {
+                        if (responseVB.data != null) {
+                            axios.post("http://navi--api.herokuapp.com/cadastro/vendedor/${this.state.cod}/loja/endereco", {
+                                "cep": this.state.cep,
+                                "logradouro": this.state.logradouro,
+                                "bairro": this.state.bairro,
+                                "localidade": this.state.localidade,
+                                "uf": this.state.uf,
+                                "numero": this.state.numero,
+                                "complemento": this.state.complemento
+                            }).then(responseVC => {
+                                if (responseVC.data != null) {
+                                    this.setState(this.initialState);
+                                    swal({
+                                        title: "Sucesso!",
+                                        text: "Você foi cadastrado com sucesso",
+                                        icon: "success",
+                                        button: "OK",
+                                    }).then(() => {
+                                        window.location = "/login";
+                                    });
+                                } else {
+                                    alert(responseVC);
+                                }
+                            })
+                        } else {
+                            alert(responseVB);
+                        }
+                    })
+                } else {
+                    alert(responseVA);
+                }
+            });
+        }
     }
 
     cadChange = e => {
@@ -270,7 +293,7 @@ class Cadastro extends Component {
                                     <h4 className="mt-3">Dados da Loja</h4>
                                     <p className="my-2 text-danger text-atencao-cad">Os campos com " <b>*</b> " é obrigatorio o preencher.</p>
                                     <Form.Group controlId="formGroupNomeLoja">
-                                        <Form.Control required
+                                        <Form.Control required={tipo == "V" ? true : false}
                                             placeholder="Nome da Loja"
                                             name="nomeLoja"
                                             value={nomeLoja}
@@ -279,7 +302,7 @@ class Cadastro extends Component {
                                         <Form.Label><span className="text-danger">*</span> Digite o Nome da sua Loja.</Form.Label>
                                     </Form.Group>
                                     <Form.Group controlId="formGroupDesc">
-                                        <Form.Control required
+                                        <Form.Control required={tipo == "V" ? true : false}
                                             as="textarea"
                                             rows={2}
                                             placeholder="Descrição..."
@@ -384,13 +407,13 @@ class Cadastro extends Component {
                                         </Form.Group>
                                     </Col>
                                 </Row>
-
-                                <Button
-                                    className="mt-3 px-5"
-                                    variant="primary"
-                                    type="submit"
-                                    disabled={loading}
-                                >Cadastrar</Button>
+                                {loading ? (
+                                    <div className="text-center">
+                                        <Spinner animation="border" variant="primary" />
+                                    </div>
+                                ) : (
+                                        <Button className="mt-3 px-5" variant="primary" type="submit">Cadastrar</Button>
+                                    )}
                             </div>
                         </Form>
                     </div>
