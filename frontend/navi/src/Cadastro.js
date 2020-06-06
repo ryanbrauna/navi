@@ -31,62 +31,88 @@ class Cadastro extends Component {
     initialState = {
         tipo: "",
         nome: "",
-        CPF: "",
+        cod: "",
         email: "",
         telefone: "",
         senha: "",
         confSenha: "",
-        show: false
+        cep: "",
+        logradouro: "",
+        bairro: "",
+        localidade: "",
+        uf: "",
+        numero: "",
+        complemento: "",
+        campoCod: "",
+        nomeLoja: "",
+        descLoja: "",
+        show: false,
+        loading: false
     }
 
     submitCad = e => {
+        alert("ta funcionando o cad")
         e.preventDefault();
-        
-        if (this.state.tipo == "C") {
-            axios.post("http://navi--api.herokuapp.com/cadastro/comprador", {
-                "nome": this.state.nome,
-                "email": this.state.email,
-                "senha": this.state.senha,
-                "cpf": this.state.CPF
-            }).then(response => {
-                if (response.data != null) {
-                    this.setState(this.initialState);
-                    swal({
-                        title: "Sucesso!",
-                        text: "Você foi cadastrado com sucesso",
-                        icon: "success",
-                        button: "OK",
-                    }).then(() => {
-                        window.location = "/login";
-                    });
-                } else {
-                    debugger;
-                    alert(response);
-                }
-            });
-        } else {
-            axios.post("http://navi--api.herokuapp.com/cadastro/vendedor", {
-                "nome": this.state.nome,
-                "email": this.state.email,
-                "senha": this.state.senha,
-                "cnpj": this.state.CPF
-            }).then(response => {
-                if (response.data != null) {
-                    this.setState(this.initialState);
-                    swal({
-                        title: "Sucesso!",
-                        text: "Você foi cadastrado com sucesso",
-                        icon: "success",
-                        button: "OK",
-                    }).then(() => {
-                        window.location = "/login";
-                    });
-                } else {
-                    debugger;
-                    alert(response);
-                }
-            });
-        }
+        debugger;
+        this.setState({ loading: true })
+        // if (this.state.tipo == "C") {
+        //     axios.post("http://navi--api.herokuapp.com/cadastro/comprador", {
+        //         "nome": this.state.nome,
+        //         "email": this.state.email,
+        //         "senha": this.state.senha,
+        //         "cpf": this.state.cod,
+        //         "telefone": this.state.telefone
+        //     }).then(responseCA => {
+        //         if (responseCA.data != null) {
+        //             axios.post(`http://navi--api.herokuapp.com/cadastro/comprador/${this.state.cod}/endereco`, {
+        //                 "cep": this.state.cep,
+        //                 "logradouro": this.state.logradouro,
+        //                 "bairro": this.state.bairro,
+        //                 "localidade": this.state.localidade,
+        //                 "uf": this.state.uf,
+        //                 "numero": this.state.numero,
+        //                 "complemento": this.state.complemento
+        //             }).then(responseCB => {
+        //                 if (responseCB.data != null) {
+        //                     this.setState(this.initialState);
+        //                     swal({
+        //                         title: "Sucesso!",
+        //                         text: "Você foi cadastrado com sucesso",
+        //                         icon: "success",
+        //                         button: "OK",
+        //                     }).then(() => {
+        //                         window.location = "/login";
+        //                     });
+        //                 } else {
+        //                     alert(responseCB);
+        //                 }
+        //             });
+        //         } else {
+        //             alert(responseCA);
+        //         }
+        //     });
+        // } else {
+        //     axios.post("http://navi--api.herokuapp.com/cadastro/vendedor", {
+        //         "nome": this.state.nome,
+        //         "email": this.state.email,
+        //         "senha": this.state.senha,
+        //         "cnpj": this.state.cod
+        //     }).then(response => {
+        //         if (response.data != null) {
+        //             this.setState(this.initialState);
+        //             swal({
+        //                 title: "Sucesso!",
+        //                 text: "Você foi cadastrado com sucesso",
+        //                 icon: "success",
+        //                 button: "OK",
+        //             }).then(() => {
+        //                 window.location = "/login";
+        //             });
+        //         } else {
+        //             alert(response);
+        //         }
+        //     });
+        // }
     }
 
     cadChange = e => {
@@ -95,25 +121,46 @@ class Cadastro extends Component {
         });
     }
 
-    showForm(tipo) {
+    showForm(tipo, cod) {
         this.setState({
             tipo: tipo,
+            campoCod: cod,
             show: true
         });
     }
 
     render() {
-        const { nome, CPF, email, telefone, senha, confSenha } = this.state;
+        const {
+            show,
+            tipo,
+            nome,
+            cod,
+            email,
+            telefone,
+            senha,
+            confSenha,
+            cep,
+            logradouro,
+            bairro,
+            localidade,
+            uf,
+            numero,
+            complemento,
+            nomeLoja,
+            descLoja,
+            campoCod,
+            loading
+        } = this.state;
 
         return (
             <div className="body">
                 <NavbarInst />
 
                 <Container>
-                    <div className="cadastro my-3 px-5 py-3 rounded shadow">
-                        <h4 className="mb-3">Cadastro</h4>
+                    <div className="cadastro my-3 px-5 py-5 rounded shadow">
+                        <h1 className="text-center mb-3 font-weight-light">Cadastrar</h1>
                         <Form onSubmit={this.submitCad} id="formCad">
-                            <Row>
+                            <Row className="text-center">
                                 <Col sm="12">
                                     <p>Selecione o tipo de cadastro:</p>
                                 </Col>
@@ -125,101 +172,231 @@ class Cadastro extends Component {
                                         label="Vendedor"
                                         type="radio"
                                         onClick={() => {
-                                            this.showForm("V")
+                                            this.showForm("V", "CNPJ")
                                         }}
                                     />
                                     <Form.Check inline
                                         name="tipo"
                                         id={`tipoC`}
-                                        className="text-primary mr-5"
+                                        className="text-primary mr-0"
                                         label="Comprador"
                                         type="radio"
                                         onClick={() => {
-                                            this.showForm("C")
+                                            this.showForm("C", "CPF")
                                         }}
                                     />
                                 </Col>
                             </Row>
-                            <div className="mt-3" style={{ display: + this.state.show ? "block" : "none" }}>
-                                <p className="my-2 text-danger text-atencao-cad">Os campos com "*" é obrigatorio o preencher.</p>
-                                <Form.Row>
-                                    <Form.Group className="mr-4" as={Col} controlId="formNome">
+                            <div className="mt-3" style={{ display: show ? "block" : "none" }}>
+                                <h4 className="mt-4">Dados Pessoais</h4>
+                                <p className="my-2 text-danger text-atencao-cad">Os campos com " <b>*</b> " é obrigatorio o preencher.</p>
+                                <Row>
+                                    <Col>
+                                        <Form.Group controlId="formGroupNome">
+                                            <Form.Control required
+                                                placeholder="Nome"
+                                                name="nome"
+                                                value={nome}
+                                                onChange={this.cadChange}
+                                            />
+                                            <Form.Label><span className="text-danger">*</span> Digite seu Nome.</Form.Label>
+                                        </Form.Group>
+                                    </Col>
+                                    <Col>
+                                        <Form.Group controlId="formGroupCPF/CNPJ">
+                                            <Form.Control required
+                                                placeholder={campoCod}
+                                                name="cod"
+                                                value={cod}
+                                                onChange={this.cadChange}
+                                            />
+                                            <Form.Label><span className="text-danger">*</span> Digite seu {campoCod}.</Form.Label>
+                                        </Form.Group>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col>
+                                        <Form.Group controlId="formGroupEmail">
+                                            <Form.Control required
+                                                type="email"
+                                                placeholder="E-mail"
+                                                name="email"
+                                                value={email}
+                                                onChange={this.cadChange}
+                                            />
+                                            <Form.Label><span className="text-danger">*</span> Digite seu endereço de E-mail.</Form.Label>
+                                        </Form.Group>
+                                    </Col>
+                                    <Col>
+                                        <Form.Group controlId="formGroupTelefone">
+                                            <Form.Control
+                                                placeholder="Telefone"
+                                                name="telefone"
+                                                value={telefone}
+                                                onChange={this.cadChange}
+                                            />
+                                            <Form.Label>Digite seu Telefone.</Form.Label>
+                                        </Form.Group>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col>
+                                        <Form.Group controlId="formGroupSenha">
+                                            <Form.Control required
+                                                type="password"
+                                                placeholder="Senha"
+                                                name="senha"
+                                                value={senha}
+                                                onChange={this.cadChange}
+                                            />
+                                            <Form.Label><span className="text-danger">*</span> Digite uma senha Senha.</Form.Label>
+                                        </Form.Group>
+                                    </Col>
+                                    <Col>
+                                        <Form.Group controlId="formGroupConfSenha">
+                                            <Form.Control required
+                                                type="password"
+                                                placeholder="Confirmação de Senha"
+                                                name="confSenha"
+                                                value={confSenha}
+                                                onChange={this.cadChange}
+                                            />
+                                            <Form.Label><span className="text-danger">*</span> Confirme a senha Senha.</Form.Label>
+                                        </Form.Group>
+                                    </Col>
+                                </Row>
+
+                                <div style={{ display: tipo == "V" ? "block" : "none" }}>
+                                    <h4 className="mt-3">Dados da Loja</h4>
+                                    <p className="my-2 text-danger text-atencao-cad">Os campos com " <b>*</b> " é obrigatorio o preencher.</p>
+                                    <Form.Group controlId="formGroupNomeLoja">
                                         <Form.Control required
-                                            placeholder="Nome"
-                                            name="nome"
-                                            value={nome}
+                                            placeholder="Nome da Loja"
+                                            name="nomeLoja"
+                                            value={nomeLoja}
                                             onChange={this.cadChange}
                                         />
-                                        <Form.Label><span className="text-danger">*</span> Digite seu Nome.</Form.Label>
+                                        <Form.Label><span className="text-danger">*</span> Digite o Nome da sua Loja.</Form.Label>
                                     </Form.Group>
-
-                                    <Form.Group className="mr-4" as={Col} controlId="formCPF">
+                                    <Form.Group controlId="formGroupDesc">
                                         <Form.Control required
-                                            placeholder="CPF"
-                                            name="CPF"
-                                            value={CPF}
+                                            as="textarea"
+                                            rows={2}
+                                            placeholder="Descrição..."
+                                            name="descLoja"
+                                            value={descLoja}
                                             onChange={this.cadChange}
                                         />
-                                        <Form.Label><span className="text-danger">*</span> Digite seu CPF.</Form.Label>
+                                        <Form.Label>Digite uma descrição.</Form.Label>
                                     </Form.Group>
-                                </Form.Row>
+                                </div>
 
-                                <Form.Row>
-                                    <Form.Group className="mr-4" as={Col} controlId="formEmail">
-                                        <Form.Control required
-                                            type="email"
-                                            placeholder="Email"
-                                            name="email"
-                                            value={email}
-                                            onChange={this.cadChange}
-                                        />
-                                        <Form.Label><span className="text-danger">*</span> Digite seu endereço de E-mail.</Form.Label>
-                                    </Form.Group>
+                                <h4 className="mt-4">Endereço</h4>
+                                <p className="my-2 text-danger text-atencao-cad">Os campos com " <b>*</b> " é obrigatorio o preencher.</p>
+                                <Row className="mb-3">
+                                    <Col md={4}>
+                                        <Form.Group className="mb-0" controlId="formGroupCep">
+                                            <Form.Control required
+                                                placeholder="CEP"
+                                                name="cep"
+                                                value={cep}
+                                                onChange={this.cadChange}
+                                            />
+                                            <Form.Label><span className="text-danger">*</span> Insira seu CEP.</Form.Label>
+                                        </Form.Group>
+                                    </Col>
+                                    <Col>
+                                        <div className="mt-3">
+                                            <span className="text-muted mr-1">Esqueceu seu CEP? Vá em</span>
+                                            <a href="http://www.buscacep.correios.com.br/sistemas/buscacep/" target="blank">buscar CEP...</a>
+                                        </div>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col sm={9}>
+                                        <Form.Group controlId="formGroupLogradouro">
+                                            <Form.Control required
+                                                placeholder="Logradouro"
+                                                name="logradouro"
+                                                value={logradouro}
+                                                onChange={this.cadChange}
+                                            />
+                                            <Form.Label><span className="text-danger">*</span> Digite seu logradouro.</Form.Label>
+                                        </Form.Group>
+                                    </Col>
+                                    <Col>
+                                        <Form.Group controlId="formGroupNumero">
+                                            <Form.Control required
+                                                placeholder="Nº"
+                                                name="numero"
+                                                value={numero}
+                                                onChange={this.cadChange}
+                                            />
+                                            <Form.Label><span className="text-danger">*</span> Digite o Nº.</Form.Label>
+                                        </Form.Group>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col>
+                                        <Form.Group controlId="formGroupComplemento">
+                                            <Form.Control
+                                                placeholder="Complemento"
+                                                name="complemento"
+                                                value={complemento}
+                                                onChange={this.cadChange}
+                                            />
+                                            <Form.Label>Complemento do endereço.</Form.Label>
+                                        </Form.Group>
+                                    </Col>
+                                    <Col>
+                                        <Form.Group controlId="formGroupBairro">
+                                            <Form.Control required
+                                                placeholder="Bairro"
+                                                name="bairro"
+                                                value={bairro}
+                                                onChange={this.cadChange}
+                                            />
+                                            <Form.Label><span className="text-danger">*</span> Digite o bairro.</Form.Label>
+                                        </Form.Group>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col md={5}>
+                                        <Form.Group controlId="formGroupCidade">
+                                            <Form.Control required
+                                                placeholder="Cidade"
+                                                name="localidade"
+                                                value={localidade}
+                                                onChange={this.cadChange}
+                                            />
+                                            <Form.Label><span className="text-danger">*</span> Digite a cidade.</Form.Label>
+                                        </Form.Group>
+                                    </Col>
+                                    <Col md={2}>
+                                        <Form.Group controlId="formGroupUf">
+                                            <Form.Control required
+                                                placeholder="UF"
+                                                name="uf"
+                                                value={uf}
+                                                onChange={this.cadChange}
+                                            />
+                                            <Form.Label><span className="text-danger">*</span> Digite o UF.</Form.Label>
+                                        </Form.Group>
+                                    </Col>
+                                </Row>
 
-                                    <Form.Group className="mr-4" as={Col} controlId="formTelefone">
-                                        <Form.Control
-                                            placeholder="Telefone"
-                                            name="telefone"
-                                            value={telefone}
-                                            onChange={this.cadChange}
-                                        />
-                                        <Form.Label>Digite seu Telefone.</Form.Label>
-                                    </Form.Group>
-                                </Form.Row>
-
-                                <Form.Row>
-                                    <Form.Group className="mr-4" as={Col} controlId="formSenha">
-                                        <Form.Control required
-                                            type="password"
-                                            placeholder="Senha"
-                                            name="senha"
-                                            value={senha}
-                                            onChange={this.cadChange}
-                                        />
-                                        <Form.Label><span className="text-danger">*</span> Digite uma senha Senha.</Form.Label>
-                                    </Form.Group>
-
-                                    <Form.Group className="mr-4" as={Col} controlId="formConfSenha">
-                                        <Form.Control required
-                                            type="password"
-                                            placeholder="Confirmação de Senha"
-                                            name="confSenha"
-                                            value={confSenha}
-                                            onChange={this.cadChange}
-                                        />
-                                        <Form.Label><span className="text-danger">*</span> Confirme a senha Senha.</Form.Label>
-                                    </Form.Group>
-                                </Form.Row>
-
-                                {/* <Link className="text-light" to="/login"> */}
-                                <Button className="mt-3 px-5" variant="primary" type="submit"> Cadastrar</Button>
-                                {/* </Link> */}
+                                <Button
+                                    className="mt-3 px-5"
+                                    variant="primary"
+                                    type="submit"
+                                    disabled={loading}
+                                >Cadastrar</Button>
                             </div>
                         </Form>
                     </div>
                 </Container>
 
-                <div style={{height: "64px"}}></div>
+                <div style={{ height: "64px" }}></div>
                 <div id="fim" className="fixed-bottom">
                     <span> NAVI © 2020</span>
                 </div >

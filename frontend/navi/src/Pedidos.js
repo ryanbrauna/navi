@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import swal from 'sweetalert';
+import axios from 'axios';
 
 // Components
 import Menu from './Menu';
@@ -29,6 +30,13 @@ export default class Home extends Component {
     constructor(props) {
         super(props);
         this.state = this.initialState;
+    }
+
+    componentDidMount() {
+        axios.get(`http://navi--api.herokuapp.com/vendedor/${sessionStorage.getItem('@NAVI/cod')}/pedidos`).then((data) => {
+            this.setState({ listPedidos: data.data });
+            console.log(this.state.listPedidos);
+        });
     }
 
     salvarPedido = () => {
@@ -60,6 +68,8 @@ export default class Home extends Component {
     }
 
     initialState = {
+        listPedidos: [],
+        pedidoModal: {},
         showModal: false,
         formDisabled: true,
         btnDanger: "Excluir Pedido",

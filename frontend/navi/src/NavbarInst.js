@@ -15,7 +15,7 @@ class NavbarInst extends Component {
 
     render() {
         return (
-            <Navbar fixed="top" bg="light" variant="light" className="text-navbar">
+            <Navbar fixed="top" bg="light" variant="light" className="text-navbar shadow-sm border-bottom">
                 <Navbar.Brand>
                     <Link to="/">
                         <Image
