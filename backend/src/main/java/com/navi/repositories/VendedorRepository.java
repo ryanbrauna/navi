@@ -14,4 +14,7 @@ public interface VendedorRepository extends JpaRepository<Vendedor, Integer> {
     List<Vendedor> findByEmail (String email);
 
     Vendedor findOneByEmail (String email);
+
+    Vendedor findOneByCnpj (String cnpj);
+
 }
