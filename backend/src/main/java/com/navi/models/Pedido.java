@@ -21,10 +21,10 @@ public class Pedido {
     private Double preco;
 
     @Column(name = "anotacoes")
-    private String anotacoes = "Nenhuma";
+    private String anotacoes;
 
     @Column(name = "estado")
-    private String estado = "Pedido Registrado";
+    private String estado;
 
     @JoinColumn(name = "id_comprador")
     @ManyToOne
