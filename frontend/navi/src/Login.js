@@ -31,13 +31,13 @@ export default class Login extends Component {
     }
 
     componentDidMount() {
-        axios.get("http://localhost:8080/compradores").then((data) => {
+        axios.get("http://navi--api.herokuapp.com/compradores").then((data) => {
             this.setState({ compradores: data.data })
         });
-        axios.get("http://localhost:8080/vendedores").then((data) => {
+        axios.get("http://navi--api.herokuapp.com/vendedores").then((data) => {
             this.setState({ vendedores: data.data })
         });
-        axios.get("http://localhost:8080/entregadores").then((data) => {
+        axios.get("http://navi--api.herokuapp.com/entregadores").then((data) => {
             this.setState({ entregadores: data.data })
         });
     }

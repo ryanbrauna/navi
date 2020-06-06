@@ -81,7 +81,7 @@ export default class NavbarInst extends Component {
     render() {
         return (
             <div>
-                <Navbar fixed="top" bg="light" variant="light" className="text-navbar shadow-sm">
+                <Navbar fixed="top" bg="light" variant="light" className="text-navbar shadow-sm border-bottom">
                     <Navbar.Brand>
                         <Link to="/home">
                             <Image
@@ -114,7 +114,7 @@ export default class NavbarInst extends Component {
                 </Navbar>
                 <div className="espaco-topo" />
 
-                <Nav className="flex-column bg-light p-3 sidebar">
+                <Nav className="flex-column bg-light p-3 sidebar border-right shadow-sm">
                     <h4 className="text-primary m-2 mb-3 font-weight-light">Menu</h4>
                     {sessionStorage.getItem('@NAVI/tipo') == "Comprador" ? this.menuComprador() : sessionStorage.getItem('@NAVI/tipo') == "Vendedor" ? this.menuVendedor() : this.menuEntregador()}
                 </Nav>

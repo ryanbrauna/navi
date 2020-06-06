@@ -31,7 +31,7 @@ export default class Home extends Component {
     }
 
     componentDidMount() {
-        axios.get(`http://localhost:8080/${sessionStorage.getItem('@NAVI/cod')}/entregadores`).then((data) => {
+        axios.get(`http://navi--api.herokuapp.com/${sessionStorage.getItem('@NAVI/cod')}/entregadores`).then((data) => {
             this.setState({ listEntregadores: data.data });
             console.log(this.state.listEntregadores);
         });
