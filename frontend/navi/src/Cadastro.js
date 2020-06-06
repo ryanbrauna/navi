@@ -43,7 +43,7 @@ class Cadastro extends Component {
         e.preventDefault();
         
         if (this.state.tipo == "C") {
-            axios.post("http://localhost:8080/cadastro/comprador", {
+            axios.post("http://navi--api.herokuapp.com/cadastro/comprador", {
                 "nome": this.state.nome,
                 "email": this.state.email,
                 "senha": this.state.senha,
@@ -65,7 +65,7 @@ class Cadastro extends Component {
                 }
             });
         } else {
-            axios.post("http://localhost:8080/cadastro/vendedor", {
+            axios.post("http://navi--api.herokuapp.com/cadastro/vendedor", {
                 "nome": this.state.nome,
                 "email": this.state.email,
                 "senha": this.state.senha,
