@@ -63,6 +63,7 @@ public class CompradorController {
         comprador.setNome(compradorAtualizado.getNome());
         comprador.setEmail(compradorAtualizado.getEmail());
         comprador.setSenha(compradorAtualizado.getSenha());
+        comprador.setTelefone(compradorAtualizado.getTelefone());
         comprador.setCpf(compradorAtualizado.getCpf());
         comprador.setEndereco(compradorAtualizado.getEndereco());
 

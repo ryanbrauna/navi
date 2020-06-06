@@ -23,11 +23,9 @@ public class Vendedor {
     private String nome;
 
     @Column(name = "email", length = 100)
-    @Email(message = "* Email é obrigatório")
     private String email;
 
     @Column(name = "senha", length = 100)
-    @Length(min = 5, message = "A senha deve ter mais de 5 caracteres")
     private String senha;
 
     @Column(name = "telefone", length = 20)

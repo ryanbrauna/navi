@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000")
 public class EnderecoController {
 
     @Autowired
@@ -65,11 +65,11 @@ public class EnderecoController {
             @PathVariable String cnpj,
             @RequestBody Endereco novoEndereco) {
 
-        repository.save(novoEndereco);
-
         Vendedor vendedorCadastrado = vendedorRepository.findByCnpj(cnpj).get(0);
         Loja lojaCadastrada = lojaRepository.findByVendedor(vendedorCadastrado);
         lojaCadastrada.setEndereco(novoEndereco);
+
+        repository.save(novoEndereco);
 
         return ResponseEntity.ok(lojaCadastrada);
     }

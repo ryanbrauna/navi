@@ -30,7 +30,7 @@ public class Endereco {
     private Integer numero;
 
     @Column(name = "complemento")
-    private String complemento = "Nenhum";
+    private String complemento;
 
     public Integer getId() {
         return id;
