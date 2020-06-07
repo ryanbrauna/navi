@@ -6,12 +6,15 @@ body {
 
 .painel {
   height: 430px;
-  background-color: white;
   border-radius: 5px;
   margin-top: 70px;
   padding-top: 4%;
   text-align: center;
   color: #0b99e9;
+}
+
+.color-navi{
+  color: #2fa8d3 !important;
 }
 
 .box {

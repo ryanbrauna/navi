@@ -13,7 +13,8 @@ import {
     Row,
     Col,
     Form,
-    Button
+    Button,
+    Spinner
 } from 'react-bootstrap';
 
 export default class Login extends Component {
@@ -25,7 +26,8 @@ export default class Login extends Component {
             vendedores: [],
             entregadores: [],
             email: '',
-            senha: ''
+            senha: '',
+            loading: false
         };
         this.login = this.login.bind(this);
     }
@@ -121,7 +123,14 @@ export default class Login extends Component {
                                 <Form.Label className="text-muted">Digite sua senha Senha.</Form.Label>
                             </Form.Group>
 
-                            <Button variant="primary w-25" onClick={this.login}>Entrar</Button>
+                            {this.state.loading ? (
+                                <div className="text-center">
+                                    <Spinner animation="border" variant="primary" />
+                                    <span className="d-block text-primary">Carregando, por favor aguarde...</span>
+                                </div>
+                            ) : (
+                                    <Button variant="primary px-5" onClick={this.login}>Entrar</Button>
+                                )}
                             <div className="text-center mt-3">
                                 <span className="text-muted">Não possui uma conta no NAVI?</span>
                                 <br />

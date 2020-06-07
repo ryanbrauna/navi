@@ -64,6 +64,7 @@ class Cadastro extends Component {
                 "telefone": this.state.telefone
             }).then(responseCA => {
                 if (responseCA.data != null) {
+                    console.log("Dados Pessoais do Comprador cadastrado!");
                     axios.post(`http://navi--api.herokuapp.com/cadastro/comprador/${this.state.cod}/endereco`, {
                         "cep": this.state.cep,
                         "logradouro": this.state.logradouro,
@@ -73,6 +74,7 @@ class Cadastro extends Component {
                         "numero": this.state.numero,
                         "complemento": this.state.complemento
                     }).then(responseCB => {
+                        console.log("Endereço do Comprador cadastrado!");
                         if (responseCB.data != null) {
                             this.setState(this.initialState);
                             swal({
@@ -99,12 +101,14 @@ class Cadastro extends Component {
                 "cnpj": this.state.cod
             }).then(responseVA => {
                 if (responseVA.data != null) {
+                    console.log("Dados Pessoais do Vendedor cadastrado!");
                     axios.post(`http://navi--api.herokuapp.com/cadastro/vendedor/${this.state.cod}/loja`, {
                         "nome": this.state.nomeLoja,
                         "descricao": this.state.descLoja
                     }).then(responseVB => {
                         if (responseVB.data != null) {
-                            axios.post("http://navi--api.herokuapp.com/cadastro/vendedor/${this.state.cod}/loja/endereco", {
+                            console.log("Loja do Vendedor cadastrada!");
+                            axios.post(`http://navi--api.herokuapp.com/cadastro/vendedor/${this.state.cod}/loja/endereco`, {
                                 "cep": this.state.cep,
                                 "logradouro": this.state.logradouro,
                                 "bairro": this.state.bairro,
@@ -114,6 +118,7 @@ class Cadastro extends Component {
                                 "complemento": this.state.complemento
                             }).then(responseVC => {
                                 if (responseVC.data != null) {
+                                    console.log("Endereço do Vendedor cadastrado!");
                                     this.setState(this.initialState);
                                     swal({
                                         title: "Sucesso!",
@@ -214,7 +219,7 @@ class Cadastro extends Component {
                                 <h4 className="mt-4">Dados Pessoais</h4>
                                 <p className="my-2 text-danger text-atencao-cad">Os campos com " <b>*</b> " é obrigatorio o preencher.</p>
                                 <Row>
-                                    <Col>
+                                    <Col md={6}>
                                         <Form.Group controlId="formGroupNome">
                                             <Form.Control required
                                                 placeholder="Nome"
@@ -225,7 +230,7 @@ class Cadastro extends Component {
                                             <Form.Label><span className="text-danger">*</span> Digite seu Nome.</Form.Label>
                                         </Form.Group>
                                     </Col>
-                                    <Col>
+                                    <Col md={6}>
                                         <Form.Group controlId="formGroupCPF/CNPJ">
                                             <Form.Control required
                                                 placeholder={campoCod}
@@ -238,7 +243,7 @@ class Cadastro extends Component {
                                     </Col>
                                 </Row>
                                 <Row>
-                                    <Col>
+                                    <Col md={6}>
                                         <Form.Group controlId="formGroupEmail">
                                             <Form.Control required
                                                 type="email"
@@ -250,7 +255,7 @@ class Cadastro extends Component {
                                             <Form.Label><span className="text-danger">*</span> Digite seu endereço de E-mail.</Form.Label>
                                         </Form.Group>
                                     </Col>
-                                    <Col>
+                                    <Col md={6}>
                                         <Form.Group controlId="formGroupTelefone">
                                             <Form.Control
                                                 placeholder="Telefone"
@@ -263,7 +268,7 @@ class Cadastro extends Component {
                                     </Col>
                                 </Row>
                                 <Row>
-                                    <Col>
+                                    <Col md={6}>
                                         <Form.Group controlId="formGroupSenha">
                                             <Form.Control required
                                                 type="password"
@@ -275,7 +280,7 @@ class Cadastro extends Component {
                                             <Form.Label><span className="text-danger">*</span> Digite uma senha Senha.</Form.Label>
                                         </Form.Group>
                                     </Col>
-                                    <Col>
+                                    <Col md={6}>
                                         <Form.Group controlId="formGroupConfSenha">
                                             <Form.Control required
                                                 type="password"
@@ -360,7 +365,7 @@ class Cadastro extends Component {
                                     </Col>
                                 </Row>
                                 <Row>
-                                    <Col>
+                                    <Col md={6}>
                                         <Form.Group controlId="formGroupComplemento">
                                             <Form.Control
                                                 placeholder="Complemento"
@@ -371,7 +376,7 @@ class Cadastro extends Component {
                                             <Form.Label>Complemento do endereço.</Form.Label>
                                         </Form.Group>
                                     </Col>
-                                    <Col>
+                                    <Col md={6}>
                                         <Form.Group controlId="formGroupBairro">
                                             <Form.Control required
                                                 placeholder="Bairro"
@@ -410,6 +415,7 @@ class Cadastro extends Component {
                                 {loading ? (
                                     <div className="text-center">
                                         <Spinner animation="border" variant="primary" />
+                                        <span className="d-block text-primary">Carregando, por favor aguarde...</span>
                                     </div>
                                 ) : (
                                         <Button className="mt-3 px-5" variant="primary" type="submit">Cadastrar</Button>

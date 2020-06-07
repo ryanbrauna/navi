@@ -21,14 +21,14 @@ class Institucional extends Component {
 
                 <Row className="justify-content-center m-0">
                     <Col sm="9">
-                        <div className="painel shadow">
+                        <div className="painel shadow bg-light">
                             <Image
                                 src={require('./img/navi-logo.png')}
                                 width="200"
                                 className="mb-3"
                             />
-                            <h1>NAVI</h1>
-                            <h5>Sempre monitorando sua entrega!</h5>
+                            <h1 className="color-navi">NAVI</h1>
+                            <h5 className="color-navi">Sempre monitorando sua entrega!</h5>
                         </div>
                     </Col>
                 </Row>
