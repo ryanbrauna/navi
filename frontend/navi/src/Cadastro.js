@@ -52,7 +52,7 @@ class Cadastro extends Component {
     }
 
     submitCad = e => {
-        this.setState({ loading: true })
+        this.setState({ loading: true });
         e.preventDefault();
 
         if (this.state.tipo == "C") {

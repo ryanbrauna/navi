@@ -44,7 +44,9 @@ export default class Login extends Component {
         });
     }
 
-    login() {
+    login = e => {
+        this.setState({ loading: true });
+        e.preventDefault();
         var autenticador = true;
         debugger;
 
@@ -112,7 +114,7 @@ export default class Login extends Component {
                 <Row className="justify-content-center m-0">
                     <Col md="6" className="box-login bg-light mx-3 p-5 rounded shadow">
                         <h4 className="mb-3">Entrar</h4>
-                        <Form>
+                        <Form onSubmit={this.login}>
                             <Form.Group controlId="formEmail">
                                 <Form.Control onInput={(e) => this.setState({ email: e.target.value })} type="email" placeholder="Email" />
                                 <Form.Label className="text-muted">Digite seu endereço de E-mail.</Form.Label>
@@ -129,7 +131,7 @@ export default class Login extends Component {
                                     <span className="d-block text-primary">Carregando, por favor aguarde...</span>
                                 </div>
                             ) : (
-                                    <Button variant="primary px-5" onClick={this.login}>Entrar</Button>
+                                    <Button variant="primary px-5" type="submit">Entrar</Button>
                                 )}
                             <div className="text-center mt-3">
                                 <span className="text-muted">Não possui uma conta no NAVI?</span>

@@ -212,7 +212,15 @@ export default class Home extends Component {
     }
 
     render() {
-        const { showModal, formDisabled, btnDanger, btnPrimary, onClickBtnPrimary, hideFormCad } = this.state;
+        const {
+            listPedidos,
+            showModal,
+            formDisabled,
+            btnDanger,
+            btnPrimary,
+            onClickBtnPrimary,
+            hideFormCad
+        } = this.state;
 
         return (
             <div>
@@ -310,24 +318,40 @@ export default class Home extends Component {
                     ) : ""}
                 </div>
 
-                <div className="p-4" style={{margin: "0 0 0 250px"}}>
+                <div className="p-4" style={{ margin: "0 0 0 250px" }}>
                     <Row>
-                        <Col>
-                            <Card style={{ width: '18rem' }}>
-                                <Card.Img variant="top" src={require('./img/caminhao-de-costa.jpg')} />
-                                <Card.Body>
-                                    <Card.Title className="text-primary">Revestimento</Card.Title>
-                                    <Card.Text>
-                                        <span>Joli Material de Construção</span>
-                                        <br />
-                                        <span className="text-muted">(11) 99876-5432</span>
-                                    </Card.Text>
-                                </Card.Body>
-                                <Card.Footer >
-                                    {sessionStorage.getItem('@NAVI/tipo') == "Comprador" ? this.footerComprador() : sessionStorage.getItem('@NAVI/tipo') == "Vendedor" ? this.footerVendedor() : this.footerEntregador()}
-                                </Card.Footer>
-                            </Card>
-                        </Col>
+                        {listPedidos.map(pedido => {
+                            return (
+                                <Col lg={4}>
+                                    <Card className="mb-3 shadow">
+                                        <Card.Img variant="top" src={require('./img/caminhao-de-costa.jpg')} />
+                                        <Card.Body>
+                                            <Card.Title className="text-primary">Pedido: {pedido.numeroDoPedido}</Card.Title>
+                                            <Card.Subtitle className="mb-3 text-muted">
+                                                <i>Comprador: {pedido.comprador.nome}</i>
+                                            </Card.Subtitle>
+                                            <Card.Text>
+                                                <div className="mb-1 desc-pedido">
+                                                    <b>Descrição: </b>
+                                                    <span>{pedido.descricao}</span>
+                                                </div>
+                                                <div className="mb-1">
+                                                    <b>Preço: </b>
+                                                    <span className="text-primary">R$ {pedido.preco.toFixed(2)}</span>
+                                                </div>
+                                                <div>
+                                                    <b>Entregador: </b>
+                                                    <span>{pedido.entregador == null ? "Nenhum" : pedido.entregador}</span>
+                                                </div>
+                                            </Card.Text>
+                                        </Card.Body>
+                                        <Card.Footer >
+                                            {sessionStorage.getItem('@NAVI/tipo') == "Comprador" ? this.footerComprador() : sessionStorage.getItem('@NAVI/tipo') == "Vendedor" ? this.footerVendedor() : this.footerEntregador()}
+                                        </Card.Footer>
+                                    </Card>
+                                </Col>
+                            );
+                        })}
                     </Row>
                 </div>
 

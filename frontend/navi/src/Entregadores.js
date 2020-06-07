@@ -215,7 +215,7 @@ export default class Home extends Component {
                     <Row>
                         {listEntregadores.map(entregador => {
                             return (
-                                <Col lg={4}>
+                                <Col md={4}>
                                     <Card className="mb-3 shadow">
                                         <Card.Body>
                                             <Row>

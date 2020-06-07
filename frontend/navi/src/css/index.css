@@ -13,7 +13,7 @@ body {
   color: #0b99e9;
 }
 
-.color-navi{
+.color-navi {
   color: #2fa8d3 !important;
 }
 
@@ -140,11 +140,11 @@ body {
   text-align: center;
 }
 .logo-parceiras {
-  border-radius: 5px;;
+  border-radius: 5px;
   display: block;
   margin: 0 auto;
 }
-.text-parceiras{
+.text-parceiras {
   margin-right: 10px;
   color: white;
 }
@@ -155,34 +155,43 @@ body {
   border-bottom: 1px solid #ced4da !important;
   border-radius: 0px !important;
   background-color: transparent !important;
-}.form-control:focus{
+}
+.form-control:focus {
   border-bottom: 2px solid #0b99e9 !important;
   box-shadow: none !important;
 }
 
-.form-label{
+.form-label {
   font-size: 14px;
 }
 
-.avatar-entregador{
+.avatar-entregador {
   width: 50px !important;
   height: 50px !important;
 }
-.avatar-entregador-modal{
+.avatar-entregador-modal {
   width: 100px !important;
   height: 100px !important;
   border-radius: 10% !important;
 }
 
-.span-link{
+.span-link {
   cursor: pointer;
   color: #13bdf2 !important;
-}.span-link:hover{
+}
+.span-link:hover {
   color: #137ff2 !important;
 }
 
-.btn-cad-entregador{
+.btn-cad-entregador {
   position: absolute;
   bottom: 0;
   right: 0;
+}
+
+.desc-pedido {
+  width: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
