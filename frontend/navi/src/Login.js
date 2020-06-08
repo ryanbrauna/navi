@@ -97,6 +97,7 @@ export default class Login extends Component {
         }
 
         if (!autenticador) {
+            this.setState({ loading: false });
             swal({
                 title: "Atenção!",
                 text: "Seu email ou senha estão incorretos!",

@@ -72,7 +72,7 @@ class Cadastro extends Component {
                         "localidade": this.state.localidade,
                         "uf": this.state.uf,
                         "numero": this.state.numero,
-                        "complemento": this.state.complemento
+                        "complememnto": this.state.complemento
                     }).then(responseCB => {
                         console.log("Endereço do Comprador cadastrado!");
                         if (responseCB.data != null) {

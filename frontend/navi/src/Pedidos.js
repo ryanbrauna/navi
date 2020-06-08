@@ -15,7 +15,7 @@ import {
     Modal,
     Button,
     Form,
-    Image
+    Table
 } from 'react-bootstrap';
 
 //Icon
@@ -93,111 +93,135 @@ export default class Home extends Component {
         }).then(() => window.location.reload());
     }
 
-    handleShow = () => { this.setState({ showModal: true }) };
+    handleShow = pedido => {
+        this.setState({
+            showModal: true,
+            pedidoModal: pedido
+        });
+    };
     handleClose = () => { this.initialModal() };
 
-    footerComprador = () => {
+    footerComprador = pedido => {
         return (
-            <span className="span-link" onClick={this.handleShow}>
+            <span className="span-link" onClick={() => this.handleShow(pedido)}>
                 <RoomIcon className="icon" />
                 <span>Acompanhar entrega</span>
             </span>
         );
     }
 
-    footerVendedor = () => {
+    footerVendedor = pedido => {
         return (
-            <span className="span-link" onClick={this.handleShow}>
+            <span className="span-link" onClick={() => this.handleShow(pedido)}>
                 <ReceiptIcon className="icon" />
                 <span>Ver Pedido</span>
             </span>
         );
     }
 
-    footerEntregador = () => {
+    footerEntregador = pedido => {
         return (
-            <span className="span-link" onClick={this.handleShow}>
+            <span className="span-link" onClick={() => this.handleShow(pedido)}>
                 <RoomIcon className="icon" />
                 <span>Ver local de entrega</span>
             </span>
         );
     }
 
-    modalEdit = (showModal, formDisabled, btnDanger, btnPrimary, onClickBtnPrimary) => {
+    modalEdit = (showModal, formDisabled, btnDanger, btnPrimary, onClickBtnPrimary, pedido) => {
         return (
-            <Modal show={showModal} onHide={this.handleClose} size="xl">
+            <Modal show={showModal} onHide={this.handleClose} size="lg">
                 <Modal.Header closeButton>
                     <Modal.Title>
-                        <span>Nº do Pedido</span>
+                        <span>Pedido: {pedido.numeroDoPedido}</span>
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Row>
                         <Col>
-                            <Image
-                                src={require('./img/maps.png')}
-                                className="m-3 w-100"
-                                alt="Maps"
-                            />
+                            <Form.Group className="mb-1">
+                                <Form.Label className="mb-0">Status do pedido:</Form.Label>
+                                <Form.Control as="select" custom disabled={formDisabled}>
+                                    <option>{pedido.estado}</option>
+                                    <option>Em Andamento</option>
+                                    <option>Entregue</option>
+                                    <option>Cancelado</option>
+                                </Form.Control>
+                            </Form.Group>
+                            <Form.Group>
+                                <Form.Control
+                                    placeholder="Nome do Entregador"
+                                    value={pedido.entregador == null ? "Nenhum" : pedido.entregador}
+                                    disabled
+                                />
+                                <Form.Label>Entregador</Form.Label>
+                            </Form.Group>
                         </Col>
+                    </Row>
+                    <Row>
                         <Col>
-                            <Form>
-                                <Form.Group>
-                                    <Form.Label className="mb-0">Status do pedido:</Form.Label>
-                                    <Form.Control as="select" custom disabled={formDisabled}>
-                                        <option>Registrado</option>
-                                        <option>Em Andamento</option>
-                                        <option>Entregue</option>
-                                        <option>Cancelado</option>
-                                    </Form.Control>
-                                </Form.Group>
-                                <Form.Group>
-                                    <Form.Label className="mb-0">Numero do Pedido:</Form.Label>
-                                    <Form.Control
-                                        type="text"
-                                        placeholder="Nome do pedido"
-                                        value="XPTO1234"
-                                        disabled
-                                    />
-                                </Form.Group>
-                                <Form.Group>
-                                    <Form.Label className="mb-0">CPF:</Form.Label>
-                                    <Form.Control
-                                        type="text"
-                                        placeholder="CPF do Comprador"
-                                        value="393.092.658-09"
-                                        disabled
-                                    />
-                                </Form.Group>
-                                <Form.Group>
-                                    <Form.Label className="mb-0">Preço:</Form.Label>
-                                    <Form.Control
-                                        type="texto"
-                                        placeholder="R$ 00,00"
-                                        value="Fulano@Tal.com"
-                                        disabled
-                                    />
-                                </Form.Group>
-                                <Form.Group>
-                                    <Form.Label className="mb-0">Descrição:</Form.Label>
-                                    <Form.Control
-                                        as="textarea"
-                                        placeholder="Descrição do Pedido..."
-                                        rows={2}
-                                        value="Essa é a descrição do pedido, decrito para descrever o pedido descrevendo descrito"
-                                        disabled
-                                    />
-                                </Form.Group>
-                                <Form.Group>
-                                    <Form.Label className="mb-0">Anotação:</Form.Label>
-                                    <Form.Control
-                                        as="textarea"
-                                        placeholder="Anotação do Pedido..."
-                                        rows={2}
-                                        disabled
-                                    />
-                                </Form.Group>
-                            </Form>
+                            <Table striped size="sm">
+                                <thead className="bg-dark text-light">
+                                    <tr>
+                                        <th colSpan="2">Dados do Pedido</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Numero do pedido:</td>
+                                        <td>{pedido.numeroDoPedido}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Descrição:</td>
+                                        <td>{pedido.descricao}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Anotação:</td>
+                                        <td>{pedido.anotacoes}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Preço:</td>
+                                        <td>R$ {pedido.preco != null ? pedido.preco.toFixed(2) : ""}</td>
+                                    </tr>
+                                </tbody>
+                                <thead className="bg-dark text-light">
+                                    <tr>
+                                        <th colSpan="2">Dados do Comprador</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Nome:</td>
+                                        <td>{pedido.comprador != null ? pedido.comprador.nome : null}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>E-mail:</td>
+                                        <td>{pedido.comprador != null ? pedido.comprador.email : null}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>CPF:</td>
+                                        <td>{pedido.comprador != null ? pedido.comprador.cpf : null}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Telefone:</td>
+                                        <td>{pedido.comprador != null ? pedido.comprador.telefone != null ? pedido.comprador.telefone : (<i>Não registrado</i>) : null}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Endereço:</td>
+                                        {pedido.comprador != null ? (
+                                            <td>{pedido.comprador.endereco.logradouro}, {pedido.comprador.endereco.numero}, {pedido.comprador.endereco.bairro}, {pedido.comprador.endereco.localidade} - {pedido.comprador.endereco.uf}</td>
+                                        ) : null}
+                                    </tr>
+                                    <tr>
+                                        <td>Complemento:</td>
+                                        <td>{pedido.comprador != null ? pedido.comprador.endereco.complememnto != null ? pedido.comprador.endereco.complememnto : (<i>Nenhum</i>) : null}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>CEP:</td>
+                                        <td>{pedido.comprador != null ? pedido.comprador.endereco.cep : null}</td>
+                                    </tr>
+                                </tbody>
+                            </Table>
                         </Col>
                     </Row>
                 </Modal.Body>
@@ -214,6 +238,7 @@ export default class Home extends Component {
     render() {
         const {
             listPedidos,
+            pedidoModal,
             showModal,
             formDisabled,
             btnDanger,
@@ -256,7 +281,6 @@ export default class Home extends Component {
                                         <Form.Group>
                                             <Form.Label className="mb-0"><span className="text-danger">*</span> Numero do Pedido:</Form.Label>
                                             <Form.Control
-                                                type="text"
                                                 placeholder="Numero do Pedido"
                                                 required
                                             />
@@ -266,7 +290,6 @@ export default class Home extends Component {
                                                 <Form.Group>
                                                     <Form.Label className="mb-0"><span className="text-danger">*</span> CPF:</Form.Label>
                                                     <Form.Control
-                                                        type="text"
                                                         placeholder="CPF do Comprador"
                                                         required
                                                     />
@@ -276,7 +299,6 @@ export default class Home extends Component {
                                                 <Form.Group>
                                                     <Form.Label className="mb-0"><span className="text-danger">*</span> Preço:</Form.Label>
                                                     <Form.Control
-                                                        type="text"
                                                         placeholder="R$ 00,00"
                                                         required
                                                     />
@@ -336,17 +358,17 @@ export default class Home extends Component {
                                                     <span>{pedido.descricao}</span>
                                                 </div>
                                                 <div className="mb-1">
-                                                    <b>Preço: </b>
-                                                    <span className="text-primary">R$ {pedido.preco.toFixed(2)}</span>
-                                                </div>
-                                                <div>
                                                     <b>Entregador: </b>
                                                     <span>{pedido.entregador == null ? "Nenhum" : pedido.entregador}</span>
+                                                </div>
+                                                <div>
+                                                    <b>Preço: </b>
+                                                    <span className="text-primary">R$ {pedido.preco.toFixed(2)}</span>
                                                 </div>
                                             </Card.Text>
                                         </Card.Body>
                                         <Card.Footer >
-                                            {sessionStorage.getItem('@NAVI/tipo') == "Comprador" ? this.footerComprador() : sessionStorage.getItem('@NAVI/tipo') == "Vendedor" ? this.footerVendedor() : this.footerEntregador()}
+                                            {sessionStorage.getItem('@NAVI/tipo') == "Comprador" ? this.footerComprador(pedido) : sessionStorage.getItem('@NAVI/tipo') == "Vendedor" ? this.footerVendedor(pedido) : this.footerEntregador(pedido)}
                                         </Card.Footer>
                                     </Card>
                                 </Col>
@@ -355,7 +377,7 @@ export default class Home extends Component {
                     </Row>
                 </div>
 
-                {this.modalEdit(showModal, formDisabled, btnDanger, btnPrimary, onClickBtnPrimary)}
+                {this.modalEdit(showModal, formDisabled, btnDanger, btnPrimary, onClickBtnPrimary, pedidoModal)}
             </div>
         );
     }
