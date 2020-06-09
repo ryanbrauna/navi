@@ -1,7 +1,9 @@
 /* CSS MAIN */
 body {
   background-image: url(../img/bg-page.jpg);
+  background-color: #137ff2;
   background-size: cover;
+  background-position: center;
 }
 
 .painel {
@@ -174,6 +176,10 @@ body {
   height: 100px !important;
   border-radius: 10% !important;
 }
+.avatar-perfil {
+  width: 80px !important;
+  height: 80px !important;
+}
 
 .span-link {
   cursor: pointer;
@@ -194,4 +200,8 @@ body {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+}
+
+.edit-perfil{
+  cursor: pointer;
 }

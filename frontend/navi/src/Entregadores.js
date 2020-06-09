@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import './css/index.css';
 import Avatar from '@material-ui/core/Avatar';
 import swal from 'sweetalert';
 import axios from 'axios';
@@ -24,7 +23,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import AddIcon from '@material-ui/icons/Add';
 import CloseIcon from '@material-ui/icons/Close';
 
-export default class Home extends Component {
+export default class Entregadores extends Component {
 
     constructor(props) {
         super(props);
@@ -73,7 +72,6 @@ export default class Home extends Component {
         senhaEntregador: "",
         cpfEntregador: "",
         cnhEntregador: ""
-
     }
 
     initialModal = () => {

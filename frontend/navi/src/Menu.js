@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './css/Menu.css'
 import { Link } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
+import SimpleMenu from '../src/optMenu'
 
 // Bootstrap
 import {
@@ -14,10 +15,9 @@ import {
 import HomeIcon from '@material-ui/icons/Home';
 import MapIcon from '@material-ui/icons/Map';
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
-export default class NavbarInst extends Component {
+export default class Menu extends Component {
 
     componentDidMount() {
         this.verficarUsuario();
@@ -36,10 +36,6 @@ export default class NavbarInst extends Component {
                     <HomeIcon className="icon" />
                     <span>Procurar Loja</span>
                 </Nav.Link>
-                {/* <Nav.Link href="https://guilherme-mendes.outsystemscloud.com/GoogleMapsDemo/HomeEntry.aspx?_ts=637219615460909232">
-                    <MapIcon className="icon" />
-                    <span>Maps BETA</span>
-                </Nav.Link> */}
                 <Nav.Link href="/pedidos">
                     <LibraryBooksIcon className="icon" />
                     <span>Meus Pedidos</span>
@@ -70,10 +66,6 @@ export default class NavbarInst extends Component {
                     <LibraryBooksIcon className="icon" />
                     <span>Pedidos</span>
                 </Nav.Link>
-                <Nav.Link href="https://guilherme-mendes.outsystemscloud.com/GoogleMapsDemo/HomeEntry.aspx?_ts=637219615460909232">
-                    <MapIcon className="icon" />
-                    <span>Maps BETA</span>
-                </Nav.Link>
             </div>
         );
     }
@@ -99,19 +91,8 @@ export default class NavbarInst extends Component {
                             className="d-inline-block"
                             src={require('./img/caminhao-style.jpg')}
                         />
-                        <span
-                            className="nome-user ml-3 span-link"
-                            onClick={() => {
-                                sessionStorage.removeItem('@NAVI/tipo');
-                                sessionStorage.removeItem('@NAVI/nome');
-                                sessionStorage.removeItem('@NAVI/cod');
-                                sessionStorage.removeItem('@NAVI/loja');
-                                this.verficarUsuario();
-                            }}>
-                            <ExitToAppIcon className="icon" />
-                            <span>Sair</span>
-                        </span>
                     </div>
+                    <SimpleMenu/>
                 </Navbar>
                 <div className="espaco-topo" />
 

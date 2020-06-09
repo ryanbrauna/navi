@@ -6,6 +6,7 @@ import Login from './Login';
 import Home from './Home';
 import Pedidos from './Pedidos';
 import Entregadores from './Entregadores';
+import Perfil from './Perfil';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 
@@ -19,6 +20,7 @@ ReactDOM.render(
       <Route path="/home" component={Home} />
       <Route path="/pedidos" component={Pedidos} />
       <Route path="/entregadores" component={Entregadores} />
+      <Route path="/perfil" component={Perfil} />
       <Route path="*" component={<div>404</div>} />
     </Switch>
   </BrowserRouter>

@@ -26,7 +26,7 @@ import CloseIcon from '@material-ui/icons/Close';
 // import InfoIcon from '@material-ui/icons/Info';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 
-export default class Home extends Component {
+export default class Pedidos extends Component {
 
     constructor(props) {
         super(props);
@@ -453,7 +453,7 @@ export default class Home extends Component {
                             return (
                                 <Col lg={3}>
                                     <Card className="mb-3 shadow">
-                                        <Card.Img variant="top" src={require('./img/caminhao-de-costa.jpg')} />
+                                        <Card.Img variant="top" src={require('./img/img-pedido.jpg')} />
                                         <Card.Body>
                                             <Card.Title className="text-primary">Pedido: {pedido.numeroDoPedido}</Card.Title>
                                             <Card.Subtitle className="mb-3 text-muted">
