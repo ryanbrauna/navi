@@ -62,7 +62,7 @@ public class VendedorController {
     @GetMapping("/vendedor/{cnpj}")
     public ResponseEntity getVendedor(
             @PathVariable String cnpj
-            ) {
+    ) {
         if (repository.findByCnpj(cnpj).isEmpty()) {
             return ResponseEntity.notFound().build();
         } else {

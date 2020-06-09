@@ -11,10 +11,9 @@ public interface CompradorRepository extends JpaRepository<Comprador, Integer> {
 
     List<Comprador> findByCpf (String cpf);
 
-    @Query("select c from Comprador c where c.email = ?1")
-    List<Comprador> findByEmail (String email);
-
     Comprador findOneByEmail (String email);
+
+    Comprador findOneByCpf (String cpf);
 
     List<Comprador>findByNome(String nome);
 

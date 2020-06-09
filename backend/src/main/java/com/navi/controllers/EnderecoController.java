@@ -40,6 +40,31 @@ public class EnderecoController {
         }
     }
 
+    @GetMapping("/loja/{cnpj}/endereco")
+    public ResponseEntity getEnderecoByLoja (@PathVariable String cnpj) {
+        if (vendedorRepository.findByCnpj(cnpj).isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        else {
+            Vendedor search = vendedorRepository.findOneByCnpj(cnpj);
+            Loja lojaSearch = lojaRepository.findByVendedor(search);
+
+            return ResponseEntity.ok(lojaSearch.getEndereco());
+        }
+    }
+
+    @GetMapping("/comprador/{cpf}/endereco")
+    public ResponseEntity getEnderecoByComprador (@PathVariable String cpf) {
+        if (compradorRepository.findByCpf(cpf).isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        else {
+            Comprador search = compradorRepository.findOneByCpf(cpf);
+
+            return ResponseEntity.ok(search.getEndereco());
+        }
+    }
+
     @PostMapping("/cadastro/endereco")
     public ResponseEntity createEndereco(@RequestBody Endereco novoEndereco) {
         repository.save(novoEndereco);
