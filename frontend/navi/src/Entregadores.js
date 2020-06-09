@@ -15,7 +15,8 @@ import {
     Card,
     Modal,
     Button,
-    Form
+    Form,
+    Spinner
 } from 'react-bootstrap';
 
 //Icon
@@ -59,6 +60,7 @@ export default class Home extends Component {
     initialState = {
         listEntregadores: [],
         entregadorModal: {},
+        loading: false,
         showModal: false,
         formDisabled: true,
         inputSenha: "password",
@@ -70,7 +72,7 @@ export default class Home extends Component {
         emailEntregador: "",
         senhaEntregador: "",
         cpfEntregador: "",
-        cnpjEntregador: ""
+        cnhEntregador: ""
 
     }
 
@@ -88,13 +90,30 @@ export default class Home extends Component {
 
     cadastarEntregador = e => {
         e.preventDefault();
+        this.setState({ loading: true });
 
-        swal({
-            title: "Sucesso!",
-            text: "Entregador cadastrado.",
-            icon: "success",
-            button: "OK",
-        }).then(() => window.location.reload());
+        axios.post(`https://navi--api.herokuapp.com/${sessionStorage.getItem('@NAVI/cod')}/entregadores/cadastro`, {
+            "nome": this.state.nomeEntregador,
+            "email": this.state.emailEntregador,
+            "senha": this.state.senhaEntregador,
+            "cpf": this.state.cpfEntregador,
+            "cnh": this.state.cnhEntregador
+        }).then(response => {
+            if (response.data != null) {
+                swal({
+                    title: "Sucesso!",
+                    text: "Entregador cadastrado.",
+                    icon: "success",
+                    button: "OK",
+                }).then(() => window.location.reload());
+            }
+        })
+    }
+
+    cadChange = e => {
+        this.setState({
+            [e.target.name]: e.target.value
+        });
     }
 
     handleShow = entregador => {
@@ -115,7 +134,13 @@ export default class Home extends Component {
             btnDanger,
             btnPrimary,
             onClickBtnPrimary,
-            hideFormCad
+            hideFormCad,
+            nomeEntregador,
+            emailEntregador,
+            senhaEntregador,
+            cpfEntregador,
+            cnhEntregador,
+            loading
         } = this.state;
 
         return (
@@ -151,20 +176,24 @@ export default class Home extends Component {
                                     <Col>
                                         <Form.Group>
                                             <Form.Label className="mb-0">Nome Completo:</Form.Label>
-                                            <Form.Control
+                                            <Form.Control required
                                                 type="text"
                                                 placeholder="Nome completo do entregador"
-                                                required
+                                                name="nomeEntregador"
+                                                value={nomeEntregador}
+                                                onChange={this.cadChange}
                                             />
                                         </Form.Group>
                                     </Col>
                                     <Col>
                                         <Form.Group>
                                             <Form.Label className="mb-0">E-mail:</Form.Label>
-                                            <Form.Control
+                                            <Form.Control required
                                                 type="email"
                                                 placeholder="E-mail do entregador"
-                                                required
+                                                name="emailEntregador"
+                                                value={emailEntregador}
+                                                onChange={this.cadChange}
                                             />
                                         </Form.Group>
                                     </Col>
@@ -173,20 +202,24 @@ export default class Home extends Component {
                                     <Col>
                                         <Form.Group>
                                             <Form.Label className="mb-0">Senha:</Form.Label>
-                                            <Form.Control
+                                            <Form.Control required
                                                 type="password"
                                                 placeholder="Senha do entregador"
-                                                required
+                                                name="senhaEntregador"
+                                                value={senhaEntregador}
+                                                onChange={this.cadChange}
                                             />
                                         </Form.Group>
                                     </Col>
                                     <Col>
                                         <Form.Group>
                                             <Form.Label className="mb-0">CPF:</Form.Label>
-                                            <Form.Control
+                                            <Form.Control required
                                                 type="text"
                                                 placeholder="CPF do entregador"
-                                                required
+                                                name="cpfEntregador"
+                                                value={cpfEntregador}
+                                                onChange={this.cadChange}
                                             />
                                         </Form.Group>
                                     </Col>
@@ -195,15 +228,24 @@ export default class Home extends Component {
                                     <Col>
                                         <Form.Group>
                                             <Form.Label className="mb-0">CNH:</Form.Label>
-                                            <Form.Control
+                                            <Form.Control required
                                                 type="text"
                                                 placeholder="CNH do entregador"
-                                                required
+                                                name="cnhEntregador"
+                                                value={cnhEntregador}
+                                                onChange={this.cadChange}
                                             />
                                         </Form.Group>
                                     </Col>
                                     <Col>
-                                        <Button className="btn-cad-entregador px-4" type="submit">Cadastrar</Button>
+                                        {loading ? (
+                                            <div className="btn-cad-entregador">
+                                                <span className="text-primary mr-2">Carregando, por favor aguarde...</span>
+                                                <Spinner animation="border" variant="primary" />
+                                            </div>
+                                        ) : (
+                                                <Button className="btn-cad-entregador px-4" type="submit">Cadastrar</Button>
+                                            )}
                                     </Col>
                                 </Row>
                             </Form>

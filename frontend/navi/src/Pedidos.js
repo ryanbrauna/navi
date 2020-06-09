@@ -15,7 +15,8 @@ import {
     Modal,
     Button,
     Form,
-    Table
+    Table,
+    Spinner
 } from 'react-bootstrap';
 
 //Icon
@@ -82,11 +83,12 @@ export default class Home extends Component {
     initialState = {
         listPedidos: [],
         pedidoModal: {},
+        loading: false,
         showModal: false,
         formDisabled: true,
+        onClickBtnPrimary: this.editarPedido,
         btnDanger: "Excluir Pedido",
         btnPrimary: "Alterar Status",
-        onClickBtnPrimary: this.editarPedido,
         hideFormCad: "d-none",
         numeroPedido: "",
         cpfComprador: "",
@@ -97,14 +99,15 @@ export default class Home extends Component {
 
     registrarPedido = e => {
         e.preventDefault();
-        
+        this.setState({ loading: true });
+
         axios.post(`https://navi--api.herokuapp.com/vendedor/${sessionStorage.getItem('@NAVI/cod')}/pedidos/registrar?cpf=${this.state.cpfComprador}`, {
-            "numeroDoPedido":  this.state.numeroPedido,
-            "descricao":  this.state.descPedido,
-            "preco":  this.state.precoPedido,
-            "anotacoes":  this.state.anotacaoPedido
-        }).then(respost => {
-            if (respost.data != null) {
+            "numeroDoPedido": this.state.numeroPedido,
+            "descricao": this.state.descPedido,
+            "preco": this.state.precoPedido,
+            "anotacoes": this.state.anotacaoPedido
+        }).then(response => {
+            if (response.data != null) {
                 swal({
                     title: "Sucesso!",
                     text: "Pedido registrado.",
@@ -327,7 +330,8 @@ export default class Home extends Component {
             cpfComprador,
             precoPedido,
             descPedido,
-            anotacaoPedido
+            anotacaoPedido,
+            loading
         } = this.state;
 
         return (
@@ -426,7 +430,14 @@ export default class Home extends Component {
                                         </Row>
                                         <Row>
                                             <Col>
-                                                <Button className="float-right px-4" type="submit">Registrar</Button>
+                                                {loading ? (
+                                                    <div className="float-right">
+                                                        <span className="text-primary mr-2">Carregando, por favor aguarde...</span>
+                                                        <Spinner animation="border" variant="primary" />
+                                                    </div>
+                                                ) : (
+                                                        <Button className="float-right px-4" type="submit">Registrar</Button>
+                                                    )}
                                             </Col>
                                         </Row>
                                     </Form>
