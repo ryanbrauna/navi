@@ -57,7 +57,7 @@ export default class Home extends Component {
             text: "O status do pedido foi atualizado.",
             icon: "success",
             button: "OK",
-        }).then(() => { this.initialModal() });
+        }).then(() => window.location.reload());
     }
 
     editarPedido = () => {
@@ -89,20 +89,36 @@ export default class Home extends Component {
         onClickBtnPrimary: this.editarPedido,
         hideFormCad: "d-none",
         numeroPedido: "",
+        cpfComprador: "",
         precoPedido: "",
         descPedido: "",
         anotacaoPedido: ""
     }
 
-    cadastarPedido = e => {
+    registrarPedido = e => {
         e.preventDefault();
+        
+        axios.post(`https://navi--api.herokuapp.com/vendedor/${sessionStorage.getItem('@NAVI/cod')}/pedidos/registrar?cpf=${this.state.cpfComprador}`, {
+            "numeroDoPedido":  this.state.numeroPedido,
+            "descricao":  this.state.descPedido,
+            "preco":  this.state.precoPedido,
+            "anotacoes":  this.state.anotacaoPedido
+        }).then(respost => {
+            if (respost.data != null) {
+                swal({
+                    title: "Sucesso!",
+                    text: "Pedido registrado.",
+                    icon: "success",
+                    button: "OK",
+                }).then(() => window.location.reload());
+            }
+        })
+    }
 
-        swal({
-            title: "Sucesso!",
-            text: "Pedido registrado.",
-            icon: "success",
-            button: "OK",
-        }).then(() => window.location.reload());
+    resgisterChange = e => {
+        this.setState({
+            [e.target.name]: e.target.value
+        });
     }
 
     handleShow = pedido => {
@@ -169,7 +185,7 @@ export default class Home extends Component {
                 </tr>
                 <tr>
                     <td>Telefone:</td>
-                    <td>{pedido.comprador != null ? pedido.comprador.telefone != null ? pedido.comprador.telefone : (<i>Não registrado</i>) : null}</td>
+                    <td>{pedido.comprador != null ? pedido.comprador.telefone != "" ? pedido.comprador.telefone : (<i>Não registrado</i>) : null}</td>
                 </tr>
                 <tr>
                     <td>Endereço:</td>
@@ -179,7 +195,7 @@ export default class Home extends Component {
                 </tr>
                 <tr>
                     <td>Complemento:</td>
-                    <td>{pedido.comprador != null ? pedido.comprador.endereco.complememnto != null ? pedido.comprador.endereco.complememnto : (<i>Nenhum</i>) : null}</td>
+                    <td>{pedido.comprador != null ? pedido.comprador.endereco.complememnto != "" ? pedido.comprador.endereco.complememnto : (<i>Nenhum</i>) : null}</td>
                 </tr>
                 <tr>
                     <td>CEP:</td>
@@ -217,7 +233,7 @@ export default class Home extends Component {
                 </tr>
                 <tr>
                     <td>Telefone do Vendedor:</td>
-                    <td>{pedido.loja != null ? pedido.loja.vendedor.telefone != null ? pedido.loja.vendedor.telefone : (<i>Não registrado</i>) : null}</td>
+                    <td>{pedido.loja != null ? pedido.loja.vendedor.telefone != "" ? pedido.loja.vendedor.telefone : (<i>Não registrado</i>) : null}</td>
                 </tr>
             </tbody>
         );
@@ -306,7 +322,12 @@ export default class Home extends Component {
             btnDanger,
             btnPrimary,
             onClickBtnPrimary,
-            hideFormCad
+            hideFormCad,
+            numeroPedido,
+            cpfComprador,
+            precoPedido,
+            descPedido,
+            anotacaoPedido
         } = this.state;
 
         return (
@@ -338,32 +359,40 @@ export default class Home extends Component {
                             </Row>
                             <Row className={hideFormCad}>
                                 <Col>
-                                    <Form className="mt-3" onSubmit={this.cadastarPedido}>
+                                    <Form className="mt-3" onSubmit={this.registrarPedido}>
                                         <p className="my-2 text-danger text-atencao-cad">É necessário preencher todos os campos com " * " para realizar o registro.</p>
                                         <Form.Group>
                                             <Form.Label className="mb-0"><span className="text-danger">*</span> Numero do Pedido:</Form.Label>
-                                            <Form.Control
+                                            <Form.Control required
                                                 placeholder="Numero do Pedido"
-                                                required
+                                                name="numeroPedido"
+                                                value={numeroPedido}
+                                                onChange={this.resgisterChange}
                                             />
                                         </Form.Group>
                                         <Row>
                                             <Col>
                                                 <Form.Group>
                                                     <Form.Label className="mb-0"><span className="text-danger">*</span> CPF:</Form.Label>
-                                                    <Form.Control
+                                                    <Form.Control required
                                                         placeholder="CPF do Comprador"
-                                                        required
+                                                        name="cpfComprador"
+                                                        value={cpfComprador}
+                                                        onChange={this.resgisterChange}
                                                     />
                                                 </Form.Group>
                                             </Col>
                                             <Col>
                                                 <Form.Group>
                                                     <Form.Label className="mb-0"><span className="text-danger">*</span> Preço:</Form.Label>
-                                                    <Form.Control
-                                                        placeholder="R$ 00,00"
-                                                        required
+                                                    <Form.Control required
+                                                        type="number"
+                                                        placeholder="00.00"
+                                                        name="precoPedido"
+                                                        value={precoPedido}
+                                                        onChange={this.resgisterChange}
                                                     />
+                                                    <span className="text-danger">Por favor separe as casas decimais com "." (ex.: 1199.99)</span>
                                                 </Form.Group>
                                             </Col>
                                         </Row>
@@ -371,11 +400,13 @@ export default class Home extends Component {
                                             <Col>
                                                 <Form.Group>
                                                     <Form.Label className="mb-0"><span className="text-danger">*</span> Descrição:</Form.Label>
-                                                    <Form.Control
+                                                    <Form.Control required
                                                         as="textarea"
                                                         placeholder="Descrição do Pedido..."
                                                         rows={3}
-                                                        required
+                                                        name="descPedido"
+                                                        value={descPedido}
+                                                        onChange={this.resgisterChange}
                                                     />
                                                 </Form.Group>
                                             </Col>
@@ -386,6 +417,9 @@ export default class Home extends Component {
                                                         as="textarea"
                                                         placeholder="Anotação do Pedido..."
                                                         rows={3}
+                                                        name="anotacaoPedido"
+                                                        value={anotacaoPedido}
+                                                        onChange={this.resgisterChange}
                                                     />
                                                 </Form.Group>
                                             </Col>
@@ -406,7 +440,7 @@ export default class Home extends Component {
                     <Row>
                         {listPedidos.map(pedido => {
                             return (
-                                <Col lg={4}>
+                                <Col lg={3}>
                                     <Card className="mb-3 shadow">
                                         <Card.Img variant="top" src={require('./img/caminhao-de-costa.jpg')} />
                                         <Card.Body>
