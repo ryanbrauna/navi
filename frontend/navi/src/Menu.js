@@ -105,6 +105,7 @@ export default class NavbarInst extends Component {
                                 sessionStorage.removeItem('@NAVI/tipo');
                                 sessionStorage.removeItem('@NAVI/nome');
                                 sessionStorage.removeItem('@NAVI/cod');
+                                sessionStorage.removeItem('@NAVI/loja');
                                 this.verficarUsuario();
                             }}>
                             <ExitToAppIcon className="icon" />

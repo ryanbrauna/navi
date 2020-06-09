@@ -87,6 +87,7 @@ export default class Login extends Component {
                     sessionStorage.setItem('@NAVI/nome', this.state.entregadores[i].nome);
                     sessionStorage.setItem('@NAVI/cod', this.state.entregadores[i].cpf);
                     sessionStorage.setItem('@NAVI/tipo', "Entregador");
+                    sessionStorage.setItem('@NAVI/loja', this.state.entregadores[i].vendedor.cnpj);
                     window.location = "/home";
                     autenticador = true;
                     break;

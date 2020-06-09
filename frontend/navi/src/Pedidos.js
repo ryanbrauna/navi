@@ -33,10 +33,22 @@ export default class Home extends Component {
     }
 
     componentDidMount() {
-        axios.get(`http://navi--api.herokuapp.com/vendedor/${sessionStorage.getItem('@NAVI/cod')}/pedidos`).then((data) => {
-            this.setState({ listPedidos: data.data });
-            console.log(this.state.listPedidos);
-        });
+        if (sessionStorage.getItem('@NAVI/tipo') == "Comprador") {
+            axios.get(`http://navi--api.herokuapp.com/comprador/${sessionStorage.getItem('@NAVI/cod')}/pedidos`).then((data) => {
+                this.setState({ listPedidos: data.data });
+                console.log(this.state.listPedidos);
+            });
+        } else if (sessionStorage.getItem('@NAVI/tipo') == "Vendedor") {
+            axios.get(`http://navi--api.herokuapp.com/vendedor/${sessionStorage.getItem('@NAVI/cod')}/pedidos`).then((data) => {
+                this.setState({ listPedidos: data.data });
+                console.log(this.state.listPedidos);
+            });
+        } else {
+            axios.get(`http://navi--api.herokuapp.com/vendedor/${sessionStorage.getItem('@NAVI/loja')}/pedidos`).then((data) => {
+                this.setState({ listPedidos: data.data });
+                console.log(this.state.listPedidos);
+            });
+        }
     }
 
     salvarPedido = () => {
@@ -103,10 +115,16 @@ export default class Home extends Component {
 
     footerComprador = pedido => {
         return (
-            <span className="span-link" onClick={() => this.handleShow(pedido)}>
-                <RoomIcon className="icon" />
-                <span>Acompanhar entrega</span>
-            </span>
+            <div>
+                <a className="span-link mb-2 d-block text-decoration-none" target="_blank" href={`https://guilherme-mendes.outsystemscloud.com/GoogleMapsDemo/HomeEntry.aspx?cpf=34857844898&cnpj=39309265809`}>
+                    <RoomIcon className="icon" />
+                    <span>Acompanhar entrega</span>
+                </a>
+                <span className="span-link" onClick={() => this.handleShow(pedido)}>
+                    <ReceiptIcon className="icon" />
+                    <span>Ver Pedido</span>
+                </span>
+            </div>
         );
     }
 
@@ -121,14 +139,89 @@ export default class Home extends Component {
 
     footerEntregador = pedido => {
         return (
-            <span className="span-link" onClick={() => this.handleShow(pedido)}>
-                <RoomIcon className="icon" />
-                <span>Ver local de entrega</span>
-            </span>
+            <div>
+                <a className="span-link mb-2 d-block text-decoration-none" target="_blank" href={`https://guilherme-mendes.outsystemscloud.com/GoogleMapsDemo/HomeEntry.aspx?cpf=${pedido.comprador.cpf}&cnpj=${pedido.loja.vendedor.cnpj}`}>
+                    <RoomIcon className="icon" />
+                    <span>Ver local de entrega</span>
+                </a>
+                <span className="span-link" onClick={() => this.handleShow(pedido)}>
+                    <ReceiptIcon className="icon" />
+                    <span>Ver Pedido</span>
+                </span>
+            </div>
         );
     }
 
     modalEdit = (showModal, formDisabled, btnDanger, btnPrimary, onClickBtnPrimary, pedido) => {
+        var dadosComprador = (
+            <tbody>
+                <tr>
+                    <td>Nome:</td>
+                    <td>{pedido.comprador != null ? pedido.comprador.nome : null}</td>
+                </tr>
+                <tr>
+                    <td>E-mail:</td>
+                    <td>{pedido.comprador != null ? pedido.comprador.email : null}</td>
+                </tr>
+                <tr>
+                    <td>CPF:</td>
+                    <td>{pedido.comprador != null ? pedido.comprador.cpf : null}</td>
+                </tr>
+                <tr>
+                    <td>Telefone:</td>
+                    <td>{pedido.comprador != null ? pedido.comprador.telefone != null ? pedido.comprador.telefone : (<i>Não registrado</i>) : null}</td>
+                </tr>
+                <tr>
+                    <td>Endereço:</td>
+                    {pedido.comprador != null ? (
+                        <td>{pedido.comprador.endereco.logradouro}, {pedido.comprador.endereco.numero}, {pedido.comprador.endereco.bairro}, {pedido.comprador.endereco.localidade} - {pedido.comprador.endereco.uf}</td>
+                    ) : null}
+                </tr>
+                <tr>
+                    <td>Complemento:</td>
+                    <td>{pedido.comprador != null ? pedido.comprador.endereco.complememnto != null ? pedido.comprador.endereco.complememnto : (<i>Nenhum</i>) : null}</td>
+                </tr>
+                <tr>
+                    <td>CEP:</td>
+                    <td>{pedido.comprador != null ? pedido.comprador.endereco.cep : null}</td>
+                </tr>
+            </tbody>
+        );
+        var dadosLoja = (
+            <tbody>
+                <tr>
+                    <td>Nome:</td>
+                    <td>{pedido.loja != null ? pedido.loja.nome : null}</td>
+                </tr>
+                <tr>
+                    <td>Descrição:</td>
+                    <td>{pedido.loja != null ? pedido.loja.descricao : null}</td>
+                </tr>
+                <tr>
+                    <td>Endereço:</td>
+                    {pedido.loja != null ? (
+                        <td>{pedido.loja.endereco.logradouro}, {pedido.loja.endereco.numero}, {pedido.loja.endereco.bairro}, {pedido.loja.endereco.localidade} - {pedido.loja.endereco.uf}</td>
+                    ) : null}
+                </tr>
+                <tr>
+                    <td>CEP:</td>
+                    <td>{pedido.loja != null ? pedido.loja.endereco.cep : null}</td>
+                </tr>
+                <tr>
+                    <td>Nome do Vendedor:</td>
+                    <td>{pedido.loja != null ? pedido.loja.vendedor.nome : null}</td>
+                </tr>
+                <tr>
+                    <td>E-mail do Vendedor:</td>
+                    <td>{pedido.loja != null ? pedido.loja.vendedor.email : null}</td>
+                </tr>
+                <tr>
+                    <td>Telefone do Vendedor:</td>
+                    <td>{pedido.loja != null ? pedido.loja.vendedor.telefone != null ? pedido.loja.vendedor.telefone : (<i>Não registrado</i>) : null}</td>
+                </tr>
+            </tbody>
+        );
+
         return (
             <Modal show={showModal} onHide={this.handleClose} size="lg">
                 <Modal.Header closeButton>
@@ -186,41 +279,10 @@ export default class Home extends Component {
                                 </tbody>
                                 <thead className="bg-dark text-light">
                                     <tr>
-                                        <th colSpan="2">Dados do Comprador</th>
+                                        <th colSpan="2">Dados {sessionStorage.getItem('@NAVI/tipo') == "Comprador" ? "da Loja" : "do Comprador"}</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Nome:</td>
-                                        <td>{pedido.comprador != null ? pedido.comprador.nome : null}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>E-mail:</td>
-                                        <td>{pedido.comprador != null ? pedido.comprador.email : null}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>CPF:</td>
-                                        <td>{pedido.comprador != null ? pedido.comprador.cpf : null}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Telefone:</td>
-                                        <td>{pedido.comprador != null ? pedido.comprador.telefone != null ? pedido.comprador.telefone : (<i>Não registrado</i>) : null}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Endereço:</td>
-                                        {pedido.comprador != null ? (
-                                            <td>{pedido.comprador.endereco.logradouro}, {pedido.comprador.endereco.numero}, {pedido.comprador.endereco.bairro}, {pedido.comprador.endereco.localidade} - {pedido.comprador.endereco.uf}</td>
-                                        ) : null}
-                                    </tr>
-                                    <tr>
-                                        <td>Complemento:</td>
-                                        <td>{pedido.comprador != null ? pedido.comprador.endereco.complememnto != null ? pedido.comprador.endereco.complememnto : (<i>Nenhum</i>) : null}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>CEP:</td>
-                                        <td>{pedido.comprador != null ? pedido.comprador.endereco.cep : null}</td>
-                                    </tr>
-                                </tbody>
+                                {sessionStorage.getItem('@NAVI/tipo') == "Comprador" ? dadosLoja : dadosComprador}
                             </Table>
                         </Col>
                     </Row>
@@ -350,7 +412,7 @@ export default class Home extends Component {
                                         <Card.Body>
                                             <Card.Title className="text-primary">Pedido: {pedido.numeroDoPedido}</Card.Title>
                                             <Card.Subtitle className="mb-3 text-muted">
-                                                <i>Comprador: {pedido.comprador.nome}</i>
+                                                <i>{sessionStorage.getItem('@NAVI/tipo') == "Comprador" ? "Loja: " + pedido.loja.nome : "Comprador: " + pedido.comprador.nome}</i>
                                             </Card.Subtitle>
                                             <Card.Text>
                                                 <div className="mb-1 desc-pedido">
