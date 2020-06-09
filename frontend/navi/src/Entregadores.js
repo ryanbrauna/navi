@@ -237,7 +237,7 @@ export default class Home extends Component {
                                         <Card.Footer >
                                             <span className="span-link" onClick={() => this.handleShow(entregador)}>
                                                 <PersonIcon className="icon" />
-                                                <span>Vizualizar</span>
+                                                <span>Visualizar</span>
                                             </span>
                                         </Card.Footer>
                                     </Card>
