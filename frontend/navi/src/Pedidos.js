@@ -53,12 +53,18 @@ export default class Pedidos extends Component {
     }
 
     salvarPedido = () => {
-        swal({
-            title: "Sucesso!",
-            text: "O status do pedido foi atualizado.",
-            icon: "success",
-            button: "OK",
-        }).then(() => window.location.reload());
+        this.setState({ loading: true });
+
+        axios.put(`https://navi--api.herokuapp.com/vendedor/${sessionStorage.getItem('@NAVI/cod')}/pedidos/${this.state.pedidoModal.numeroDoPedido}`).then(response => {
+            if (response.data != null) {
+                swal({
+                    title: "Sucesso!",
+                    text: "O status do pedido foi atualizado.",
+                    icon: "success",
+                    button: "OK",
+                }).then(() => window.location.reload());
+            }
+        });
     }
 
     editarPedido = () => {
@@ -309,7 +315,19 @@ export default class Pedidos extends Component {
                 {sessionStorage.getItem('@NAVI/tipo') == "Vendedor" ? (
                     <Modal.Footer>
                         <Button variant="danger" onClick={this.handleClose}>{btnDanger}</Button>
-                        <Button variant="primary" onClick={onClickBtnPrimary}>{btnPrimary}</Button>
+                        <Button
+                            variant="primary"
+                            onClick={onClickBtnPrimary}
+                            disabled={this.state.loading}
+                        >{this.state.loading ? (
+                            <Spinner
+                                as="span"
+                                animation="border"
+                                size="sm"
+                                role="status"
+                                aria-hidden="true"
+                            />
+                        ) : btnPrimary}</Button>
                     </Modal.Footer>
                 ) : ""}
             </Modal>

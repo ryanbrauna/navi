@@ -60,7 +60,14 @@ export default class Perfil extends Component {
         } else if (sessionStorage.getItem('@NAVI/tipo') == "Vendedor") {
             axios.get(`http://navi--api.herokuapp.com/vendedor/${sessionStorage.getItem('@NAVI/cod')}/lojas`).then((data) => {
                 this.setState({
+                    // Dados pessoais
                     user: data.data.vendedor,
+                    userName: data.data.vendedor.nome,
+                    userEmail: data.data.vendedor.email,
+                    userTelefone: data.data.vendedor.telefone,
+                    userSenha: data.data.vendedor.senha,
+                    userConfSenha: data.data.vendedor.senha,
+                    // Endereco
                     endereco: data.data.endereco,
                     loja: data.data
                 });
@@ -70,7 +77,11 @@ export default class Perfil extends Component {
             });
         } else {
             axios.get(`http://navi--api.herokuapp.com/${sessionStorage.getItem('@NAVI/loja')}/entregadores/${sessionStorage.getItem('@NAVI/cod')}`).then((data) => {
-                this.setState({ user: data.data });
+                this.setState({
+                    user: data.data,
+                    userName: data.data.nome,
+                    userEmail: data.data.email
+                });
                 console.log(this.state.user);
             });
         }
