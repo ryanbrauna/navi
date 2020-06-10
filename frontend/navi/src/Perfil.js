@@ -29,6 +29,13 @@ export default class Perfil extends Component {
 
     initialState = {
         user: {},
+        userName: "",
+        userEmail: "",
+        userTelefone: "",
+        userSenha: "",
+        userConfSenha: "",
+        endereco: {},
+        loja: {},
         loading: false,
         formDisabled: true
     }
@@ -36,13 +43,30 @@ export default class Perfil extends Component {
     componentDidMount() {
         if (sessionStorage.getItem('@NAVI/tipo') == "Comprador") {
             axios.get(`http://navi--api.herokuapp.com/comprador/${sessionStorage.getItem('@NAVI/cod')}`).then((data) => {
-                this.setState({ user: data.data });
+                this.setState({
+                    // Dados pessoais
+                    user: data.data,
+                    userName: data.data.nome,
+                    userEmail: data.data.email,
+                    userTelefone: data.data.telefone,
+                    userSenha: data.data.senha,
+                    userConfSenha: data.data.senha,
+                    // Endereco
+                    endereco: data.data.endereco
+                });
                 console.log(this.state.user);
+                console.log(this.state.endereco);
             });
         } else if (sessionStorage.getItem('@NAVI/tipo') == "Vendedor") {
-            axios.get(`http://navi--api.herokuapp.com/vendedor/${sessionStorage.getItem('@NAVI/cod')}`).then((data) => {
-                this.setState({ user: data.data });
+            axios.get(`http://navi--api.herokuapp.com/vendedor/${sessionStorage.getItem('@NAVI/cod')}/lojas`).then((data) => {
+                this.setState({
+                    user: data.data.vendedor,
+                    endereco: data.data.endereco,
+                    loja: data.data
+                });
                 console.log(this.state.user);
+                console.log(this.state.endereco);
+                console.log(this.state.loja);
             });
         } else {
             axios.get(`http://navi--api.herokuapp.com/${sessionStorage.getItem('@NAVI/loja')}/entregadores/${sessionStorage.getItem('@NAVI/cod')}`).then((data) => {
@@ -50,6 +74,17 @@ export default class Perfil extends Component {
                 console.log(this.state.user);
             });
         }
+    }
+
+    initialForm = user => {
+        this.setState({
+            formDisabled: true,
+            userName: user.nome,
+            userEmail: user.email,
+            userTelefone: user.telefone,
+            userSenha: user.senha,
+            userConfSenha: user.senha
+        })
     }
 
     salvarPerfil = () => {
@@ -61,9 +96,22 @@ export default class Perfil extends Component {
         }).then(() => window.location.reload());
     }
 
+    inputChange = e => {
+        this.setState({
+            [e.target.name]: e.target.value
+        });
+    }
+
     render() {
         const {
             user,
+            userName,
+            userEmail,
+            userTelefone,
+            userSenha,
+            userConfSenha,
+            endereco,
+            loja,
             loading,
             formDisabled
         } = this.state;
@@ -84,7 +132,7 @@ export default class Perfil extends Component {
                                     <span>Editar Perfil</span>
                                 </div>
                             ) : (
-                                    <div className="text-danger float-right edit-perfil" onClick={() => this.setState({ formDisabled: true })}>
+                                    <div className="text-danger float-right edit-perfil" onClick={() => this.initialForm(user)}>
                                         <CloseIcon className="icon" />
                                         <span>Cancelar</span>
                                     </div>
@@ -107,18 +155,18 @@ export default class Perfil extends Component {
                                     <Col md={10}>
                                         <Form.Group>
                                             <Form.Control
-                                                name="nome"
-                                                value={user.nome}
-                                                // onChange={this.cadChange}
+                                                name="userName"
+                                                value={userName}
+                                                onChange={this.inputChange}
                                                 disabled={formDisabled}
                                             />
                                             <Form.Label className="mb-0">Nome</Form.Label>
                                         </Form.Group>
                                         <Form.Group>
                                             <Form.Control
-                                                name="email"
-                                                value={user.email}
-                                                // onChange={this.cadChange}
+                                                name="userEmail"
+                                                value={userEmail}
+                                                onChange={this.inputChange}
                                                 disabled={formDisabled}
                                             />
                                             <Form.Label className="mb-0">E-mail</Form.Label>
@@ -132,7 +180,6 @@ export default class Perfil extends Component {
                                                 <Form.Control
                                                     name="cod"
                                                     value={sessionStorage.getItem('@NAVI/tipo') == "Vendedor" ? user.cnpj : user.cpf}
-                                                    // onChange={this.cadChange}
                                                     disabled
                                                 />
                                                 <Form.Label className="mb-0">{sessionStorage.getItem('@NAVI/tipo') == "Vendedor" ? "CNPJ" : "CPF"}</Form.Label>
@@ -143,9 +190,9 @@ export default class Perfil extends Component {
                                                 <Form.Group>
                                                     <Form.Control
                                                         placeholder="Nenhum Registrado"
-                                                        name="telefone"
-                                                        value={user.telefone}
-                                                        // onChange={this.cadChange}
+                                                        name="userTelefone"
+                                                        value={userTelefone}
+                                                        onChange={this.inputChange}
                                                         disabled={formDisabled}
                                                     />
                                                     <Form.Label className="mb-0">Telefone</Form.Label>
@@ -155,8 +202,7 @@ export default class Perfil extends Component {
                                                         <Form.Control
                                                             name="cnh"
                                                             value={user.cnh}
-                                                            // onChange={this.cadChange}
-                                                            disabled={formDisabled}
+                                                            disabled
                                                         />
                                                         <Form.Label className="mb-0">CNH</Form.Label>
                                                     </Form.Group>
@@ -170,10 +216,9 @@ export default class Perfil extends Component {
                                                 <Form.Group>
                                                     <Form.Control
                                                         type="password"
-                                                        name="senha"
-                                                        value={user.senha}
-                                                        // onChange={this.cadChange}
-                                                        disabled={formDisabled}
+                                                        name="userSenha"
+                                                        value={userSenha}
+                                                        onChange={this.inputChange}
                                                     />
                                                     <Form.Label className="mb-0">Senha</Form.Label>
                                                 </Form.Group>
@@ -182,10 +227,9 @@ export default class Perfil extends Component {
                                                 <Form.Group>
                                                     <Form.Control
                                                         type="password"
-                                                        name="senha"
-                                                        value={user.senha}
-                                                        // onChange={this.cadChange}
-                                                        disabled={formDisabled}
+                                                        name="userConfSenha"
+                                                        value={userConfSenha}
+                                                        onChange={this.inputChange}
                                                     />
                                                     <Form.Label className="mb-0">Confirmar senha</Form.Label>
                                                 </Form.Group>
@@ -198,8 +242,8 @@ export default class Perfil extends Component {
                                             <Form.Group controlId="formGroupNomeLoja">
                                                 <Form.Control
                                                     name="nomeLoja"
-                                                    // value={nomeLoja}
-                                                    // onChange={this.cadChange}
+                                                    value={loja.nome}
+                                                    onChange={this.inputChange}
                                                     disabled={formDisabled}
                                                 />
                                                 <Form.Label className="mb-0 text-primary">Nome da Loja</Form.Label>
@@ -210,8 +254,8 @@ export default class Perfil extends Component {
                                                     as="textarea"
                                                     rows={2}
                                                     name="descLoja"
-                                                    // value={descLoja}
-                                                    // onChange={this.cadChange}
+                                                    value={loja.descricao}
+                                                    onChange={this.inputChange}
                                                     disabled={formDisabled}
                                                 />
                                                 <Form.Label className="mb-0 text-primary">Descrição</Form.Label>
@@ -227,8 +271,8 @@ export default class Perfil extends Component {
                                                         <Form.Control
                                                             placeholder="CEP"
                                                             name="cep"
-                                                            // value={cep}
-                                                            // onChange={this.cadChange}
+                                                            value={endereco.cep}
+                                                            onChange={this.inputChange}
                                                             disabled={formDisabled}
                                                         />
                                                         <Form.Label className="mb-0 text-primary">CEP</Form.Label>
@@ -247,8 +291,8 @@ export default class Perfil extends Component {
                                                         <Form.Control
                                                             placeholder="Logradouro"
                                                             name="logradouro"
-                                                            // value={logradouro}
-                                                            // onChange={this.cadChange}
+                                                            value={endereco.logradouro}
+                                                            onChange={this.inputChange}
                                                             disabled={formDisabled}
                                                         />
                                                         <Form.Label className="mb-0 text-primary">Logradouro</Form.Label>
@@ -259,8 +303,8 @@ export default class Perfil extends Component {
                                                         <Form.Control
                                                             placeholder="Nº"
                                                             name="numero"
-                                                            // value={numero}
-                                                            // onChange={this.cadChange}
+                                                            value={endereco.numero}
+                                                            onChange={this.inputChange}
                                                             disabled={formDisabled}
                                                         />
                                                         <Form.Label className="mb-0 text-primary">Nº</Form.Label>
@@ -273,8 +317,8 @@ export default class Perfil extends Component {
                                                         <Form.Control
                                                             placeholder="Nenhum"
                                                             name="complemento"
-                                                            // value={complemento}
-                                                            // onChange={this.cadChange}
+                                                            value={endereco.complemento}
+                                                            onChange={this.inputChange}
                                                             disabled={formDisabled}
                                                         />
                                                         <Form.Label className="mb-0 text-primary">Complemento do endereço</Form.Label>
@@ -285,8 +329,8 @@ export default class Perfil extends Component {
                                                         <Form.Control
                                                             placeholder="Bairro"
                                                             name="bairro"
-                                                            // value={bairro}
-                                                            // onChange={this.cadChange}
+                                                            value={endereco.bairro}
+                                                            onChange={this.inputChange}
                                                             disabled={formDisabled}
                                                         />
                                                         <Form.Label className="mb-0 text-primary">Bairro</Form.Label>
@@ -299,8 +343,8 @@ export default class Perfil extends Component {
                                                         <Form.Control
                                                             placeholder="Cidade"
                                                             name="localidade"
-                                                            // value={localidade}
-                                                            // onChange={this.cadChange}
+                                                            value={endereco.localidade}
+                                                            onChange={this.inputChange}
                                                             disabled={formDisabled}
                                                         />
                                                         <Form.Label className="mb-0 text-primary">Cidade</Form.Label>
@@ -311,8 +355,8 @@ export default class Perfil extends Component {
                                                         <Form.Control
                                                             placeholder="UF"
                                                             name="uf"
-                                                            // value={uf}
-                                                            // onChange={this.cadChange}
+                                                            value={endereco.uf}
+                                                            onChange={this.inputChange}
                                                             disabled={formDisabled}
                                                         />
                                                         <Form.Label className="mb-0 text-primary">UF</Form.Label>

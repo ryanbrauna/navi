@@ -118,7 +118,7 @@ export default class Pedidos extends Component {
         })
     }
 
-    resgisterChange = e => {
+    inputChange = e => {
         this.setState({
             [e.target.name]: e.target.value
         });
@@ -273,7 +273,7 @@ export default class Pedidos extends Component {
                     <Row>
                         <Col>
                             <Table striped size="sm">
-                                <thead className="bg-dark text-light">
+                                <thead className="bg-info text-light">
                                     <tr>
                                         <th colSpan="2">Dados do Pedido</th>
                                     </tr>
@@ -296,7 +296,7 @@ export default class Pedidos extends Component {
                                         <td>R$ {pedido.preco != null ? pedido.preco.toFixed(2) : ""}</td>
                                     </tr>
                                 </tbody>
-                                <thead className="bg-dark text-light">
+                                <thead className="bg-info text-light">
                                     <tr>
                                         <th colSpan="2">Dados {sessionStorage.getItem('@NAVI/tipo') == "Comprador" ? "da Loja" : "do Comprador"}</th>
                                     </tr>
@@ -371,7 +371,7 @@ export default class Pedidos extends Component {
                                                 placeholder="Numero do Pedido"
                                                 name="numeroPedido"
                                                 value={numeroPedido}
-                                                onChange={this.resgisterChange}
+                                                onChange={this.inputChange}
                                             />
                                         </Form.Group>
                                         <Row>
@@ -382,8 +382,9 @@ export default class Pedidos extends Component {
                                                         placeholder="CPF do Comprador"
                                                         name="cpfComprador"
                                                         value={cpfComprador}
-                                                        onChange={this.resgisterChange}
+                                                        onChange={this.inputChange}
                                                     />
+                                                    <span className="text-danger">É necessario colocar o CPF de um comprador do nosso sistema</span>
                                                 </Form.Group>
                                             </Col>
                                             <Col>
@@ -394,7 +395,7 @@ export default class Pedidos extends Component {
                                                         placeholder="00.00"
                                                         name="precoPedido"
                                                         value={precoPedido}
-                                                        onChange={this.resgisterChange}
+                                                        onChange={this.inputChange}
                                                     />
                                                     <span className="text-danger">Por favor separe as casas decimais com "." (ex.: 1199.99)</span>
                                                 </Form.Group>
@@ -410,7 +411,7 @@ export default class Pedidos extends Component {
                                                         rows={3}
                                                         name="descPedido"
                                                         value={descPedido}
-                                                        onChange={this.resgisterChange}
+                                                        onChange={this.inputChange}
                                                     />
                                                 </Form.Group>
                                             </Col>
@@ -423,7 +424,7 @@ export default class Pedidos extends Component {
                                                         rows={3}
                                                         name="anotacaoPedido"
                                                         value={anotacaoPedido}
-                                                        onChange={this.resgisterChange}
+                                                        onChange={this.inputChange}
                                                     />
                                                 </Form.Group>
                                             </Col>

@@ -38,12 +38,24 @@ export default class Entregadores extends Component {
     }
 
     salvarEntregador = () => {
-        swal({
-            title: "Sucesso!",
-            text: "Os dados do entregador foram atualizados.",
-            icon: "success",
-            button: "OK",
-        }).then(() => window.location.reload());
+        this.setState({ loading: true });
+
+        axios.put(`https://navi--api.herokuapp.com/${sessionStorage.getItem('@NAVI/cod')}/entregadores/${this.state.cpfModal}/atualizar`, {
+            "nome": this.state.nomeModal,
+            "email": this.state.emailModal,
+            "senha": this.state.senhaModal,
+            "cpf": this.state.cpfModal,
+            "cnh": this.state.cnhModal
+        }).then(response => {
+            if (response.data != null) {
+                swal({
+                    title: "Sucesso!",
+                    text: "Os dados do entregador foram atualizados.",
+                    icon: "success",
+                    button: "OK",
+                }).then(() => window.location.reload());
+            }
+        })
     }
 
     editarEntregador = () => {
@@ -52,37 +64,73 @@ export default class Entregadores extends Component {
             inputSenha: "text",
             btnDanger: "Cancelar",
             btnPrimary: "Salvar",
-            onClickBtnPrimary: this.salvarEntregador
+            functionBtnPrimary: this.salvarEntregador,
+            functionBtnDanger: () => {
+                this.setState({
+                    nomeModal: this.state.entregadorModal.nome,
+                    emailModal: this.state.entregadorModal.email,
+                    senhaModal: this.state.entregadorModal.senha,
+                    cpfModal: this.state.entregadorModal.cpf,
+                    cnhModal: this.state.entregadorModal.cnh,
+                    formDisabled: true,
+                    inputSenha: "password",
+                    btnDanger: "Excluir Entregador",
+                    btnPrimary: "Alterar Cadastro",
+                    functionBtnPrimary: this.editarEntregador,
+                    functionBtnDanger: this.handleClose
+                });
+            }
         })
     }
 
     initialState = {
         listEntregadores: [],
-        entregadorModal: {},
+        
+        // Funcionalidades
+        hideFormCad: "d-none",
         loading: false,
+        
+        // Funcionalidades Modal
         showModal: false,
         formDisabled: true,
         inputSenha: "password",
         btnDanger: "Excluir Entregador",
         btnPrimary: "Alterar Cadastro",
-        onClickBtnPrimary: this.editarEntregador,
-        hideFormCad: "d-none",
+        functionBtnPrimary: this.editarEntregador,
+        functionBtnDanger: this.handleClose,
+        
+        // Form Cadastro
         nomeEntregador: "",
         emailEntregador: "",
         senhaEntregador: "",
         cpfEntregador: "",
-        cnhEntregador: ""
+        cnhEntregador: "",
+        
+        // Form Modal
+        titleModal: "",
+        nomeModal: "",
+        emailModal: "",
+        senhaModal: "",
+        cpfModal: "",
+        cnhModal: "",
+        entregadorModal: {}
     }
 
     initialModal = () => {
         this.setState({
-            entregadorModal: {},
+            titleModal: "",
+            nomeModal: "",
+            emailModal: "",
+            senhaModal: "",
+            cpfModal: "",
+            cnhModal: "",
             showModal: false,
             formDisabled: true,
             inputSenha: "password",
             btnDanger: "Excluir Entregador",
             btnPrimary: "Alterar Cadastro",
-            onClickBtnPrimary: this.editarEntregador
+            functionBtnPrimary: this.editarEntregador,
+            functionBtnDanger: this.handleClose
         });
     }
 
@@ -108,7 +156,7 @@ export default class Entregadores extends Component {
         })
     }
 
-    cadChange = e => {
+    inputChange = e => {
         this.setState({
             [e.target.name]: e.target.value
         });
@@ -117,7 +165,13 @@ export default class Entregadores extends Component {
     handleShow = entregador => {
         this.setState({
             showModal: true,
-            entregadorModal: entregador
+            entregadorModal: entregador,
+            titleModal: entregador.nome,
+            nomeModal: entregador.nome,
+            emailModal: entregador.email,
+            senhaModal: entregador.senha,
+            cpfModal: entregador.cpf,
+            cnhModal: entregador.cnh
         })
     };
     handleClose = () => { this.initialModal() };
@@ -125,20 +179,34 @@ export default class Entregadores extends Component {
     render() {
         const {
             listEntregadores,
-            entregadorModal,
+
+            // Funcionalidades
+            hideFormCad,
+            loading,
+
+            // Funcionalidades Modal
             showModal,
             formDisabled,
             inputSenha,
             btnDanger,
             btnPrimary,
-            onClickBtnPrimary,
-            hideFormCad,
+            functionBtnPrimary,
+            functionBtnDanger,
+
+            // Form Cadastro
             nomeEntregador,
             emailEntregador,
             senhaEntregador,
             cpfEntregador,
             cnhEntregador,
-            loading
+
+            // Form Modal
+            titleModal,
+            nomeModal,
+            emailModal,
+            senhaModal,
+            cpfModal,
+            cnhModal
         } = this.state;
 
         return (
@@ -175,11 +243,10 @@ export default class Entregadores extends Component {
                                         <Form.Group>
                                             <Form.Label className="mb-0">Nome Completo:</Form.Label>
                                             <Form.Control required
-                                                type="text"
                                                 placeholder="Nome completo do entregador"
                                                 name="nomeEntregador"
                                                 value={nomeEntregador}
-                                                onChange={this.cadChange}
+                                                onChange={this.inputChange}
                                             />
                                         </Form.Group>
                                     </Col>
@@ -191,7 +258,7 @@ export default class Entregadores extends Component {
                                                 placeholder="E-mail do entregador"
                                                 name="emailEntregador"
                                                 value={emailEntregador}
-                                                onChange={this.cadChange}
+                                                onChange={this.inputChange}
                                             />
                                         </Form.Group>
                                     </Col>
@@ -205,7 +272,7 @@ export default class Entregadores extends Component {
                                                 placeholder="Senha do entregador"
                                                 name="senhaEntregador"
                                                 value={senhaEntregador}
-                                                onChange={this.cadChange}
+                                                onChange={this.inputChange}
                                             />
                                         </Form.Group>
                                     </Col>
@@ -213,11 +280,10 @@ export default class Entregadores extends Component {
                                         <Form.Group>
                                             <Form.Label className="mb-0">CPF:</Form.Label>
                                             <Form.Control required
-                                                type="text"
                                                 placeholder="CPF do entregador"
                                                 name="cpfEntregador"
                                                 value={cpfEntregador}
-                                                onChange={this.cadChange}
+                                                onChange={this.inputChange}
                                             />
                                         </Form.Group>
                                     </Col>
@@ -227,11 +293,10 @@ export default class Entregadores extends Component {
                                         <Form.Group>
                                             <Form.Label className="mb-0">CNH:</Form.Label>
                                             <Form.Control required
-                                                type="text"
                                                 placeholder="CNH do entregador"
                                                 name="cnhEntregador"
                                                 value={cnhEntregador}
-                                                onChange={this.cadChange}
+                                                onChange={this.inputChange}
                                             />
                                         </Form.Group>
                                     </Col>
@@ -290,17 +355,18 @@ export default class Entregadores extends Component {
                 <Modal show={showModal} onHide={this.handleClose}>
                     <Modal.Header closeButton>
                         <Modal.Title>
-                            <span>{entregadorModal.nome}</span>
+                            <span>{titleModal}</span>
                         </Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>
-                        <Form>
+                    <Form>
+                        <Modal.Body>
                             <Form.Group>
                                 <Form.Label className="mb-0">Nome Completo:</Form.Label>
                                 <Form.Control
-                                    type="text"
                                     placeholder="Nome completo do entregador"
-                                    value={entregadorModal.nome}
+                                    name="nomeModal"
+                                    value={nomeModal}
+                                    onChange={this.inputChange}
                                     disabled={formDisabled}
                                 />
                             </Form.Group>
@@ -309,7 +375,9 @@ export default class Entregadores extends Component {
                                 <Form.Control
                                     type="email"
                                     placeholder="E-mail do entregador"
-                                    value={entregadorModal.email}
+                                    name="emailModal"
+                                    value={emailModal}
+                                    onChange={this.inputChange}
                                     disabled={formDisabled}
                                 />
                             </Form.Group>
@@ -318,41 +386,55 @@ export default class Entregadores extends Component {
                                 <Form.Control
                                     type={inputSenha}
                                     placeholder="Senha do entregador"
-                                    value={entregadorModal.senha}
+                                    name="senhaModal"
+                                    value={senhaModal}
+                                    onChange={this.inputChange}
                                     disabled={formDisabled}
                                 />
                             </Form.Group>
                             <Form.Group>
                                 <Form.Label className="mb-0">CPF:</Form.Label>
                                 <Form.Control
-                                    type="text"
                                     placeholder="CPF do entregador"
-                                    value={entregadorModal.cpf}
-                                    disabled={formDisabled}
+                                    name="cpfModal"
+                                    value={cpfModal}
+                                    disabled
                                 />
                             </Form.Group>
                             <Form.Group>
                                 <Form.Label className="mb-0">CNH:</Form.Label>
                                 <Form.Control
-                                    type="text"
                                     placeholder="CNH do entregador"
-                                    value={entregadorModal.cnh}
-                                    disabled={formDisabled}
+                                    name="cnhModal"
+                                    value={cnhModal}
+                                    disabled
                                 />
                             </Form.Group>
-                            <Form.Group>
+                            {/* <Form.Group>
                                 <Form.Label>Imagem do entregador:</Form.Label>
                                 <Avatar
                                     className="avatar-entregador-modal"
                                     src={require('./img/caminhao-de-costa.jpg')}
                                 />
-                            </Form.Group>
-                        </Form>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="danger" onClick={this.handleClose}>{btnDanger}</Button>
-                        <Button variant="primary" onClick={onClickBtnPrimary}>{btnPrimary}</Button>
-                    </Modal.Footer>
+                            </Form.Group> */}
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button variant="danger" onClick={functionBtnDanger}>{btnDanger}</Button>
+                            <Button
+                                variant="primary"
+                                onClick={functionBtnPrimary}
+                                disabled={loading}
+                            >{loading ? (
+                                <Spinner
+                                    as="span"
+                                    animation="border"
+                                    size="sm"
+                                    role="status"
+                                    aria-hidden="true"
+                                />
+                            ) : btnPrimary}</Button>
+                        </Modal.Footer>
+                    </Form>
                 </Modal>
             </div>
         );
