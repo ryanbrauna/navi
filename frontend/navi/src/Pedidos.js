@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import ReactDOM from 'react-dom';
 import swal from 'sweetalert';
 import axios from 'axios';
 
@@ -54,8 +54,7 @@ export default class Pedidos extends Component {
 
     salvarPedido = () => {
         this.setState({ loading: true });
-
-        axios.put(`https://navi--api.herokuapp.com/vendedor/${sessionStorage.getItem('@NAVI/cod')}/pedidos/${this.state.pedidoModal.numeroDoPedido}`).then(response => {
+        axios.put(`https://navi--api.herokuapp.com/vendedor/${sessionStorage.getItem('@NAVI/cod')}/pedidos/${this.state.pedidoModal.numeroDoPedido}?estado=${this.state.statusModal}`).then(response => {
             if (response.data != null) {
                 swal({
                     title: "Sucesso!",
@@ -78,6 +77,7 @@ export default class Pedidos extends Component {
 
     initialModal = () => {
         this.setState({
+            loading: false,
             showModal: false,
             formDisabled: true,
             btnDanger: "Excluir Pedido",
@@ -100,7 +100,8 @@ export default class Pedidos extends Component {
         cpfComprador: "",
         precoPedido: "",
         descPedido: "",
-        anotacaoPedido: ""
+        anotacaoPedido: "",
+        statusModal: ""
     }
 
     registrarPedido = e => {
@@ -250,16 +251,50 @@ export default class Pedidos extends Component {
         return (
             <Modal show={showModal} onHide={this.handleClose} size="lg">
                 <Modal.Header closeButton>
-                    <Modal.Title>
+                    <Modal.Title id="topoModal">
                         <span>Pedido: {pedido.numeroDoPedido}</span>
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
+                    {sessionStorage.getItem('@NAVI/tipo') == "Vendedor" ? (
+                        <Row className="justify-content-end">
+                            <Col md={3}>
+                                <Button
+                                className="w-100"
+                                    variant="danger"
+                                    onClick={this.handleClose}
+                                    size="sm"
+                                >{btnDanger}</Button>
+                            </Col>
+                            <Col md={3}>
+                                <Button
+                                className="w-100"
+                                    variant="primary"
+                                    onClick={onClickBtnPrimary}
+                                    disabled={this.state.loading}
+                                    size="sm"
+                                >{this.state.loading ? (
+                                    <Spinner
+                                        as="span"
+                                        animation="border"
+                                        size="sm"
+                                        role="status"
+                                        aria-hidden="true"
+                                    />
+                                ) : btnPrimary}</Button>
+                            </Col>
+                        </Row>
+                    ) : ""}
                     <Row>
                         <Col>
                             <Form.Group className="mb-1">
                                 <Form.Label className="mb-0">Status do pedido:</Form.Label>
-                                <Form.Control as="select" custom disabled={formDisabled}>
+                                <Form.Control custom
+                                    as="select"
+                                    name="statusModal"
+                                    onChange={this.inputChange}
+                                    disabled={formDisabled}
+                                >
                                     <option>{pedido.estado}</option>
                                     <option>Em Andamento</option>
                                     <option>Entregue</option>
@@ -312,24 +347,7 @@ export default class Pedidos extends Component {
                         </Col>
                     </Row>
                 </Modal.Body>
-                {sessionStorage.getItem('@NAVI/tipo') == "Vendedor" ? (
-                    <Modal.Footer>
-                        <Button variant="danger" onClick={this.handleClose}>{btnDanger}</Button>
-                        <Button
-                            variant="primary"
-                            onClick={onClickBtnPrimary}
-                            disabled={this.state.loading}
-                        >{this.state.loading ? (
-                            <Spinner
-                                as="span"
-                                animation="border"
-                                size="sm"
-                                role="status"
-                                aria-hidden="true"
-                            />
-                        ) : btnPrimary}</Button>
-                    </Modal.Footer>
-                ) : ""}
+
             </Modal>
         );
     }
