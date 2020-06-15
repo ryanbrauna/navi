@@ -1,7 +1,10 @@
 package com.navi.controllers;
 
+import com.navi.api.SMSApi;
 import com.navi.models.Vendedor;
 import com.navi.repositories.VendedorRepository;
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +21,16 @@ public class VendedorController {
     @PostMapping("/cadastro/vendedor")
     public ResponseEntity createVendedor(@RequestBody Vendedor novoVendedor) {
         repository.save(novoVendedor);
+
+        if (novoVendedor.getTelefone().equals("+5511986743588") || novoVendedor.getTelefone().equals("+5511963944845")) {
+            Twilio.init(SMSApi.getAccountSid(), SMSApi.getAuthToken());
+            Message message = Message.creator(
+                    new com.twilio.type.PhoneNumber(novoVendedor.getTelefone()),
+                    new com.twilio.type.PhoneNumber("+12183878263"),
+                    "Olá " + novoVendedor.getNome() + ", seja bem-vindo a Navi").create();
+
+            System.out.println(message.getSid());
+        }
 
         return ResponseEntity.created(null).body(novoVendedor);
     }

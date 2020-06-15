@@ -125,6 +125,29 @@ public class PedidoController {
         }
     }
 
+    @PutMapping("/vendedor/{cnpj}/pedidos/{numeroDoPedido}/atualizar")
+    public ResponseEntity updatePedido (
+            @PathVariable String cnpj,
+            @PathVariable Integer numeroDoPedido,
+            @RequestBody Pedido pedidoAtualizado) {
+        if (vendedorRepository.findByCnpj(cnpj).isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        else {
+            Vendedor search = vendedorRepository.findOneByCnpj(cnpj);
+            Pedido pedidoSearch = repository.findByNumeroDoPedido(numeroDoPedido);
+
+            pedidoSearch.setNumeroDoPedido(pedidoAtualizado.getNumeroDoPedido());
+            pedidoSearch.setDescricao(pedidoAtualizado.getDescricao());
+            pedidoSearch.setPreco(pedidoAtualizado.getPreco());
+            pedidoSearch.setAnotacoes(pedidoAtualizado.getAnotacoes());
+
+            repository.save(pedidoSearch);
+            return ResponseEntity.ok(pedidoSearch);
+
+        }
+    }
+
     @PutMapping("/vendedor/{cnpj}/pedidos/{numeroDoPedido}")
     public ResponseEntity updateEstado (
             @PathVariable String cnpj,
