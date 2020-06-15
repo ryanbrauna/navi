@@ -75,6 +75,28 @@ export default class Pedidos extends Component {
         })
     }
 
+    excluirPedido = (nrPedido, id) => {
+        swal({
+            title: "Você tem certeza?",
+            text: "Uma vez excluido, não podera ser recuperado!",
+            icon: "warning",
+            buttons: ["Cancelar", true]
+        }).then((willDelete) => {
+            if (willDelete) {
+                axios.delete(`https://navi--api.herokuapp.com/pedidos/${id}`).then(response => {
+                    if (response) {
+                        swal({
+                            title: "Sucesso!",
+                            text: `O pedido ${nrPedido} foi excluido.`,
+                            icon: "success",
+                            button: "OK",
+                        }).then(() => window.location.reload());
+                    }
+                });
+            }
+        });
+    }
+
     initialModal = () => {
         this.setState({
             loading: false,
@@ -260,15 +282,15 @@ export default class Pedidos extends Component {
                         <Row className="justify-content-end">
                             <Col md={3}>
                                 <Button
-                                className="w-100"
+                                    className="w-100"
                                     variant="danger"
-                                    onClick={this.handleClose}
+                                    onClick={formDisabled ? () => this.excluirPedido(pedido.numeroDoPedido, pedido.id) : this.handleClose}
                                     size="sm"
                                 >{btnDanger}</Button>
                             </Col>
                             <Col md={3}>
                                 <Button
-                                className="w-100"
+                                    className="w-100"
                                     variant="primary"
                                     onClick={onClickBtnPrimary}
                                     disabled={this.state.loading}

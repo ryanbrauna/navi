@@ -80,7 +80,29 @@ export default class Entregadores extends Component {
                     functionBtnDanger: this.handleClose
                 });
             }
-        })
+        });
+    }
+
+    excluirEntregador = (cpf, nome) => {
+        swal({
+            title: "Você tem certeza?",
+            text: "Uma vez excluido, não podera ser recuperado!",
+            icon: "warning",
+            buttons: ["Cancelar", true]
+        }).then((willDelete) => {
+            if (willDelete) {
+                axios.delete(`https://navi--api.herokuapp.com/${sessionStorage.getItem('@NAVI/cod')}/entregadores/${cpf}/excluir`).then(response => {
+                    if (response) {
+                        swal({
+                            title: "Sucesso!",
+                            text: `O Entregador ${nome} foi excluido.`,
+                            icon: "success",
+                            button: "OK",
+                        }).then(() => window.location.reload());
+                    }
+                });
+            }
+        });
     }
 
     initialState = {
@@ -419,7 +441,7 @@ export default class Entregadores extends Component {
                             </Form.Group> */}
                         </Modal.Body>
                         <Modal.Footer>
-                            <Button variant="danger" onClick={functionBtnDanger}>{btnDanger}</Button>
+                            <Button variant="danger" onClick={formDisabled ? () => this.excluirEntregador(cpfModal, nomeModal) : functionBtnDanger}>{btnDanger}</Button>
                             <Button
                                 variant="primary"
                                 onClick={functionBtnPrimary}
