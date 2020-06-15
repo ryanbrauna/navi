@@ -19,6 +19,7 @@ import {
 
 import CloseIcon from '@material-ui/icons/Close';
 import EditIcon from '@material-ui/icons/Edit';
+import CheckIcon from '@material-ui/icons/Check';
 
 export default class Perfil extends Component {
 
@@ -99,12 +100,36 @@ export default class Perfil extends Component {
     }
 
     salvarPerfil = () => {
-        swal({
-            title: "Sucesso!",
-            text: "Os seus dados foram atualizados.",
-            icon: "success",
-            button: "OK",
-        }).then(() => window.location.reload());
+        var link = sessionStorage.getItem('@NAVI/tipo') == "Comprador" ? (
+            `https://navi--api.herokuapp.com/comprador/${sessionStorage.getItem('@NAVI/cod')}/atualizar`
+        ) : (
+            `https://navi--api.herokuapp.com/vendedor/${sessionStorage.getItem('@NAVI/cod')}`
+        );
+
+        var body = sessionStorage.getItem('@NAVI/tipo') == "Comprador" ? {
+            "nome": this.state.userName,
+            "email": this.state.userEmail,
+            "senha": this.state.userSenha,
+            "telefone": this.state.userTelefone,
+            "cpf": this.state.user.cpf
+        } : {
+                "nome": this.state.userName,
+                "email": this.state.userEmail,
+                "senha": this.state.userSenha,
+                "telefone": this.state.userTelefone,
+                "cnpj": this.state.user.cnpj
+            };
+
+        axios.put(link, body).then(response => {
+            if (response.data != null) {
+                swal({
+                    title: "Sucesso!",
+                    text: "Os seus dados foram atualizados.",
+                    icon: "success",
+                    button: "OK",
+                }).then(() => window.location.reload());
+            }
+        })
     }
 
     inputChange = e => {
@@ -133,10 +158,21 @@ export default class Perfil extends Component {
 
                 <div className="py-4 px-3 bg-white">
                     <Row>
-                        <Col sm={10}>
+                        <Col sm={8}>
                             <h4 className="text-primary font-weight-light mb-0">{formDisabled ? "" : "Editando "}Perfil</h4>
                         </Col>
-                        <Col sm={2}>
+                        <Col sm={4}>
+                            {formDisabled ? "" : loading ? (
+                                <div className="text-center">
+                                    <Spinner animation="border" variant="primary" />
+                                    <span className="d-block text-primary">Carregando, por favor aguarde...</span>
+                                </div>
+                            ) : (
+                                    <div className="ml-4 text-primary float-right edit-perfil" onClick={this.salvarPerfil}>
+                                        <CheckIcon className="icon" />
+                                        <span>Salvar</span>
+                                    </div>
+                                )}
                             {sessionStorage.getItem('@NAVI/tipo') != "Entregador" ? formDisabled ? (
                                 <div className="text-primary float-right edit-perfil" onClick={() => this.setState({ formDisabled: false })}>
                                     <EditIcon className="icon" />
@@ -376,14 +412,6 @@ export default class Perfil extends Component {
                                             </Row>
                                         </div>
                                     ) : ""}
-                                    {formDisabled ? "" : loading ? (
-                                        <div className="text-center">
-                                            <Spinner animation="border" variant="primary" />
-                                            <span className="d-block text-primary">Carregando, por favor aguarde...</span>
-                                        </div>
-                                    ) : (
-                                            <Button className="mt-3 px-5" variant="primary" onClick={this.salvarPerfil}>Salvar</Button>
-                                        )}
                                 </Container>
                             </div>
                         </Col>
