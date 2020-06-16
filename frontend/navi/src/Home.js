@@ -46,6 +46,10 @@ export default class Home extends Component {
     }
 
     render() {
+        const styleCard = {
+            backgroundImage: `url(${require('./img/wp1.jpg')})`,
+            backgroundSize: 'cover'
+        };
         return (
             <div>
                 <Menu />
@@ -73,23 +77,17 @@ export default class Home extends Component {
                         <CardColumns>
                             {this.state.listaLoja.map(loja => {
                                 return (
-                                    <Card>
-                                        <Card.Img
-                                            variant="top"
-                                            src={require('./img/wp2.jpg')}
-                                            className="h-100 border-rounded-none"
-                                        />
-                                        <Card.Body>
+                                    <Card style={styleCard} className="border shadow-sm">
+                                        <Card.Body className="w-75 ml-auto bg-white">
                                             <Card.Title className="text-primary">{loja.nome}</Card.Title>
-                                            <Card.Text>{loja.descricao}</Card.Text>
-                                            <Card.Text>
+                                            <Card.Subtitle className="mb-2 text-muted">{loja.vendedor.telefone ? loja.vendedor.telefone : ""}</Card.Subtitle>
+                                            <p>{loja.descricao}</p>
+                                            <p>
                                                 <i>{loja.endereco ? `${loja.endereco.logradouro}, ${loja.endereco.numero}, ${loja.endereco.bairro}, ${loja.endereco.localidade} - ${loja.endereco.uf}` : "Vendedor sem endereço"}</i>
-                                            </Card.Text>
+                                            </p>
                                         </Card.Body>
-                                        <Card.Footer>
+                                        <Card.Footer className="bg-light">
                                             <small className="text-muted">{loja.vendedor.email}</small>
-                                            <br />
-                                            <small className="text-muted">{loja.vendedor.telefone ? loja.vendedor.telefone : ""}</small>
                                         </Card.Footer>
                                     </Card>
                                 );

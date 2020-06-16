@@ -56,6 +56,8 @@ export default class Pedidos extends Component {
         this.setState({ loading: true });
         axios.put(`https://navi--api.herokuapp.com/vendedor/${sessionStorage.getItem('@NAVI/cod')}/pedidos/${this.state.pedidoModal.numeroDoPedido}?estado=${this.state.statusModal}`).then(response => {
             if (response.data != null) {
+                debugger;
+                axios.post(`https://navi--api.herokuapp.com/enviar/${this.state.pedidoModal.comprador.cpf}/${this.state.pedidoModal.numeroDoPedido}`).then(r => console.log("SMS enviado:" + r));
                 swal({
                     title: "Sucesso!",
                     text: "O status do pedido foi atualizado.",

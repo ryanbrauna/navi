@@ -38,8 +38,6 @@ class Cadastro extends Component {
         $('#telefone').mask('(00) 00000-0000');
         $('#cnpj').mask('00.000.000.0000-00', { reverse: false });
         $('#cep').mask('00000-000');
-
-
     }
 
 
@@ -70,7 +68,6 @@ class Cadastro extends Component {
         e.preventDefault();
 
         if (this.state.senha == this.state.confSenha) {
-
             if (this.state.tipo == "C") {
                 axios.post("http://navi--api.herokuapp.com/cadastro/comprador", {
                     "nome": this.state.nome,
@@ -165,11 +162,8 @@ class Cadastro extends Component {
                 icon: "warning",
                 button: "OK",
             })
-
             this.setState({ loading: false });
-
         }
-
     }
 
     cadChange = e => {
