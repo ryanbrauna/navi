@@ -74,22 +74,21 @@ export default class Home extends Component {
                             {this.state.listaLoja.map(loja => {
                                 return (
                                     <Card>
-                                        <Row>
-                                            <Col sm={4}>
-                                                <Card.Img variant="top" src={require('./img/wp2.jpg')} style={{ width: "10rem" }} />
-                                            </Col>
-                                            <Col sm={8}>
-                                                <Card.Body>
-                                                    <Card.Title className="text-primary">{loja.nome}</Card.Title>
-                                                    <Card.Text>{loja.descricao}</Card.Text>
-                                                    <Card.Text>
-                                                        <i>{loja.endereco ? `${loja.endereco.logradouro}, ${loja.endereco.numero}, ${loja.endereco.bairro}, ${loja.endereco.localidade} - ${loja.endereco.uf}` : "Vendedor sem endereço"}</i>
-                                                    </Card.Text>
-                                                </Card.Body>
-                                            </Col>
-                                        </Row>
+                                        <Card.Img
+                                            variant="top"
+                                            src={require('./img/wp2.jpg')}
+                                            className="h-100 border-rounded-none"
+                                        />
+                                        <Card.Body>
+                                            <Card.Title className="text-primary">{loja.nome}</Card.Title>
+                                            <Card.Text>{loja.descricao}</Card.Text>
+                                            <Card.Text>
+                                                <i>{loja.endereco ? `${loja.endereco.logradouro}, ${loja.endereco.numero}, ${loja.endereco.bairro}, ${loja.endereco.localidade} - ${loja.endereco.uf}` : "Vendedor sem endereço"}</i>
+                                            </Card.Text>
+                                        </Card.Body>
                                         <Card.Footer>
                                             <small className="text-muted">{loja.vendedor.email}</small>
+                                            <br />
                                             <small className="text-muted">{loja.vendedor.telefone ? loja.vendedor.telefone : ""}</small>
                                         </Card.Footer>
                                     </Card>
