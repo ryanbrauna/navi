@@ -249,7 +249,7 @@ class Cadastro extends Component {
                                 <p className="my-2 text-danger text-atencao-cad">Os campos com " <b>*</b> " é obrigatorio o preencher.</p>
                                 <Row>
                                     <Col md={6}>
-                                        <Form.Group controlId="formGroupNome">
+                                        <Form.Group>
                                             <Form.Control required
                                                 placeholder="Nome"
                                                 name="nome"
@@ -260,7 +260,7 @@ class Cadastro extends Component {
                                         </Form.Group>
                                     </Col>
                                     <Col md={6}>
-                                        <Form.Group controlId="formGroupCPF/CNPJ">
+                                        <Form.Group>
                                             <Form.Control required
                                                 id="cpf"
                                                 placeholder={campoCod}
@@ -283,7 +283,7 @@ class Cadastro extends Component {
                                 </Row>
                                 <Row>
                                     <Col md={6}>
-                                        <Form.Group controlId="formGroupEmail">
+                                        <Form.Group>
                                             <Form.Control required
                                                 type="email"
                                                 placeholder="E-mail"
@@ -295,7 +295,7 @@ class Cadastro extends Component {
                                         </Form.Group>
                                     </Col>
                                     <Col md={6}>
-                                        <Form.Group controlId="formGroupTelefone">
+                                        <Form.Group>
                                             <Form.Control
                                                 id="telefone"
                                                 placeholder="Telefone"
@@ -309,7 +309,7 @@ class Cadastro extends Component {
                                 </Row>
                                 <Row>
                                     <Col md={6}>
-                                        <Form.Group controlId="formGroupSenha">
+                                        <Form.Group>
                                             <Form.Control required
                                                 minLength="8"
                                                 type="password"
@@ -322,7 +322,7 @@ class Cadastro extends Component {
                                         </Form.Group>
                                     </Col>
                                     <Col md={6}>
-                                        <Form.Group controlId="formGroupConfSenha">
+                                        <Form.Group>
                                             <Form.Control required
                                                 minLength="8"
                                                 type="password"
@@ -339,7 +339,7 @@ class Cadastro extends Component {
                                 <div style={{ display: tipo == "V" ? "block" : "none" }}>
                                     <h4 className="mt-3">Dados da Loja</h4>
                                     <p className="my-2 text-danger text-atencao-cad">Os campos com " <b>*</b> " é obrigatorio o preencher.</p>
-                                    <Form.Group controlId="formGroupNomeLoja">
+                                    <Form.Group>
                                         <Form.Control required={tipo == "V" ? true : false}
                                             placeholder="Nome da Loja"
                                             name="nomeLoja"
@@ -348,7 +348,7 @@ class Cadastro extends Component {
                                         />
                                         <Form.Label><span className="text-danger">*</span> Digite o Nome da sua Loja.</Form.Label>
                                     </Form.Group>
-                                    <Form.Group controlId="formGroupDesc">
+                                    <Form.Group>
                                         <Form.Control required={tipo == "V" ? true : false}
                                             as="textarea"
                                             rows={2}
@@ -365,7 +365,7 @@ class Cadastro extends Component {
                                 <p className="my-2 text-danger text-atencao-cad">Os campos com " <b>*</b> " é obrigatorio o preencher.</p>
                                 <Row className="mb-3">
                                     <Col md={4}>
-                                        <Form.Group className="mb-0" controlId="formGroupCep">
+                                        <Form.Group className="mb-0">
                                             <Form.Control required
                                                 id="cep"
                                                 placeholder="CEP"
@@ -385,7 +385,7 @@ class Cadastro extends Component {
                                 </Row>
                                 <Row>
                                     <Col sm={9}>
-                                        <Form.Group controlId="formGroupLogradouro">
+                                        <Form.Group>
                                             <Form.Control required
                                                 placeholder="Logradouro"
                                                 name="logradouro"
@@ -396,7 +396,7 @@ class Cadastro extends Component {
                                         </Form.Group>
                                     </Col>
                                     <Col>
-                                        <Form.Group controlId="formGroupNumero">
+                                        <Form.Group>
                                             <Form.Control required
                                                 placeholder="Nº"
                                                 name="numero"
@@ -409,7 +409,7 @@ class Cadastro extends Component {
                                 </Row>
                                 <Row>
                                     <Col md={6}>
-                                        <Form.Group controlId="formGroupComplemento">
+                                        <Form.Group>
                                             <Form.Control
                                                 placeholder="Complemento"
                                                 name="complemento"
@@ -420,7 +420,7 @@ class Cadastro extends Component {
                                         </Form.Group>
                                     </Col>
                                     <Col md={6}>
-                                        <Form.Group controlId="formGroupBairro">
+                                        <Form.Group>
                                             <Form.Control required
                                                 placeholder="Bairro"
                                                 name="bairro"
@@ -433,7 +433,7 @@ class Cadastro extends Component {
                                 </Row>
                                 <Row>
                                     <Col md={5}>
-                                        <Form.Group controlId="formGroupCidade">
+                                        <Form.Group>
                                             <Form.Control required
                                                 placeholder="Cidade"
                                                 name="localidade"
@@ -444,7 +444,7 @@ class Cadastro extends Component {
                                         </Form.Group>
                                     </Col>
                                     <Col md={2}>
-                                        <Form.Group controlId="formGroupUf">
+                                        <Form.Group>
                                             <Form.Control required
                                                 maxLength='2'
                                                 placeholder="UF"
