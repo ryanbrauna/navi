@@ -515,7 +515,7 @@ export default class Pedidos extends Component {
                                         <Card.Img variant="top" src={require('./img/img-pedido.jpg')} />
                                         <Card.Body>
                                             <Card.Title className="text-primary">Pedido: {pedido.numeroDoPedido}</Card.Title>
-                                            <Card.Subtitle className="mb-3 text-muted">
+                                            <Card.Subtitle className="mb-3 text-muted desc-pedido">
                                                 <i>{sessionStorage.getItem('@NAVI/tipo') == "Comprador" ? "Loja: " + pedido.loja.nome : "Comprador: " + pedido.comprador.nome}</i>
                                             </Card.Subtitle>
                                             <Card.Text>

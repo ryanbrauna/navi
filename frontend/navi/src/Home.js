@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './css/Home.css';
 import GoogleMapReact from 'google-map-react';
+import axios from 'axios';
 
 // Components
 import Menu from './Menu';
@@ -12,7 +13,9 @@ import {
     Navbar,
     Nav,
     Row,
-    Col
+    Col,
+    CardColumns,
+    Card
 } from 'react-bootstrap';
 
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
@@ -25,10 +28,21 @@ export default class Home extends Component {
         zoom: 11
     };
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            listaLoja: []
+        };
+    }
+
     componentDidMount() {
         if (sessionStorage.getItem('@NAVI/tipo') != "Comprador") {
             window.location = "/pedidos"
         }
+        axios.get("http://navi--api.herokuapp.com/lojas").then(data => {
+            this.setState({ listaLoja: data.data });
+            console.log(this.state.listaLoja);
+        })
     }
 
     render() {
@@ -36,7 +50,7 @@ export default class Home extends Component {
             <div>
                 <Menu />
 
-                <div className="p-4 bg-white">
+                <div className="p-4 bg-white shadow-sm">
                     <Row>
                         <Col>
                             <h4 className="text-primary font-weight-light mb-0">Procurar Loja</h4>
@@ -44,9 +58,9 @@ export default class Home extends Component {
                     </Row>
                 </div>
                 <div>
-                    <Row>
-                        <Col>
-                            <div className="p-3 my-3 rounded bg-white">
+                    {/* <Row>
+                        <Col className="p-0">
+                            <div className="rounded bg-white">
                                 <Image
                                     src={require('./img/maps.png')}
                                     className="w-100"
@@ -54,7 +68,35 @@ export default class Home extends Component {
                                 />
                             </div>
                         </Col>
-                    </Row>
+                    </Row> */}
+                    <div className="p-4" style={{ margin: "0 0 0 250px" }}>
+                        <CardColumns>
+                            {this.state.listaLoja.map(loja => {
+                                return (
+                                    <Card>
+                                        <Row>
+                                            <Col sm={4}>
+                                                <Card.Img variant="top" src={require('./img/wp2.jpg')} style={{ width: "10rem" }} />
+                                            </Col>
+                                            <Col sm={8}>
+                                                <Card.Body>
+                                                    <Card.Title className="text-primary">{loja.nome}</Card.Title>
+                                                    <Card.Text>{loja.descricao}</Card.Text>
+                                                    <Card.Text>
+                                                        <i>{loja.endereco ? `${loja.endereco.logradouro}, ${loja.endereco.numero}, ${loja.endereco.bairro}, ${loja.endereco.localidade} - ${loja.endereco.uf}` : "Vendedor sem endereço"}</i>
+                                                    </Card.Text>
+                                                </Card.Body>
+                                            </Col>
+                                        </Row>
+                                        <Card.Footer>
+                                            <small className="text-muted">{loja.vendedor.email}</small>
+                                            <small className="text-muted">{loja.vendedor.telefone ? loja.vendedor.telefone : ""}</small>
+                                        </Card.Footer>
+                                    </Card>
+                                );
+                            })}
+                        </CardColumns>
+                    </div>
                     {/* <div style={{ height: '100vh', width: '100%' }}>
                             <GoogleMapReact
                                 bootstrapURLKeys={{ key: 'AIzaSyC1Ss07U7cpEDS_gqYwsw0amAGt3g-aD9c' }}
