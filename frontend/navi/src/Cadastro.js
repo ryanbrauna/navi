@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import './css/Cadastro.css';
+
+import $ from 'jquery';
+import './jquery.mask';
+
 // import { Link } from 'react-router-dom';
 import axios from 'axios';
 import swal from 'sweetalert';
@@ -29,6 +33,16 @@ class Cadastro extends Component {
         this.cadChange = this.cadChange.bind(this);
     }
 
+    componentDidMount() {
+        $('#cpf').mask('000.000.000-00', { reverse: false });
+        $('#telefone').mask('(00) 00000-0000');
+        $('#cnpj').mask('00.000.000/0000-00', { reverse: false });
+        $('#cep').mask('00000-000');
+
+
+    }
+
+
     initialState = {
         tipo: "",
         nome: "",
@@ -55,92 +69,107 @@ class Cadastro extends Component {
         this.setState({ loading: true });
         e.preventDefault();
 
-        if (this.state.tipo == "C") {
-            axios.post("http://navi--api.herokuapp.com/cadastro/comprador", {
-                "nome": this.state.nome,
-                "email": this.state.email,
-                "senha": this.state.senha,
-                "cpf": this.state.cod,
-                "telefone": this.state.telefone
-            }).then(responseCA => {
-                if (responseCA.data != null) {
-                    console.log("Dados Pessoais do Comprador cadastrado!");
-                    axios.post(`http://navi--api.herokuapp.com/cadastro/comprador/${this.state.cod}/endereco`, {
-                        "cep": this.state.cep,
-                        "logradouro": this.state.logradouro,
-                        "bairro": this.state.bairro,
-                        "localidade": this.state.localidade,
-                        "uf": this.state.uf,
-                        "numero": this.state.numero,
-                        "complememnto": this.state.complemento
-                    }).then(responseCB => {
-                        console.log("Endereço do Comprador cadastrado!");
-                        if (responseCB.data != null) {
-                            this.setState(this.initialState);
-                            swal({
-                                title: "Sucesso!",
-                                text: "Você foi cadastrado com sucesso",
-                                icon: "success",
-                                button: "OK",
-                            }).then(() => {
-                                window.location = "/login";
-                            });
-                        } else {
-                            alert(responseCB);
-                        }
-                    });
-                } else {
-                    alert(responseCA);
-                }
-            });
-        } else {
-            axios.post("http://navi--api.herokuapp.com/cadastro/vendedor", {
-                "nome": this.state.nome,
-                "email": this.state.email,
-                "senha": this.state.senha,
-                "cnpj": this.state.cod
-            }).then(responseVA => {
-                if (responseVA.data != null) {
-                    console.log("Dados Pessoais do Vendedor cadastrado!");
-                    axios.post(`http://navi--api.herokuapp.com/cadastro/vendedor/${this.state.cod}/loja`, {
-                        "nome": this.state.nomeLoja,
-                        "descricao": this.state.descLoja
-                    }).then(responseVB => {
-                        if (responseVB.data != null) {
-                            console.log("Loja do Vendedor cadastrada!");
-                            axios.post(`http://navi--api.herokuapp.com/cadastro/vendedor/${this.state.cod}/loja/endereco`, {
-                                "cep": this.state.cep,
-                                "logradouro": this.state.logradouro,
-                                "bairro": this.state.bairro,
-                                "localidade": this.state.localidade,
-                                "uf": this.state.uf,
-                                "numero": this.state.numero,
-                                "complemento": this.state.complemento
-                            }).then(responseVC => {
-                                if (responseVC.data != null) {
-                                    console.log("Endereço do Vendedor cadastrado!");
-                                    this.setState(this.initialState);
-                                    swal({
-                                        title: "Sucesso!",
-                                        text: "Você foi cadastrado com sucesso",
-                                        icon: "success",
-                                        button: "OK",
-                                    }).then(() => {
-                                        window.location = "/login";
-                                    });
-                                } else {
-                                    alert(responseVC);
-                                }
-                            })
-                        } else {
-                            alert(responseVB);
-                        }
-                    })
-                } else {
-                    alert(responseVA);
-                }
-            });
+        if (this.state.senha == this.state.confSenha) {
+
+            if (this.state.tipo == "C") {
+                axios.post("http://navi--api.herokuapp.com/cadastro/comprador", {
+                    "nome": this.state.nome,
+                    "email": this.state.email,
+                    "senha": this.state.senha,
+                    "cpf": this.state.cod,
+                    "telefone": this.state.telefone
+                }).then(responseCA => {
+                    if (responseCA.data != null) {
+                        console.log("Dados Pessoais do Comprador cadastrado!");
+                        axios.post(`http://navi--api.herokuapp.com/cadastro/comprador/${this.state.cod}/endereco`, {
+                            "cep": this.state.cep,
+                            "logradouro": this.state.logradouro,
+                            "bairro": this.state.bairro,
+                            "localidade": this.state.localidade,
+                            "uf": this.state.uf,
+                            "numero": this.state.numero,
+                            "complememnto": this.state.complemento
+                        }).then(responseCB => {
+                            console.log("Endereço do Comprador cadastrado!");
+                            if (responseCB.data != null) {
+                                this.setState(this.initialState);
+                                swal({
+                                    title: "Sucesso!",
+                                    text: "Você foi cadastrado com sucesso",
+                                    icon: "success",
+                                    button: "OK",
+                                }).then(() => {
+                                    window.location = "/login";
+                                });
+                            } else {
+                                alert(responseCB);
+                            }
+                        });
+                    } else {
+                        alert(responseCA);
+                    }
+                });
+            } else {
+                axios.post("http://navi--api.herokuapp.com/cadastro/vendedor", {
+                    "nome": this.state.nome,
+                    "email": this.state.email,
+                    "senha": this.state.senha,
+                    "cnpj": this.state.cod
+                }).then(responseVA => {
+                    if (responseVA.data != null) {
+                        console.log("Dados Pessoais do Vendedor cadastrado!");
+                        axios.post(`http://navi--api.herokuapp.com/cadastro/vendedor/${this.state.cod}/loja`, {
+                            "nome": this.state.nomeLoja,
+                            "descricao": this.state.descLoja
+                        }).then(responseVB => {
+                            if (responseVB.data != null) {
+                                console.log("Loja do Vendedor cadastrada!");
+                                axios.post(`http://navi--api.herokuapp.com/cadastro/vendedor/${this.state.cod}/loja/endereco`, {
+                                    "cep": this.state.cep,
+                                    "logradouro": this.state.logradouro,
+                                    "bairro": this.state.bairro,
+                                    "localidade": this.state.localidade,
+                                    "uf": this.state.uf,
+                                    "numero": this.state.numero,
+                                    "complemento": this.state.complemento
+                                }).then(responseVC => {
+                                    if (responseVC.data != null) {
+                                        console.log("Endereço do Vendedor cadastrado!");
+                                        this.setState(this.initialState);
+                                        swal({
+                                            title: "Sucesso!",
+                                            text: "Você foi cadastrado com sucesso",
+                                            icon: "success",
+                                            button: "OK",
+                                        }).then(() => {
+                                            window.location = "/login";
+                                        });
+                                    } else {
+                                        alert(responseVC);
+                                    }
+                                })
+                            } else {
+                                alert(responseVB);
+                            }
+                        })
+                    } else {
+                        alert(responseVA);
+                    }
+                });
+            }
         }
+        else {
+            swal({
+                title: "Atenção!",
+                text: "Senhas não coincidem!",
+                icon: "warning",
+                button: "OK",
+            })
+
+            this.setState({ loading: false });
+
+        }
+
     }
 
     cadChange = e => {
@@ -233,10 +262,20 @@ class Cadastro extends Component {
                                     <Col md={6}>
                                         <Form.Group controlId="formGroupCPF/CNPJ">
                                             <Form.Control required
+                                                id="cpf"
                                                 placeholder={campoCod}
                                                 name="cod"
                                                 value={cod}
                                                 onChange={this.cadChange}
+                                                className={campoCod == "CPF" ? "" : "d-none"}
+                                            />
+                                            <Form.Control required
+                                                id="cnpj"
+                                                placeholder={campoCod}
+                                                name="cod"
+                                                value={cod}
+                                                onChange={this.cadChange}
+                                                className={campoCod == "CNPJ" ? "" : "d-none"}
                                             />
                                             <Form.Label><span className="text-danger">*</span> Digite seu {campoCod}.</Form.Label>
                                         </Form.Group>
@@ -258,6 +297,7 @@ class Cadastro extends Component {
                                     <Col md={6}>
                                         <Form.Group controlId="formGroupTelefone">
                                             <Form.Control
+                                                id="telefone"
                                                 placeholder="Telefone"
                                                 name="telefone"
                                                 value={telefone}
@@ -271,6 +311,7 @@ class Cadastro extends Component {
                                     <Col md={6}>
                                         <Form.Group controlId="formGroupSenha">
                                             <Form.Control required
+                                                minLength="8"
                                                 type="password"
                                                 placeholder="Senha"
                                                 name="senha"
@@ -283,6 +324,7 @@ class Cadastro extends Component {
                                     <Col md={6}>
                                         <Form.Group controlId="formGroupConfSenha">
                                             <Form.Control required
+                                                minLength="8"
                                                 type="password"
                                                 placeholder="Confirmação de Senha"
                                                 name="confSenha"
@@ -325,6 +367,7 @@ class Cadastro extends Component {
                                     <Col md={4}>
                                         <Form.Group className="mb-0" controlId="formGroupCep">
                                             <Form.Control required
+                                                id="cep"
                                                 placeholder="CEP"
                                                 name="cep"
                                                 value={cep}
@@ -403,6 +446,7 @@ class Cadastro extends Component {
                                     <Col md={2}>
                                         <Form.Group controlId="formGroupUf">
                                             <Form.Control required
+                                                maxLength='2'
                                                 placeholder="UF"
                                                 name="uf"
                                                 value={uf}
