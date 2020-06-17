@@ -166,7 +166,7 @@ export default class Pedidos extends Component {
     footerComprador = pedido => {
         return (
             <div>
-                <a className="span-link mb-2 d-block text-decoration-none" target="_blank" href={`https://guilherme-mendes.outsystemscloud.com/GoogleMapsDemo/HomeEntry.aspx?cpf=34857844898&cnpj=39309265809`}>
+                <a className="span-link mb-2 d-block text-decoration-none" target="_blank" href={`https://guilherme-mendes.outsystemscloud.com/GoogleMapsDemo/MultipleWaypointDirections.aspx`}>
                     <RoomIcon className="icon" />
                     <span>Acompanhar entrega</span>
                 </a>
@@ -308,7 +308,47 @@ export default class Pedidos extends Component {
                                 ) : btnPrimary}</Button>
                             </Col>
                         </Row>
-                    ) : ""}
+                    ) : sessionStorage.getItem('@NAVI/tipo') == "Entregador" ? (
+                        <Row className="justify-content-end">
+                            <Col md={3}>
+                                <Button
+                                    className="w-100"
+                                    variant="primary"
+                                    // onClick={onClickBtnPrimary}
+                                    disabled={this.state.loading}
+                                    size="sm"
+                                >{this.state.loading ? (
+                                    <Spinner
+                                        as="span"
+                                        animation="border"
+                                        size="sm"
+                                        role="status"
+                                        aria-hidden="true"
+                                    />
+                                ) : "Entregar Pedido"}</Button>
+                            </Col>
+                        </Row>
+                    ) : (
+                        <Row className="justify-content-end">
+                            <Col md={4}>
+                                <Button
+                                    className="w-100"
+                                    variant="info"
+                                    // onClick={onClickBtnPrimary}
+                                    disabled={this.state.loading}
+                                    size="sm"
+                                >{this.state.loading ? (
+                                    <Spinner
+                                        as="span"
+                                        animation="border"
+                                        size="sm"
+                                        role="status"
+                                        aria-hidden="true"
+                                    />
+                                ) : "Baixar Dados do Pedido"}</Button>
+                            </Col>
+                        </Row>
+                    )}
                     <Row>
                         <Col>
                             <Form.Group className="mb-1">
@@ -428,6 +468,7 @@ export default class Pedidos extends Component {
                                         <Form.Group>
                                             <Form.Label className="mb-0"><span className="text-danger">*</span> Numero do Pedido:</Form.Label>
                                             <Form.Control required
+                                                type="number"
                                                 placeholder="Numero do Pedido"
                                                 name="numeroPedido"
                                                 value={numeroPedido}

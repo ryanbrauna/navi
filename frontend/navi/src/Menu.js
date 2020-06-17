@@ -89,7 +89,7 @@ export default class Menu extends Component {
                         <span className="mr-3 text-dark nome-user">Olá, {sessionStorage.getItem('@NAVI/nome')}</span>
                         <Avatar
                             className="d-inline-block"
-                            src={require('./img/caminhao-style.jpg')}
+                            src={require('./img/avatar.jpg')}
                         />
                     </div>
                     <SimpleMenu/>
