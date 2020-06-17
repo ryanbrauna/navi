@@ -22,17 +22,40 @@ public class VendedorController {
     public ResponseEntity createVendedor(@RequestBody Vendedor novoVendedor) {
         repository.save(novoVendedor);
 
-        if (novoVendedor.getTelefone().equals("+5511986743588") || novoVendedor.getTelefone().equals("+5511963944845")) {
-            Twilio.init(SMSApi.getAccountSid(), SMSApi.getAuthToken());
-            Message message = Message.creator(
-                    new com.twilio.type.PhoneNumber(novoVendedor.getTelefone()),
-                    new com.twilio.type.PhoneNumber("+12183878263"),
-                    "Olá " + novoVendedor.getNome() + ", seja bem-vindo a Navi").create();
-
-            System.out.println(message.getSid());
-        }
+//        if (novoVendedor.getTelefone().equals("+5511986743588") || novoVendedor.getTelefone().equals("+5511963944845")) {
+//            Twilio.init(SMSApi.getAccountSid(), SMSApi.getAuthToken());
+//            Message message = Message.creator(
+//                    new com.twilio.type.PhoneNumber(novoVendedor.getTelefone()),
+//                    new com.twilio.type.PhoneNumber("+12183878263"),
+//                    "Olá " + novoVendedor.getNome() + ", seja bem-vindo a Navi").create();
+//
+//            System.out.println(message.getSid());
+//        }
 
         return ResponseEntity.created(null).body(novoVendedor);
+    }
+
+
+    @GetMapping("/vendedores")
+    public ResponseEntity getVendedores() {
+        if (repository.findAll().isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        else {
+            return ResponseEntity.ok(repository.findAll());
+        }
+    }
+
+    @GetMapping("/vendedor/{cnpj}")
+    public ResponseEntity getVendedor(
+            @PathVariable String cnpj
+    ) {
+        if (repository.findByCnpj(cnpj).isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            Vendedor search = repository.findOneByCnpj(cnpj);
+            return ResponseEntity.ok(search);
+        }
     }
 
     @PutMapping("/vendedor/{cnpj}")
@@ -62,26 +85,11 @@ public class VendedorController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/vendedores")
-    public ResponseEntity getVendedores() {
-        if (repository.findAll().isEmpty()) {
-            return ResponseEntity.noContent().build();
-        }
-        else {
-            return ResponseEntity.ok(repository.findAll());
-        }
-    }
+    @DeleteMapping("/vendedor/{id}")
+    public String delete ( @PathVariable Integer id) {
+        repository.deleteById(id);
 
-    @GetMapping("/vendedor/{cnpj}")
-    public ResponseEntity getVendedor(
-            @PathVariable String cnpj
-    ) {
-        if (repository.findByCnpj(cnpj).isEmpty()) {
-            return ResponseEntity.notFound().build();
-        } else {
-            Vendedor search = repository.findOneByCnpj(cnpj);
-            return ResponseEntity.ok(search);
-        }
+        return "Vendedor Deletado";
     }
 
 }

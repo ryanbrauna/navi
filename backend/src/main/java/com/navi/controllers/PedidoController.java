@@ -152,7 +152,7 @@ public class PedidoController {
     public ResponseEntity updateEstado (
             @PathVariable String cnpj,
             @PathVariable Integer numeroDoPedido,
-            @RequestBody String estado) {
+            @RequestParam String estado) {
         if (vendedorRepository.findByCnpj(cnpj).isEmpty()) {
             return ResponseEntity.notFound().build();
         }

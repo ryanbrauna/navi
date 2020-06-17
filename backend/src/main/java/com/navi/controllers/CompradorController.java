@@ -21,15 +21,15 @@ public class CompradorController {
     public ResponseEntity createComprador(@RequestBody Comprador novoComprador) {
         repository.save(novoComprador);
 
-        if (novoComprador.getTelefone().equals("+5511986743588") || novoComprador.getTelefone().equals("+5511963944845")) {
-            Twilio.init(SMSApi.getAccountSid(), SMSApi.getAuthToken());
-            Message message = Message.creator(
-                    new com.twilio.type.PhoneNumber(novoComprador.getTelefone()),
-                    new com.twilio.type.PhoneNumber("+12183878263"),
-                    "Olá " + novoComprador.getNome() + ", seja bem-vindo a Navi").create();
-
-            System.out.println(message.getSid());
-        }
+//        if (novoComprador.getTelefone().equals("+5511986743588") || novoComprador.getTelefone().equals("+5511963944845")) {
+//            Twilio.init(SMSApi.getAccountSid(), SMSApi.getAuthToken());
+//            Message message = Message.creator(
+//                    new com.twilio.type.PhoneNumber(novoComprador.getTelefone()),
+//                    new com.twilio.type.PhoneNumber("+12183878263"),
+//                    "Olá " + novoComprador.getNome() + ", seja bem-vindo a Navi").create();
+//
+//            System.out.println(message.getSid());
+//        }
 
         return ResponseEntity.ok(novoComprador);
     }
@@ -45,7 +45,7 @@ public class CompradorController {
     }
 
     @GetMapping("/comprador/{cpf}")
-    public ResponseEntity getCompradorByCpf(
+    public ResponseEntity getComprador(
             @PathVariable String cpf) {
         if (repository.findByCpf(cpf).isEmpty()) {
             return ResponseEntity.notFound().build();
@@ -82,6 +82,13 @@ public class CompradorController {
 
         repository.delete(search);
         return ResponseEntity.ok(search);
+    }
+
+    @DeleteMapping("/comprador/{id}")
+    public String delete ( @PathVariable Integer id) {
+        repository.deleteById(id);
+
+        return "Comprador Deletado";
     }
 
 }

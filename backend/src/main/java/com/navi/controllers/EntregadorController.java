@@ -117,4 +117,12 @@ public class EntregadorController {
             return ResponseEntity.ok(entregador);
         }
     }
+
+    @DeleteMapping("/entregador/{id}")
+    public String delete ( @PathVariable Integer id) {
+        repository.deleteById(id);
+
+        return "Entregador Deletad0";
+    }
+
 }

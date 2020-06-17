@@ -69,4 +69,11 @@ public class LojaController {
         return ResponseEntity.ok(loja);
     }
 
+    @DeleteMapping("/loja/{id}")
+    public String delete ( @PathVariable Integer id) {
+        repository.deleteById(id);
+
+        return "Loja Deletada";
+    }
+
 }

@@ -77,12 +77,18 @@ public class EnderecoController {
             @PathVariable String cpf,
             @RequestBody Endereco novoEndereco) {
 
-        Comprador compradorCadastrado = compradorRepository.findByCpf(cpf).get(0);
+        if (compradorRepository.findByCpf(cpf).isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        else {
+            Comprador compradorCadastrado = compradorRepository.findOneByCpf(cpf);
+            compradorCadastrado.setEndereco(novoEndereco);
+            repository.save(novoEndereco);
 
-        compradorCadastrado.setEndereco(novoEndereco);
-        repository.save(novoEndereco);
+            return ResponseEntity.ok(compradorCadastrado);
 
-        return ResponseEntity.ok(compradorCadastrado);
+        }
+
     }
 
     @PostMapping("/cadastro/vendedor/{cnpj}/loja/endereco")
@@ -90,13 +96,18 @@ public class EnderecoController {
             @PathVariable String cnpj,
             @RequestBody Endereco novoEndereco) {
 
-        Vendedor vendedorCadastrado = vendedorRepository.findByCnpj(cnpj).get(0);
-        Loja lojaCadastrada = lojaRepository.findByVendedor(vendedorCadastrado);
-        lojaCadastrada.setEndereco(novoEndereco);
 
-        repository.save(novoEndereco);
+        if (vendedorRepository.findByCnpj(cnpj).isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+        else {
+            Vendedor vendedorCadastrado = vendedorRepository.findByCnpj(cnpj).get(0);
+            Loja lojaCadastrada = lojaRepository.findByVendedor(vendedorCadastrado);
+            lojaCadastrada.setEndereco(novoEndereco);
 
-        return ResponseEntity.ok(lojaCadastrada);
+            repository.save(novoEndereco);
+            return ResponseEntity.ok(lojaCadastrada);
+        }
     }
 
     @PutMapping("/{id}")
