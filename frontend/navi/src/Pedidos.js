@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom';
 import swal from 'sweetalert';
 import axios from 'axios';
 
+import $ from 'jquery';
+import './jquery.mask';
+
 // Components
 import Menu from './Menu';
 
@@ -50,6 +53,7 @@ export default class Pedidos extends Component {
                 console.log(this.state.listPedidos);
             });
         }
+        $('#cpf').mask('000.000.000-00', { reverse: false });
     }
 
     salvarPedido = () => {
@@ -480,6 +484,7 @@ export default class Pedidos extends Component {
                                                 <Form.Group>
                                                     <Form.Label className="mb-0"><span className="text-danger">*</span> CPF:</Form.Label>
                                                     <Form.Control required
+                                                        id="cpf"
                                                         placeholder="CPF do Comprador"
                                                         name="cpfComprador"
                                                         value={cpfComprador}
