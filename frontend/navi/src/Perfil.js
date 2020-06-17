@@ -3,6 +3,10 @@ import Avatar from '@material-ui/core/Avatar';
 import swal from 'sweetalert';
 import axios from 'axios';
 
+
+import $ from 'jquery';
+import './jquery.mask';
+
 // Components
 import Menu from './Menu';
 
@@ -122,6 +126,8 @@ export default class Perfil extends Component {
                 console.log(this.state.user);
             });
         }
+
+        $('#cep').mask('00000-000');
     }
 
     initialForm = (user, endereco, loja) => {
@@ -403,6 +409,7 @@ export default class Perfil extends Component {
                                                 <Col md={4}>
                                                     <Form.Group className="mb-0" controlId="formGroupCep">
                                                         <Form.Control
+                                                            id="cep"
                                                             placeholder="CEP"
                                                             name="enderecoCep"
                                                             value={enderecoCep}
