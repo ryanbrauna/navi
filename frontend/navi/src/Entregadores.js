@@ -3,6 +3,9 @@ import Avatar from '@material-ui/core/Avatar';
 import swal from 'sweetalert';
 import axios from 'axios';
 
+import $ from 'jquery';
+import './jquery.mask';
+
 // Components
 import Menu from './Menu';
 
@@ -35,6 +38,8 @@ export default class Entregadores extends Component {
             this.setState({ listEntregadores: data.data });
             console.log(this.state.listEntregadores);
         });
+        $('#cpf').mask('000.000.000-00', { reverse: false });
+        $('#cnh').mask('00000000000', { reverse: false });
     }
 
     salvarEntregador = () => {
@@ -302,6 +307,7 @@ export default class Entregadores extends Component {
                                         <Form.Group>
                                             <Form.Label className="mb-0">CPF:</Form.Label>
                                             <Form.Control required
+                                                id="cpf"
                                                 placeholder="CPF do entregador"
                                                 name="cpfEntregador"
                                                 value={cpfEntregador}
@@ -315,6 +321,7 @@ export default class Entregadores extends Component {
                                         <Form.Group>
                                             <Form.Label className="mb-0">CNH:</Form.Label>
                                             <Form.Control required
+                                                id="cnh"
                                                 placeholder="CNH do entregador"
                                                 name="cnhEntregador"
                                                 value={cnhEntregador}
