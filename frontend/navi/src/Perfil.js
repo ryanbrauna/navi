@@ -29,14 +29,29 @@ export default class Perfil extends Component {
     }
 
     initialState = {
+        //Dados usuario
         user: {},
         userName: "",
         userEmail: "",
         userTelefone: "",
         userSenha: "",
         userConfSenha: "",
+
+        //Endereco usuario
         endereco: {},
+        enderecoCep: "",
+        enderecoLogradouro: "",
+        enderecoNumero: "",
+        enderecoCompemento: "",
+        enderecoBairro: "",
+        enderecoCidade: "",
+        enderecoUf: "",
+
+
         loja: {},
+        lojaNome: "",
+        lojaDesc: "",
+
         loading: false,
         formDisabled: true
     }
@@ -52,8 +67,18 @@ export default class Perfil extends Component {
                     userTelefone: data.data.telefone,
                     userSenha: data.data.senha,
                     userConfSenha: data.data.senha,
+
                     // Endereco
-                    endereco: data.data.endereco
+                    endereco: data.data.endereco,
+                    enderecoCep: data.data.endereco.cep,
+                    enderecoLogradouro: data.data.endereco.logradouro,
+                    enderecoNumero: data.data.endereco.numero,
+                    enderecoCompemento: data.data.endereco.complememnto,
+                    enderecoBairro: data.data.endereco.bairro,
+                    enderecoCidade: data.data.endereco.localidade,
+                    enderecoUf: data.data.endereco.uf,
+
+                    loja: data.data,
                 });
                 console.log(this.state.user);
                 console.log(this.state.endereco);
@@ -68,9 +93,20 @@ export default class Perfil extends Component {
                     userTelefone: data.data.vendedor.telefone,
                     userSenha: data.data.vendedor.senha,
                     userConfSenha: data.data.vendedor.senha,
+
+                    loja: data.data,
+                    lojaNome: data.data.nome,
+                    lojaDesc: data.data.descricao,
+
                     // Endereco
                     endereco: data.data.endereco,
-                    loja: data.data
+                    enderecoCep: data.data.endereco.cep,
+                    enderecoLogradouro: data.data.endereco.logradouro,
+                    enderecoNumero: data.data.endereco.numero,
+                    enderecoCompemento: data.data.endereco.complememnto,
+                    enderecoBairro: data.data.endereco.bairro,
+                    enderecoCidade: data.data.endereco.localidade,
+                    enderecoUf: data.data.endereco.uf
                 });
                 console.log(this.state.user);
                 console.log(this.state.endereco);
@@ -88,14 +124,25 @@ export default class Perfil extends Component {
         }
     }
 
-    initialForm = user => {
+    initialForm = (user, endereco, loja) => {
         this.setState({
             formDisabled: true,
             userName: user.nome,
             userEmail: user.email,
             userTelefone: user.telefone,
             userSenha: user.senha,
-            userConfSenha: user.senha
+            userConfSenha: user.senha,
+
+            enderecoCep: endereco.cep,
+            enderecoLogradouro: endereco.logradouro,
+            enderecoNumero: endereco.numero,
+            enderecoCompemento: endereco.complememnto,
+            enderecoBairro: endereco.bairro,
+            enderecoCidade: endereco.localidade,
+            enderecoUf: endereco.uf,
+
+            lojaNome: loja.nome,
+            lojaDesc: loja.descricao
         })
     }
 
@@ -103,15 +150,16 @@ export default class Perfil extends Component {
         var link = sessionStorage.getItem('@NAVI/tipo') == "Comprador" ? (
             `https://navi--api.herokuapp.com/comprador/${sessionStorage.getItem('@NAVI/cod')}/atualizar`
         ) : (
-            `https://navi--api.herokuapp.com/vendedor/${sessionStorage.getItem('@NAVI/cod')}`
-        );
+                `https://navi--api.herokuapp.com/vendedor/${sessionStorage.getItem('@NAVI/cod')}`
+            );
 
         var body = sessionStorage.getItem('@NAVI/tipo') == "Comprador" ? {
             "nome": this.state.userName,
             "email": this.state.userEmail,
             "senha": this.state.userSenha,
             "telefone": this.state.userTelefone,
-            "cpf": this.state.user.cpf
+            "cpf": this.state.user.cpf,
+            "endereco": this.state.endereco
         } : {
                 "nome": this.state.userName,
                 "email": this.state.userEmail,
@@ -121,13 +169,38 @@ export default class Perfil extends Component {
             };
 
         axios.put(link, body).then(response => {
+            link = "";
+            body = {};
             if (response.data != null) {
-                swal({
-                    title: "Sucesso!",
-                    text: "Os seus dados foram atualizados.",
-                    icon: "success",
-                    button: "OK",
-                }).then(() => window.location.reload());
+                if (sessionStorage.getItem('@NAVI/tipo') == "Comprador") {
+                    link = `https://navi--api.herokuapp.com/${this.state.endereco.id}`;
+                    body = {
+                        "cep": this.state.enderecoCep,
+                        "logradouro": this.state.enderecoLogradouro,
+                        "bairro": this.state.enderecoBairro,
+                        "localidade": this.state.enderecoCidade,
+                        "uf": this.state.enderecoUf,
+                        "numero": this.state.enderecoNumero,
+                        "complememnto": this.state.enderecoCompemento
+                    };
+                } else {
+                    link = `https://navi--api.herokuapp.com/vendedor/${sessionStorage.getItem('@NAVI/cod')}/loja`;
+                    body = {
+                        "nome": this.state.lojaNome,
+                        "descricao": this.state.lojaDesc,
+                        "endereco": this.state.endereco
+                    };
+                }
+                axios.put(link, body).then(response => {
+                    if (response.data != null) {
+                        swal({
+                            title: "Sucesso!",
+                            text: "Os seus dados foram atualizados.",
+                            icon: "success",
+                            button: "OK"
+                        }).then(() => window.location.reload());
+                    }
+                });
             }
         })
     }
@@ -140,14 +213,28 @@ export default class Perfil extends Component {
 
     render() {
         const {
+            //Dados pessoais
             user,
             userName,
             userEmail,
             userTelefone,
             userSenha,
             userConfSenha,
+
+            //Dados do endereco
             endereco,
+            enderecoCep,
+            enderecoLogradouro,
+            enderecoNumero,
+            enderecoCompemento,
+            enderecoBairro,
+            enderecoCidade,
+            enderecoUf,
+
             loja,
+            lojaNome,
+            lojaDesc,
+
             loading,
             formDisabled
         } = this.state;
@@ -179,7 +266,7 @@ export default class Perfil extends Component {
                                     <span>Editar Perfil</span>
                                 </div>
                             ) : (
-                                    <div className="text-danger float-right edit-perfil" onClick={() => this.initialForm(user)}>
+                                    <div className="text-danger float-right edit-perfil" onClick={() => this.initialForm(user, endereco, loja)}>
                                         <CloseIcon className="icon" />
                                         <span>Cancelar</span>
                                     </div>
@@ -288,8 +375,8 @@ export default class Perfil extends Component {
                                             <h4 className="mt-4 text-dark font-weight-light">Loja</h4>
                                             <Form.Group controlId="formGroupNomeLoja">
                                                 <Form.Control
-                                                    name="nomeLoja"
-                                                    value={loja.nome}
+                                                    name="lojaNome"
+                                                    value={lojaNome}
                                                     onChange={this.inputChange}
                                                     disabled={formDisabled}
                                                 />
@@ -300,8 +387,8 @@ export default class Perfil extends Component {
                                                     placeholder="Não há descrição"
                                                     as="textarea"
                                                     rows={2}
-                                                    name="descLoja"
-                                                    value={loja.descricao}
+                                                    name="lojaDesc"
+                                                    value={lojaDesc}
                                                     onChange={this.inputChange}
                                                     disabled={formDisabled}
                                                 />
@@ -317,10 +404,10 @@ export default class Perfil extends Component {
                                                     <Form.Group className="mb-0" controlId="formGroupCep">
                                                         <Form.Control
                                                             placeholder="CEP"
-                                                            name="cep"
-                                                            value={endereco.cep}
+                                                            name="enderecoCep"
+                                                            value={enderecoCep}
                                                             onChange={this.inputChange}
-                                                            disabled={formDisabled}
+                                                            disabled={sessionStorage.getItem('@NAVI/tipo') == "Vendedor" ? true : formDisabled}
                                                         />
                                                         <Form.Label className="mb-0 text-primary">CEP</Form.Label>
                                                     </Form.Group>
@@ -337,10 +424,10 @@ export default class Perfil extends Component {
                                                     <Form.Group controlId="formGroupLogradouro">
                                                         <Form.Control
                                                             placeholder="Logradouro"
-                                                            name="logradouro"
-                                                            value={endereco.logradouro}
+                                                            name="enderecoLogradouro"
+                                                            value={enderecoLogradouro}
                                                             onChange={this.inputChange}
-                                                            disabled={formDisabled}
+                                                            disabled={sessionStorage.getItem('@NAVI/tipo') == "Vendedor" ? true : formDisabled}
                                                         />
                                                         <Form.Label className="mb-0 text-primary">Logradouro</Form.Label>
                                                     </Form.Group>
@@ -349,10 +436,10 @@ export default class Perfil extends Component {
                                                     <Form.Group controlId="formGroupNumero">
                                                         <Form.Control
                                                             placeholder="Nº"
-                                                            name="numero"
-                                                            value={endereco.numero}
+                                                            name="enderecoNumero"
+                                                            value={enderecoNumero}
                                                             onChange={this.inputChange}
-                                                            disabled={formDisabled}
+                                                            disabled={sessionStorage.getItem('@NAVI/tipo') == "Vendedor" ? true : formDisabled}
                                                         />
                                                         <Form.Label className="mb-0 text-primary">Nº</Form.Label>
                                                     </Form.Group>
@@ -363,10 +450,10 @@ export default class Perfil extends Component {
                                                     <Form.Group controlId="formGroupComplemento">
                                                         <Form.Control
                                                             placeholder="Nenhum"
-                                                            name="complemento"
-                                                            value={endereco.complemento}
+                                                            name="enderecoCompemento"
+                                                            value={enderecoCompemento}
                                                             onChange={this.inputChange}
-                                                            disabled={formDisabled}
+                                                            disabled={sessionStorage.getItem('@NAVI/tipo') == "Vendedor" ? true : formDisabled}
                                                         />
                                                         <Form.Label className="mb-0 text-primary">Complemento do endereço</Form.Label>
                                                     </Form.Group>
@@ -375,10 +462,10 @@ export default class Perfil extends Component {
                                                     <Form.Group controlId="formGroupBairro">
                                                         <Form.Control
                                                             placeholder="Bairro"
-                                                            name="bairro"
-                                                            value={endereco.bairro}
+                                                            name="enderecoBairro"
+                                                            value={enderecoBairro}
                                                             onChange={this.inputChange}
-                                                            disabled={formDisabled}
+                                                            disabled={sessionStorage.getItem('@NAVI/tipo') == "Vendedor" ? true : formDisabled}
                                                         />
                                                         <Form.Label className="mb-0 text-primary">Bairro</Form.Label>
                                                     </Form.Group>
@@ -389,10 +476,10 @@ export default class Perfil extends Component {
                                                     <Form.Group controlId="formGroupCidade">
                                                         <Form.Control
                                                             placeholder="Cidade"
-                                                            name="localidade"
-                                                            value={endereco.localidade}
+                                                            name="enderecoCidade"
+                                                            value={enderecoCidade}
                                                             onChange={this.inputChange}
-                                                            disabled={formDisabled}
+                                                            disabled={sessionStorage.getItem('@NAVI/tipo') == "Vendedor" ? true : formDisabled}
                                                         />
                                                         <Form.Label className="mb-0 text-primary">Cidade</Form.Label>
                                                     </Form.Group>
@@ -401,10 +488,10 @@ export default class Perfil extends Component {
                                                     <Form.Group controlId="formGroupUf">
                                                         <Form.Control
                                                             placeholder="UF"
-                                                            name="uf"
-                                                            value={endereco.uf}
+                                                            name="enderecoUf"
+                                                            value={enderecoUf}
                                                             onChange={this.inputChange}
-                                                            disabled={formDisabled}
+                                                            disabled={sessionStorage.getItem('@NAVI/tipo') == "Vendedor" ? true : formDisabled}
                                                         />
                                                         <Form.Label className="mb-0 text-primary">UF</Form.Label>
                                                     </Form.Group>

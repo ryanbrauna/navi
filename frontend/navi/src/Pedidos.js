@@ -328,7 +328,7 @@ export default class Pedidos extends Component {
                             <Form.Group>
                                 <Form.Control
                                     placeholder="Nome do Entregador"
-                                    value={pedido.entregador == null ? "Nenhum" : pedido.entregador}
+                                    value={pedido.entregador == null ? "Nenhum" : pedido.entregador.nome}
                                     disabled
                                 />
                                 <Form.Label>Entregador</Form.Label>
@@ -525,9 +525,9 @@ export default class Pedidos extends Component {
                                                     <b>Descrição: </b>
                                                     <span>{pedido.descricao}</span>
                                                 </div>
-                                                <div className="mb-1">
+                                                <div className="mb-1  desc-pedido">
                                                     <b>Entregador: </b>
-                                                    <span>{pedido.entregador == null ? "Nenhum" : pedido.entregador}</span>
+                                                    <span>{pedido.entregador == null ? "Nenhum" : pedido.entregador.nome}</span>
                                                 </div>
                                                 <div>
                                                     <b>Preço: </b>
