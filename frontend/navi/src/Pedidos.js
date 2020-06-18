@@ -28,6 +28,8 @@ import AddIcon from '@material-ui/icons/Add';
 import CloseIcon from '@material-ui/icons/Close';
 // import InfoIcon from '@material-ui/icons/Info';
 import ReceiptIcon from '@material-ui/icons/Receipt';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
 export default class Pedidos extends Component {
 
@@ -129,7 +131,11 @@ export default class Pedidos extends Component {
         precoPedido: "",
         descPedido: "",
         anotacaoPedido: "",
-        statusModal: ""
+        statusModal: "",
+        hideA: false,
+        hideB: false,
+        hideC: true,
+        hideD: true
     }
 
     registrarPedido = e => {
@@ -333,26 +339,26 @@ export default class Pedidos extends Component {
                             </Col>
                         </Row>
                     ) : (
-                        <Row className="justify-content-end">
-                            <Col md={4}>
-                                <Button
-                                    className="w-100"
-                                    variant="info"
-                                    // onClick={onClickBtnPrimary}
-                                    disabled={this.state.loading}
-                                    size="sm"
-                                >{this.state.loading ? (
-                                    <Spinner
-                                        as="span"
-                                        animation="border"
-                                        size="sm"
-                                        role="status"
-                                        aria-hidden="true"
-                                    />
-                                ) : "Baixar Dados do Pedido"}</Button>
-                            </Col>
-                        </Row>
-                    )}
+                                <Row className="justify-content-end">
+                                    <Col md={4}>
+                                        <Button
+                                            className="w-100"
+                                            variant="info"
+                                            // onClick={onClickBtnPrimary}
+                                            disabled={this.state.loading}
+                                            size="sm"
+                                        >{this.state.loading ? (
+                                            <Spinner
+                                                as="span"
+                                                animation="border"
+                                                size="sm"
+                                                role="status"
+                                                aria-hidden="true"
+                                            />
+                                        ) : "Baixar Dados do Pedido"}</Button>
+                                    </Col>
+                                </Row>
+                            )}
                     <Row>
                         <Col>
                             <Form.Group className="mb-1">
@@ -435,14 +441,18 @@ export default class Pedidos extends Component {
             precoPedido,
             descPedido,
             anotacaoPedido,
-            loading
+            loading,
+            hideA,
+            hideB,
+            hideC,
+            hideD
         } = this.state;
 
         return (
             <div>
                 <Menu />
 
-                <div className="p-4 bg-white">
+                <div className="p-4 bg-white border-bottom">
                     <Row>
                         <Col>
                             <h4 className="text-primary font-weight-light mb-0">Pedidos</h4>
@@ -554,39 +564,247 @@ export default class Pedidos extends Component {
                     ) : ""}
                 </div>
 
-                <div className="p-4" style={{ margin: "0 0 0 250px" }}>
+                <div
+                    className="px-3 py-2 bg-white text-primary border-bottom"
+                    style={{
+                        margin: "0 0 0 250px",
+                        cursor: "pointer"
+                    }}
+                    onClick={() => {
+                        if (hideA) {
+                            this.setState({
+                                hideA: false
+                            });
+                        } else {
+                            this.setState({
+                                hideA: true
+                            });
+                        }
+                    }}
+                >
+                    {hideA ? <ChevronRightIcon className="icon" /> : <ExpandMoreIcon className="icon" />}
+                    <h5 className="m-0 d-inline">Pedido Registrado</h5>
+                </div>
+                <div className="p-3" style={{ margin: "0 0 0 250px", display: hideA ? "none" : "block" }}>
                     <Row>
-                        {listPedidos.map(pedido => {
-                            return (
-                                <Col lg={3}>
-                                    <Card className="mb-3 shadow">
-                                        <Card.Img variant="top" src={require('./img/img-pedido.jpg')} />
-                                        <Card.Body>
-                                            <Card.Title className="text-primary">Pedido: {pedido.numeroDoPedido}</Card.Title>
-                                            <Card.Subtitle className="mb-3 text-muted desc-pedido">
-                                                <i>{sessionStorage.getItem('@NAVI/tipo') == "Comprador" ? "Loja: " + pedido.loja.nome : "Comprador: " + pedido.comprador.nome}</i>
-                                            </Card.Subtitle>
-                                            <Card.Text>
-                                                <div className="mb-1 desc-pedido">
-                                                    <b>Descrição: </b>
-                                                    <span>{pedido.descricao}</span>
-                                                </div>
-                                                <div className="mb-1  desc-pedido">
-                                                    <b>Entregador: </b>
-                                                    <span>{pedido.entregador == null ? "Nenhum" : pedido.entregador.nome}</span>
-                                                </div>
-                                                <div>
-                                                    <b>Preço: </b>
-                                                    <span className="text-primary">R$ {pedido.preco.toFixed(2)}</span>
-                                                </div>
-                                            </Card.Text>
-                                        </Card.Body>
-                                        <Card.Footer >
-                                            {sessionStorage.getItem('@NAVI/tipo') == "Comprador" ? this.footerComprador(pedido) : sessionStorage.getItem('@NAVI/tipo') == "Vendedor" ? this.footerVendedor(pedido) : this.footerEntregador(pedido)}
-                                        </Card.Footer>
-                                    </Card>
-                                </Col>
-                            );
+                        {listPedidos.sort(function (a, b) {
+                            return (a.numeroDoPedido > b.numeroDoPedido) ? 1 : ((b.numeroDoPedido > a.numeroDoPedido) ? -1 : 0);
+                        }).map(pedido => {
+                            if (pedido.estado == "") {
+                                return (
+                                    <Col lg={3}>
+                                        <Card className="mb-3 shadow">
+                                            <Card.Img variant="top" src={require('./img/img-pedido.jpg')} />
+                                            <Card.Body>
+                                                <Card.Title className="text-primary">Pedido: {pedido.numeroDoPedido}</Card.Title>
+                                                <Card.Subtitle className="mb-3 text-muted desc-pedido">
+                                                    <i>{sessionStorage.getItem('@NAVI/tipo') == "Comprador" ? "Loja: " + pedido.loja.nome : "Comprador: " + pedido.comprador.nome}</i>
+                                                </Card.Subtitle>
+                                                <Card.Text>
+                                                    <div className="mb-1 desc-pedido">
+                                                        <b>Descrição: </b>
+                                                        <span>{pedido.descricao}</span>
+                                                    </div>
+                                                    <div className="mb-1  desc-pedido">
+                                                        <b>Entregador: </b>
+                                                        <span>{pedido.entregador == null ? "Nenhum" : pedido.entregador.nome}</span>
+                                                    </div>
+                                                    <div>
+                                                        <b>Preço: </b>
+                                                        <span className="text-primary">R$ {pedido.preco.toFixed(2)}</span>
+                                                    </div>
+                                                </Card.Text>
+                                            </Card.Body>
+                                            <Card.Footer >
+                                                {sessionStorage.getItem('@NAVI/tipo') == "Comprador" ? this.footerComprador(pedido) : sessionStorage.getItem('@NAVI/tipo') == "Vendedor" ? this.footerVendedor(pedido) : this.footerEntregador(pedido)}
+                                            </Card.Footer>
+                                        </Card>
+                                    </Col>
+                                );
+                            }
+                        })}
+                    </Row>
+                </div>
+                <div
+                    className="px-3 py-2 bg-white text-primary border-bottom"
+                    style={{
+                        margin: "0 0 0 250px",
+                        cursor: "pointer"
+                    }}
+                    onClick={() => {
+                        if (hideB) {
+                            this.setState({
+                                hideB: false
+                            });
+                        } else {
+                            this.setState({
+                                hideB: true
+                            });
+                        }
+                    }}
+                >
+                    {hideB ? <ChevronRightIcon className="icon" /> : <ExpandMoreIcon className="icon" />}
+                    <h5 className="m-0 d-inline">Em Andamento</h5>
+                </div>
+                <div className="p-3" style={{ margin: "0 0 0 250px", display: hideB ? "none" : "block" }}>
+                    <Row>
+                        {listPedidos.sort(function (a, b) {
+                            return (a.numeroDoPedido > b.numeroDoPedido) ? 1 : ((b.numeroDoPedido > a.numeroDoPedido) ? -1 : 0);
+                        }).map(pedido => {
+                            if (pedido.estado == "Em Andamento") {
+                                return (
+                                    <Col lg={3}>
+                                        <Card className="mb-3 shadow">
+                                            <Card.Img variant="top" src={require('./img/img-pedido.jpg')} />
+                                            <Card.Body>
+                                                <Card.Title className="text-primary">Pedido: {pedido.numeroDoPedido}</Card.Title>
+                                                <Card.Subtitle className="mb-3 text-muted desc-pedido">
+                                                    <i>{sessionStorage.getItem('@NAVI/tipo') == "Comprador" ? "Loja: " + pedido.loja.nome : "Comprador: " + pedido.comprador.nome}</i>
+                                                </Card.Subtitle>
+                                                <Card.Text>
+                                                    <div className="mb-1 desc-pedido">
+                                                        <b>Descrição: </b>
+                                                        <span>{pedido.descricao}</span>
+                                                    </div>
+                                                    <div className="mb-1  desc-pedido">
+                                                        <b>Entregador: </b>
+                                                        <span>{pedido.entregador == null ? "Nenhum" : pedido.entregador.nome}</span>
+                                                    </div>
+                                                    <div>
+                                                        <b>Preço: </b>
+                                                        <span className="text-primary">R$ {pedido.preco.toFixed(2)}</span>
+                                                    </div>
+                                                </Card.Text>
+                                            </Card.Body>
+                                            <Card.Footer >
+                                                {sessionStorage.getItem('@NAVI/tipo') == "Comprador" ? this.footerComprador(pedido) : sessionStorage.getItem('@NAVI/tipo') == "Vendedor" ? this.footerVendedor(pedido) : this.footerEntregador(pedido)}
+                                            </Card.Footer>
+                                        </Card>
+                                    </Col>
+                                );
+                            }
+                        })}
+                    </Row>
+                </div>
+                <div
+                    className="px-3 py-2 bg-white text-primary border-bottom"
+                    style={{
+                        margin: "0 0 0 250px",
+                        cursor: "pointer"
+                    }}
+                    onClick={() => {
+                        if (hideC) {
+                            this.setState({
+                                hideC: false
+                            });
+                        } else {
+                            this.setState({
+                                hideC: true
+                            });
+                        }
+                    }}
+                >
+                    {hideC ? <ChevronRightIcon className="icon" /> : <ExpandMoreIcon className="icon" />}
+                    <h5 className="m-0 d-inline">Entregue</h5>
+                </div>
+                <div className="p-3" style={{ margin: "0 0 0 250px", display: hideC ? "none" : "block" }}>
+                    <Row>
+                        {listPedidos.sort(function (a, b) {
+                            return (a.numeroDoPedido > b.numeroDoPedido) ? 1 : ((b.numeroDoPedido > a.numeroDoPedido) ? -1 : 0);
+                        }).map(pedido => {
+                            if (pedido.estado == "Entregue") {
+                                return (
+                                    <Col lg={3}>
+                                        <Card className="mb-3 shadow">
+                                            <Card.Img variant="top" src={require('./img/img-pedido.jpg')} />
+                                            <Card.Body>
+                                                <Card.Title className="text-primary">Pedido: {pedido.numeroDoPedido}</Card.Title>
+                                                <Card.Subtitle className="mb-3 text-muted desc-pedido">
+                                                    <i>{sessionStorage.getItem('@NAVI/tipo') == "Comprador" ? "Loja: " + pedido.loja.nome : "Comprador: " + pedido.comprador.nome}</i>
+                                                </Card.Subtitle>
+                                                <Card.Text>
+                                                    <div className="mb-1 desc-pedido">
+                                                        <b>Descrição: </b>
+                                                        <span>{pedido.descricao}</span>
+                                                    </div>
+                                                    <div className="mb-1  desc-pedido">
+                                                        <b>Entregador: </b>
+                                                        <span>{pedido.entregador == null ? "Nenhum" : pedido.entregador.nome}</span>
+                                                    </div>
+                                                    <div>
+                                                        <b>Preço: </b>
+                                                        <span className="text-primary">R$ {pedido.preco.toFixed(2)}</span>
+                                                    </div>
+                                                </Card.Text>
+                                            </Card.Body>
+                                            <Card.Footer >
+                                                {sessionStorage.getItem('@NAVI/tipo') == "Comprador" ? this.footerComprador(pedido) : sessionStorage.getItem('@NAVI/tipo') == "Vendedor" ? this.footerVendedor(pedido) : this.footerEntregador(pedido)}
+                                            </Card.Footer>
+                                        </Card>
+                                    </Col>
+                                );
+                            }
+                        })}
+                    </Row>
+                </div>
+                <div
+                    className="px-3 py-2 bg-white text-primary border-bottom"
+                    style={{
+                        margin: "0 0 0 250px",
+                        cursor: "pointer"
+                    }}
+                    onClick={() => {
+                        if (hideD) {
+                            this.setState({
+                                hideD: false
+                            });
+                        } else {
+                            this.setState({
+                                hideD: true
+                            });
+                        }
+                    }}
+                >
+                    {hideD ? <ChevronRightIcon className="icon" /> : <ExpandMoreIcon className="icon" />}
+                    <h5 className="m-0 d-inline">Cancelado</h5>
+                </div>
+                <div className="p-3" style={{ margin: "0 0 0 250px", display: hideD ? "none" : "block" }}>
+                    <Row>
+                        {listPedidos.sort(function (a, b) {
+                            return (a.numeroDoPedido > b.numeroDoPedido) ? 1 : ((b.numeroDoPedido > a.numeroDoPedido) ? -1 : 0);
+                        }).map(pedido => {
+                            if (pedido.estado == "Cancelado") {
+                                return (
+                                    <Col lg={3}>
+                                        <Card className="mb-3 shadow">
+                                            <Card.Img variant="top" src={require('./img/img-pedido.jpg')} />
+                                            <Card.Body>
+                                                <Card.Title className="text-primary">Pedido: {pedido.numeroDoPedido}</Card.Title>
+                                                <Card.Subtitle className="mb-3 text-muted desc-pedido">
+                                                    <i>{sessionStorage.getItem('@NAVI/tipo') == "Comprador" ? "Loja: " + pedido.loja.nome : "Comprador: " + pedido.comprador.nome}</i>
+                                                </Card.Subtitle>
+                                                <Card.Text>
+                                                    <div className="mb-1 desc-pedido">
+                                                        <b>Descrição: </b>
+                                                        <span>{pedido.descricao}</span>
+                                                    </div>
+                                                    <div className="mb-1  desc-pedido">
+                                                        <b>Entregador: </b>
+                                                        <span>{pedido.entregador == null ? "Nenhum" : pedido.entregador.nome}</span>
+                                                    </div>
+                                                    <div>
+                                                        <b>Preço: </b>
+                                                        <span className="text-primary">R$ {pedido.preco.toFixed(2)}</span>
+                                                    </div>
+                                                </Card.Text>
+                                            </Card.Body>
+                                            <Card.Footer >
+                                                {sessionStorage.getItem('@NAVI/tipo') == "Comprador" ? this.footerComprador(pedido) : sessionStorage.getItem('@NAVI/tipo') == "Vendedor" ? this.footerVendedor(pedido) : this.footerEntregador(pedido)}
+                                            </Card.Footer>
+                                        </Card>
+                                    </Col>
+                                );
+                            }
                         })}
                     </Row>
                 </div>

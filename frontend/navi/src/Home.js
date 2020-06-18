@@ -42,7 +42,7 @@ export default class Home extends Component {
         axios.get("http://navi--api.herokuapp.com/lojas").then(data => {
             this.setState({ listaLoja: data.data });
             console.log(this.state.listaLoja);
-        })
+        });
     }
 
     render() {
@@ -75,7 +75,9 @@ export default class Home extends Component {
                     </Row> */}
                     <div className="p-4" style={{ margin: "0 0 0 250px" }}>
                         <CardColumns>
-                            {this.state.listaLoja.map(loja => {
+                            {this.state.listaLoja.sort(function (a, b) {
+                                return (a.nome > b.nome) ? 1 : ((b.nome > a.nome) ? -1 : 0);
+                            }).map(loja => {
                                 return (
                                     <Card style={styleCard} className="border shadow-sm">
                                         <Card.Body className="w-75 ml-auto bg-white">
