@@ -1,9 +1,7 @@
 package com.navi.controllers;
 
-import com.navi.models.Comprador;
-import com.navi.models.Endereco;
-import com.navi.models.Loja;
-import com.navi.models.Vendedor;
+import com.navi.client.ViaCepClient;
+import com.navi.models.*;
 import com.navi.repositories.CompradorRepository;
 import com.navi.repositories.EnderecoRepository;
 import com.navi.repositories.LojaRepository;
@@ -29,6 +27,9 @@ public class EnderecoController {
 
     @Autowired
     private LojaRepository lojaRepository;
+
+    @Autowired
+    private ViaCepClient client;
 
     @GetMapping
     public ResponseEntity getEnderecos() {
@@ -65,11 +66,27 @@ public class EnderecoController {
         }
     }
 
-    @PostMapping("/cadastro/endereco")
-    public ResponseEntity createEndereco(@RequestBody Endereco novoEndereco) {
-        repository.save(novoEndereco);
+    @GetMapping("/cep/{cep}")
+    public ResponseEntity consultarCep(@PathVariable String cep) {
+        Cep cepEncontrado = client.getCep(cep);
+        return ResponseEntity.ok(cepEncontrado);
+    }
 
-        return ResponseEntity.created(null).build();
+    @PostMapping("/cadastro/endereco/{cep}")
+    public ResponseEntity createEndereco(
+            @PathVariable String cep) {
+
+        Endereco novoEndereco = new Endereco();
+        Cep cepEncontrado = client.getCep(cep);
+
+
+        novoEndereco.setCep(cepEncontrado.getCep());
+        novoEndereco.setLogradouro(cepEncontrado.getLogradouro());
+        novoEndereco.setBairro(cepEncontrado.getBairro());
+        novoEndereco.setLocalidade(cepEncontrado.getLocalidade());
+        novoEndereco.setUf(cepEncontrado.getUf());
+
+        return ResponseEntity.created(null).body(novoEndereco);
     }
 
     @PostMapping("/cadastro/comprador/{cpf}/endereco")

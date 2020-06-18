@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -44,6 +45,7 @@ public class PedidoController {
         else {
             Vendedor vendedor = vendedorRepository.findByCnpj(cnpj).get(0);
 
+            novoPedido.setEstado("Pedido Registrado");
             novoPedido.setLoja(lojaRepository.findByVendedor(vendedor));
             novoPedido.setEndereco(lojaRepository.findByVendedor(vendedor).getEndereco());
             novoPedido.setComprador(compradorRepository.findByCpf(cpf).get(0));
@@ -79,6 +81,24 @@ public class PedidoController {
             Pedido search = repository.findByNumeroDoPedido(numeroDoPedido);
 
             return ResponseEntity.ok(search);
+        }
+    }
+
+    @GetMapping("/vendedor/{cnpj}/pedidos/entregues")
+    public ResponseEntity getPedidosEntregue (
+            @PathVariable String cnpj) {
+        if (vendedorRepository.findByCnpj(cnpj).isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        else {
+            if (repository.findAllByEstado("Entregue").isEmpty()) {
+                return ResponseEntity.notFound().build();
+            }
+            else {
+                List listaDePedidos = repository.findAllByEstado("Entregue");
+
+                return ResponseEntity.ok(listaDePedidos);
+            }
         }
     }
 
@@ -148,39 +168,40 @@ public class PedidoController {
         }
     }
 
-    @PutMapping("/vendedor/{cnpj}/pedidos/{numeroDoPedido}")
+    @PutMapping("/vendedor/{cnpj}/pedidos/{id}")
     public ResponseEntity updateEstado (
             @PathVariable String cnpj,
-            @PathVariable Integer numeroDoPedido,
+            @PathVariable Integer id,
             @RequestParam String estado) {
         if (vendedorRepository.findByCnpj(cnpj).isEmpty()) {
             return ResponseEntity.notFound().build();
         }
         else {
-            Pedido search = repository.findByNumeroDoPedido(numeroDoPedido);
+            Pedido pedido = repository.findById(id).get();
 
-            search.setEstado(estado);
-            repository.save(search);
 
-            return ResponseEntity.ok(search);
+            pedido.setEstado(estado);
+            repository.save(pedido);
+
+            return ResponseEntity.ok(pedido);
         }
     }
 
-    @PutMapping("/entregador/{cpf}/pedidos/{numeroDoPedido}")
+    @PutMapping("/entregador/{cpf}/pedidos/{id}")
     public ResponseEntity updateEntregador (
             @PathVariable String cpf,
-            @PathVariable Integer numeroDoPedido) {
+            @PathVariable Integer id) {
         if (entregadorRepository.findByCpf(cpf).isEmpty()) {
             return ResponseEntity.notFound().build();
         }
         else {
-            Pedido search = repository.findByNumeroDoPedido(numeroDoPedido);
+            Pedido pedido = repository.findById(id).get();
             Entregador entregador = entregadorRepository.findByCpf(cpf).get(0);
 
-            search.setEntregador(entregador);
-            repository.save(search);
+            pedido.setEntregador(entregador);
+            repository.save(pedido);
 
-            return ResponseEntity.ok().body(search);
+            return ResponseEntity.ok().body(pedido);
         }
     }
 

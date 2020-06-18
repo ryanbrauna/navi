@@ -13,6 +13,8 @@ public interface PedidoRepository extends JpaRepository<Pedido, Integer> {
 
     Pedido findByNumeroDoPedido (Integer numeroDoPedido);
 
+    List<Pedido> findAllByEstado (String estado);
+
     List<Pedido> findAllByComprador (Comprador comprador);
 
 }

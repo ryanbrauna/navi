@@ -3,12 +3,10 @@ package com.navi.export;
 import com.navi.models.*;
 import com.navi.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -50,10 +48,12 @@ public class ExportController {
         }
     };
 
-    @GetMapping("/{cnpj}/exportacao")
-    public String registrar (@PathVariable String cnpj) {
+    @PostMapping("/{cnpj}/pedido/{numeroDoPedido}")
+    public String registrar (
+            @PathVariable String cnpj,
+            @PathVariable Integer numeroDoPedido) {
 
-        String nomeArq = "ArquivoPedidos.txt";
+        String nomeArq = cnpj+"ArquivoPedido"+numeroDoPedido+".txt";
         String header = "";
         String corpo = "";
         String trailer = "";
@@ -63,15 +63,14 @@ public class ExportController {
         Date data = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 
-        header += "00PEDIDOS";
+        header += "00PEDIDO";
         header += vendedor.getCnpj();
         header += formatter.format(data);
         header += "01";
 
         gravaRegistro(nomeArq, header);
 
-        Loja loja = lojaRepository.findByVendedor(vendedor);
-        Pedido pedidoEncontrado = pedidoRepository.findAllByLoja(loja).get(1);
+        Pedido pedidoEncontrado = pedidoRepository.findByNumeroDoPedido(numeroDoPedido);
         Comprador comprador = pedidoEncontrado.getComprador();
 
         corpo += "01";
@@ -91,6 +90,17 @@ public class ExportController {
         gravaRegistro(nomeArq, trailer);
 
         return "Registro Criado";
+    }
+
+    @GetMapping("/{cnpj}/pedido/{numeroDoPedido}")
+    public File getArquivo (
+            @PathVariable String cnpj,
+            @PathVariable Integer numeroDoPedido) {
+        String nomeArq = cnpj+"ArquivoPedido"+numeroDoPedido+".txt";
+
+        File file = new File(nomeArq);
+
+        return file;
     }
 
 }
