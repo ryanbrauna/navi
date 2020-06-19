@@ -161,7 +161,7 @@ class Cadastro extends Component {
                 text: "Senhas não coincidem!",
                 icon: "warning",
                 button: "OK",
-            })
+            });
             this.setState({ loading: false });
         }
     }
@@ -178,6 +178,36 @@ class Cadastro extends Component {
             campoCod: cod,
             show: true
         });
+    }
+
+    validarCEP = () => {
+        if (this.state.cep == "") {
+            swal({
+                title: "Atenção!",
+                text: "Insira um CEP!",
+                icon: "warning",
+                button: "OK",
+            });
+        } else {
+            axios.get(`https://navi--api.herokuapp.com/cep/${this.state.cep}`).then(data => {
+                if (data.data.cep) {
+                    this.setState({
+                        bairro: data.data.bairro,
+                        localidade: data.data.localidade,
+                        logradouro: data.data.logradouro,
+                        uf: data.data.uf,
+                    });
+                    console.log(data.data);
+                } else {
+                    swal({
+                        title: "Atenção!",
+                        text: "CEP inválido!",
+                        icon: "warning",
+                        button: "OK",
+                    });
+                }
+            });
+        }
     }
 
     render() {
@@ -240,7 +270,7 @@ class Cadastro extends Component {
                             </Row>
                             <div className="mt-3" style={{ display: show ? "block" : "none" }}>
                                 <h4 className="mt-4">Dados Pessoais</h4>
-                                <p className="my-2 text-danger text-atencao-cad">Os campos com " <b>*</b> " é obrigatorio o preencher.</p>
+                                <p className="my-2 text-danger text-atencao-cad">Os campos com <b>*</b> é obrigatorio o preencher.</p>
                                 <Row>
                                     <Col md={6}>
                                         <Form.Group>
@@ -249,6 +279,7 @@ class Cadastro extends Component {
                                                 name="nome"
                                                 value={nome}
                                                 onChange={this.cadChange}
+                                                autoComplete="off"
                                             />
                                             <Form.Label><span className="text-danger">*</span> Digite seu Nome.</Form.Label>
                                         </Form.Group>
@@ -261,6 +292,7 @@ class Cadastro extends Component {
                                                 name="cod"
                                                 value={cod}
                                                 onChange={this.cadChange}
+                                                autoComplete="off"
                                                 className={campoCod == "CPF" ? "" : "d-none"}
                                             />
                                             <Form.Control required
@@ -269,6 +301,7 @@ class Cadastro extends Component {
                                                 name="cod"
                                                 value={cod}
                                                 onChange={this.cadChange}
+                                                autoComplete="off"
                                                 className={campoCod == "CNPJ" ? "" : "d-none"}
                                             />
                                             <Form.Label><span className="text-danger">*</span> Digite seu {campoCod}.</Form.Label>
@@ -284,6 +317,7 @@ class Cadastro extends Component {
                                                 name="email"
                                                 value={email}
                                                 onChange={this.cadChange}
+                                                autoComplete="off"
                                             />
                                             <Form.Label><span className="text-danger">*</span> Digite seu endereço de E-mail.</Form.Label>
                                         </Form.Group>
@@ -296,6 +330,7 @@ class Cadastro extends Component {
                                                 name="telefone"
                                                 value={telefone}
                                                 onChange={this.cadChange}
+                                                autoComplete="off"
                                             />
                                             <Form.Label>Digite seu Telefone.</Form.Label>
                                         </Form.Group>
@@ -311,6 +346,7 @@ class Cadastro extends Component {
                                                 name="senha"
                                                 value={senha}
                                                 onChange={this.cadChange}
+                                                autoComplete="off"
                                             />
                                             <Form.Label><span className="text-danger">*</span> Digite uma senha Senha.</Form.Label>
                                         </Form.Group>
@@ -324,6 +360,7 @@ class Cadastro extends Component {
                                                 name="confSenha"
                                                 value={confSenha}
                                                 onChange={this.cadChange}
+                                                autoComplete="off"
                                             />
                                             <Form.Label><span className="text-danger">*</span> Confirme a senha Senha.</Form.Label>
                                         </Form.Group>
@@ -332,13 +369,14 @@ class Cadastro extends Component {
 
                                 <div style={{ display: tipo == "V" ? "block" : "none" }}>
                                     <h4 className="mt-3">Dados da Loja</h4>
-                                    <p className="my-2 text-danger text-atencao-cad">Os campos com " <b>*</b> " é obrigatorio o preencher.</p>
+                                    <p className="my-2 text-danger text-atencao-cad">Os campos com <b>*</b> é obrigatorio o preencher.</p>
                                     <Form.Group>
                                         <Form.Control required={tipo == "V" ? true : false}
                                             placeholder="Nome da Loja"
                                             name="nomeLoja"
                                             value={nomeLoja}
                                             onChange={this.cadChange}
+                                            autoComplete="off"
                                         />
                                         <Form.Label><span className="text-danger">*</span> Digite o Nome da sua Loja.</Form.Label>
                                     </Form.Group>
@@ -350,13 +388,14 @@ class Cadastro extends Component {
                                             name="descLoja"
                                             value={descLoja}
                                             onChange={this.cadChange}
+                                            autoComplete="off"
                                         />
                                         <Form.Label>Digite uma descrição.</Form.Label>
                                     </Form.Group>
                                 </div>
 
                                 <h4 className="mt-4">Endereço</h4>
-                                <p className="my-2 text-danger text-atencao-cad">Os campos com " <b>*</b> " é obrigatorio o preencher.</p>
+                                <p className="my-2 text-danger text-atencao-cad">Os campos com <b>*</b> é obrigatorio o preencher.</p>
                                 <Row className="mb-3">
                                     <Col md={4}>
                                         <Form.Group className="mb-0">
@@ -366,9 +405,14 @@ class Cadastro extends Component {
                                                 name="cep"
                                                 value={cep}
                                                 onChange={this.cadChange}
+                                                autoComplete="off"
+                                                autoComplete
                                             />
                                             <Form.Label><span className="text-danger">*</span> Insira seu CEP.</Form.Label>
                                         </Form.Group>
+                                    </Col>
+                                    <Col md={2}>
+                                        <Button type="button" size="sm" className="mt-3" onClick={this.validarCEP}>Verificar CEP</Button>
                                     </Col>
                                     <Col>
                                         <div className="mt-3">
@@ -384,9 +428,9 @@ class Cadastro extends Component {
                                                 placeholder="Logradouro"
                                                 name="logradouro"
                                                 value={logradouro}
-                                                onChange={this.cadChange}
+                                                disabled
                                             />
-                                            <Form.Label><span className="text-danger">*</span> Digite seu logradouro.</Form.Label>
+                                            <Form.Label>Digite seu logradouro.</Form.Label>
                                         </Form.Group>
                                     </Col>
                                     <Col>
@@ -396,6 +440,7 @@ class Cadastro extends Component {
                                                 name="numero"
                                                 value={numero}
                                                 onChange={this.cadChange}
+                                                autoComplete="off"
                                             />
                                             <Form.Label><span className="text-danger">*</span> Digite o Nº.</Form.Label>
                                         </Form.Group>
@@ -409,6 +454,7 @@ class Cadastro extends Component {
                                                 name="complemento"
                                                 value={complemento}
                                                 onChange={this.cadChange}
+                                                autoComplete="off"
                                             />
                                             <Form.Label>Complemento do endereço.</Form.Label>
                                         </Form.Group>
@@ -419,9 +465,9 @@ class Cadastro extends Component {
                                                 placeholder="Bairro"
                                                 name="bairro"
                                                 value={bairro}
-                                                onChange={this.cadChange}
+                                                disabled
                                             />
-                                            <Form.Label><span className="text-danger">*</span> Digite o bairro.</Form.Label>
+                                            <Form.Label>Digite o bairro.</Form.Label>
                                         </Form.Group>
                                     </Col>
                                 </Row>
@@ -432,9 +478,9 @@ class Cadastro extends Component {
                                                 placeholder="Cidade"
                                                 name="localidade"
                                                 value={localidade}
-                                                onChange={this.cadChange}
+                                                disabled
                                             />
-                                            <Form.Label><span className="text-danger">*</span> Digite a cidade.</Form.Label>
+                                            <Form.Label>Digite a cidade.</Form.Label>
                                         </Form.Group>
                                     </Col>
                                     <Col md={2}>
@@ -444,9 +490,9 @@ class Cadastro extends Component {
                                                 placeholder="UF"
                                                 name="uf"
                                                 value={uf}
-                                                onChange={this.cadChange}
+                                                disabled
                                             />
-                                            <Form.Label><span className="text-danger">*</span> Digite o UF.</Form.Label>
+                                            <Form.Label>Digite o UF.</Form.Label>
                                         </Form.Group>
                                     </Col>
                                 </Row>

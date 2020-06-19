@@ -154,13 +154,16 @@ body {
 /* formatando formulario */
 .form-control {
   border: none !important;
-  border-bottom: 1px solid #ced4da !important;
+  border-bottom: 1px solid #0b99e9 !important;
   border-radius: 0px !important;
   background-color: transparent !important;
 }
 .form-control:focus {
   border-bottom: 2px solid #0b99e9 !important;
   box-shadow: none !important;
+}
+.form-control:disabled {
+  border-color: #ced4da !important;
 }
 
 .form-label {
