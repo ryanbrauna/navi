@@ -49,6 +49,10 @@ export default class Pedidos extends Component {
                 this.setState({ listPedidos: data.data });
                 console.log(this.state.listPedidos);
             });
+            axios.get(`http://navi--api.herokuapp.com/${sessionStorage.getItem('@NAVI/cod')}/entregadores`).then((data) => {
+                this.setState({ listEntregadores: data.data });
+                console.log(this.state.listEntregadores);
+            });
         } else {
             axios.get(`http://navi--api.herokuapp.com/vendedor/${sessionStorage.getItem('@NAVI/loja')}/pedidos`).then((data) => {
                 this.setState({ listPedidos: data.data });
@@ -60,9 +64,15 @@ export default class Pedidos extends Component {
 
     salvarPedido = () => {
         this.setState({ loading: true });
-        axios.put(`https://navi--api.herokuapp.com/vendedor/${sessionStorage.getItem('@NAVI/cod')}/pedidos/${this.state.pedidoModal.numeroDoPedido}?estado=${this.state.statusModal}`).then(response => {
+        var cpfDoEntregador = "";
+        for (let i = 0; i < this.state.listEntregadores.length; i++) {
+            if(this.state.listEntregadores.nome == this.state.entregadorPedido){
+                cpfDoEntregador = this.state.listEntregadores.cpf;
+            }
+        }
+        axios.put(`https://navi--api.herokuapp.com/vendedor/${sessionStorage.getItem('@NAVI/cod')}/pedidos/${this.state.pedidoModal.id}?estado=${this.state.statusModal}`).then(response => {
             if (response.data != null) {
-                debugger;
+                axios.put(`http://navi--api.herokuapp.com/entregador/${cpfDoEntregador}/pedidos/${this.state.pedidoModal.id}`);
                 axios.post(`https://navi--api.herokuapp.com/enviar/${this.state.pedidoModal.comprador.cpf}/${this.state.pedidoModal.numeroDoPedido}`).then(r => console.log("SMS enviado:" + r));
                 swal({
                     title: "Sucesso!",
@@ -118,6 +128,7 @@ export default class Pedidos extends Component {
 
     initialState = {
         listPedidos: [],
+        listEntregadores: [],
         pedidoModal: {},
         loading: false,
         showModal: false,
@@ -132,6 +143,7 @@ export default class Pedidos extends Component {
         descPedido: "",
         anotacaoPedido: "",
         statusModal: "",
+        entregadorPedido: "",
         hideA: false,
         hideB: false,
         hideC: true,
@@ -213,6 +225,8 @@ export default class Pedidos extends Component {
     }
 
     modalEdit = (showModal, formDisabled, btnDanger, btnPrimary, onClickBtnPrimary, pedido) => {
+        // this.setState({statusModal: pedido != null ? pedido.estado : ""});
+        const cpfEntregador = pedido.entregador == null ? "" : pedido.entregador.cpf;
         var dadosComprador = (
             <tbody>
                 <tr>
@@ -282,6 +296,126 @@ export default class Pedidos extends Component {
             </tbody>
         );
 
+        var groupButtonsComprador = (
+            <Row className="justify-content-end">
+                <Col md={4}>
+                    <Button
+                        className="w-100"
+                        variant="info"
+                        // onClick={onClickBtnPrimary}
+                        disabled={this.state.loading}
+                        size="sm"
+                    >{this.state.loading ? (
+                        <Spinner
+                            as="span"
+                            animation="border"
+                            size="sm"
+                            role="status"
+                            aria-hidden="true"
+                        />
+                    ) : "Baixar Dados do Pedido"}</Button>
+                </Col>
+            </Row>
+        )
+
+        var groupButtonsVendedor = (
+            <Row className="justify-content-end">
+                <Col md={3}>
+                    <Button
+                        className="w-100"
+                        variant="danger"
+                        onClick={formDisabled ? () => this.excluirPedido(pedido.numeroDoPedido, pedido.id) : this.handleClose}
+                        size="sm"
+                    >{btnDanger}</Button>
+                </Col>
+                <Col md={3}>
+                    <Button
+                        className="w-100"
+                        variant="primary"
+                        onClick={onClickBtnPrimary}
+                        disabled={this.state.loading}
+                        size="sm"
+                    >{this.state.loading ? (
+                        <Spinner
+                            as="span"
+                            animation="border"
+                            size="sm"
+                            role="status"
+                            aria-hidden="true"
+                        />
+                    ) : btnPrimary}</Button>
+                </Col>
+            </Row>
+        )
+
+        var groupButtonsEntregador = (
+            <Row className="justify-content-end">
+                {cpfEntregador != sessionStorage.getItem('@NAVI/cod') ? "" : pedido.estado == "Em Andamento" ? (
+                    <Col md={3}>
+                        <Button
+                            className="w-100"
+                            variant="primary"
+                            onClick={() => {
+                                this.setState({ loading: true });
+                                axios.put(`https://navi--api.herokuapp.com/vendedor/${pedido.loja.vendedor.cnpj}/pedidos/${pedido.id}?estado=Entregue`).then(response => {
+                                    if (response.data != null) {
+                                        axios.post(`https://navi--api.herokuapp.com/enviar/${this.state.pedidoModal.comprador.cpf}/${this.state.pedidoModal.numeroDoPedido}`).then(r => console.log("SMS enviado:" + r));
+                                        swal({
+                                            title: "Sucesso!",
+                                            text: "O status do pedido foi atualizado.",
+                                            icon: "success",
+                                            button: "OK",
+                                        }).then(() => window.location.reload());
+                                    }
+                                });
+                            }}
+                            disabled={this.state.loading}
+                            size="sm"
+                        >{this.state.loading ? (
+                            <Spinner
+                                as="span"
+                                animation="border"
+                                size="sm"
+                                role="status"
+                                aria-hidden="true"
+                            />
+                        ) : "Confirmar Entrega"}</Button>
+                    </Col>
+                ) : ""}
+                {pedido.entregador != null ? "" : (
+                    <Col md={3}>
+                        <Button
+                            className="w-100"
+                            variant="info"
+                            onClick={() => {
+                                this.setState({ loading: true });
+                                axios.put(`http://navi--api.herokuapp.com/entregador/${sessionStorage.getItem('@NAVI/cod')}/pedidos/${pedido.id}`).then(response => {
+                                    if (response.data != null) {
+                                        swal({
+                                            title: "Sucesso!",
+                                            text: "O entregador do pedido foi atualizado.",
+                                            icon: "success",
+                                            button: "OK",
+                                        }).then(() => window.location.reload());
+                                    }
+                                });
+                            }}
+                            disabled={this.state.loading}
+                            size="sm"
+                        >{this.state.loading ? (
+                            <Spinner
+                                as="span"
+                                animation="border"
+                                size="sm"
+                                role="status"
+                                aria-hidden="true"
+                            />
+                        ) : "Realizar Entrega"}</Button>
+                    </Col>
+                )}
+            </Row>
+        )
+
         return (
             <Modal show={showModal} onHide={this.handleClose} size="lg">
                 <Modal.Header closeButton>
@@ -290,75 +424,7 @@ export default class Pedidos extends Component {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    {sessionStorage.getItem('@NAVI/tipo') == "Vendedor" ? (
-                        <Row className="justify-content-end">
-                            <Col md={3}>
-                                <Button
-                                    className="w-100"
-                                    variant="danger"
-                                    onClick={formDisabled ? () => this.excluirPedido(pedido.numeroDoPedido, pedido.id) : this.handleClose}
-                                    size="sm"
-                                >{btnDanger}</Button>
-                            </Col>
-                            <Col md={3}>
-                                <Button
-                                    className="w-100"
-                                    variant="primary"
-                                    onClick={onClickBtnPrimary}
-                                    disabled={this.state.loading}
-                                    size="sm"
-                                >{this.state.loading ? (
-                                    <Spinner
-                                        as="span"
-                                        animation="border"
-                                        size="sm"
-                                        role="status"
-                                        aria-hidden="true"
-                                    />
-                                ) : btnPrimary}</Button>
-                            </Col>
-                        </Row>
-                    ) : sessionStorage.getItem('@NAVI/tipo') == "Entregador" ? (
-                        <Row className="justify-content-end">
-                            <Col md={3}>
-                                <Button
-                                    className="w-100"
-                                    variant="primary"
-                                    // onClick={onClickBtnPrimary}
-                                    disabled={this.state.loading}
-                                    size="sm"
-                                >{this.state.loading ? (
-                                    <Spinner
-                                        as="span"
-                                        animation="border"
-                                        size="sm"
-                                        role="status"
-                                        aria-hidden="true"
-                                    />
-                                ) : "Entregar Pedido"}</Button>
-                            </Col>
-                        </Row>
-                    ) : (
-                                <Row className="justify-content-end">
-                                    <Col md={4}>
-                                        <Button
-                                            className="w-100"
-                                            variant="info"
-                                            // onClick={onClickBtnPrimary}
-                                            disabled={this.state.loading}
-                                            size="sm"
-                                        >{this.state.loading ? (
-                                            <Spinner
-                                                as="span"
-                                                animation="border"
-                                                size="sm"
-                                                role="status"
-                                                aria-hidden="true"
-                                            />
-                                        ) : "Baixar Dados do Pedido"}</Button>
-                                    </Col>
-                                </Row>
-                            )}
+                    {sessionStorage.getItem('@NAVI/tipo') == "Vendedor" ? groupButtonsVendedor : sessionStorage.getItem('@NAVI/tipo') == "Entregador" ? groupButtonsEntregador : groupButtonsComprador}
                     <Row>
                         <Col>
                             <Form.Group className="mb-1">
@@ -376,12 +442,22 @@ export default class Pedidos extends Component {
                                 </Form.Control>
                             </Form.Group>
                             <Form.Group>
+                                <Form.Label className="mb-0">Entregador</Form.Label>
                                 <Form.Control
-                                    placeholder="Nome do Entregador"
-                                    value={pedido.entregador == null ? "Nenhum" : pedido.entregador.nome}
-                                    disabled
-                                />
-                                <Form.Label>Entregador</Form.Label>
+                                    as="select"
+                                    name="entregadorPedido"
+                                    onChange={this.inputChange}
+                                    disabled={formDisabled}
+                                >
+                                    <option>{pedido.entregador == null ? "Nenhum" : pedido.entregador.nome}</option>
+                                    {this.state.listEntregadores.sort(function (a, b) {
+                                        return (a.numeroDoPedido > b.numeroDoPedido) ? 1 : ((b.numeroDoPedido > a.numeroDoPedido) ? -1 : 0);
+                                    }).map(entregador => {
+                                        return (
+                                            <option>{entregador.nome}</option>
+                                        );
+                                    })}
+                                </Form.Control>
                             </Form.Group>
                         </Col>
                     </Row>
@@ -590,7 +666,7 @@ export default class Pedidos extends Component {
                         {listPedidos.sort(function (a, b) {
                             return (a.numeroDoPedido > b.numeroDoPedido) ? 1 : ((b.numeroDoPedido > a.numeroDoPedido) ? -1 : 0);
                         }).map(pedido => {
-                            if (pedido.estado == "") {
+                            if (pedido.estado == "Pedido Registrado") {
                                 return (
                                     <Col lg={3}>
                                         <Card className="mb-3 shadow">
