@@ -66,11 +66,11 @@ export default class Pedidos extends Component {
         this.setState({ loading: true });
         var cpfDoEntregador = "";
         for (let i = 0; i < this.state.listEntregadores.length; i++) {
-            if(this.state.listEntregadores.nome == this.state.entregadorPedido){
-                cpfDoEntregador = this.state.listEntregadores.cpf;
+            if(this.state.listEntregadores[i].nome == this.state.entregadorPedido){
+                cpfDoEntregador = this.state.listEntregadores[i].cpf;
             }
         }
-        axios.put(`https://navi--api.herokuapp.com/vendedor/${sessionStorage.getItem('@NAVI/cod')}/pedidos/${this.state.pedidoModal.id}?estado=${this.state.statusModal}`).then(response => {
+        axios.put(`https://navi--api.herokuapp.com/vendedor/${sessionStorage.getItem('@NAVI/cod')}/pedidos/${this.state.pedidoModal.id}?estado=${this.state.statusModal == "" ? this.state.pedidoModal.estado : this.state.statusModal}`).then(response => {
             if (response.data != null) {
                 axios.put(`http://navi--api.herokuapp.com/entregador/${cpfDoEntregador}/pedidos/${this.state.pedidoModal.id}`);
                 axios.post(`https://navi--api.herokuapp.com/enviar/${this.state.pedidoModal.comprador.cpf}/${this.state.pedidoModal.numeroDoPedido}`).then(r => console.log("SMS enviado:" + r));
@@ -135,7 +135,7 @@ export default class Pedidos extends Component {
         formDisabled: true,
         onClickBtnPrimary: this.editarPedido,
         btnDanger: "Excluir Pedido",
-        btnPrimary: "Alterar Status",
+        btnPrimary: "Editar Pedido",
         hideFormCad: "d-none",
         numeroPedido: "",
         cpfComprador: "",
@@ -442,7 +442,7 @@ export default class Pedidos extends Component {
                                 </Form.Control>
                             </Form.Group>
                             <Form.Group>
-                                <Form.Label className="mb-0">Entregador</Form.Label>
+                                <Form.Label className="mb-0">Entregador:</Form.Label>
                                 <Form.Control
                                     as="select"
                                     name="entregadorPedido"
