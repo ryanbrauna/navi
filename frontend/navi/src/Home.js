@@ -1,37 +1,34 @@
 import React, { Component } from 'react';
 import './css/Home.css';
-import GoogleMapReact from 'google-map-react';
 import axios from 'axios';
 
+//Maps
+import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
 // Components
 import Menu from './Menu';
 
 // Bootstrap
 import 'bootstrap/dist/css/bootstrap.css';
 import {
-    Image,
-    Navbar,
-    Nav,
     Row,
     Col,
     CardColumns,
     Card
 } from 'react-bootstrap';
 
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
-export default class Home extends Component {
-    static defaultProps = {
-        center: {
-            lat: 59.95,
-            lng: 30.33
-        },
-        zoom: 11
-    };
+class Home extends Component {
 
     constructor(props) {
         super(props);
+
         this.state = {
-            listaLoja: []
+            listaLoja: [],
+            initialPosition: {
+                latitude: 0,
+                longitude: 0,
+                latitudeDelta: 0,
+                longitudeDelta: 0,
+            }
         };
     }
 
@@ -43,15 +40,32 @@ export default class Home extends Component {
             this.setState({ listaLoja: data.data });
             console.log(this.state.listaLoja);
         });
+        navigator.geolocation.getCurrentPosition((position) => {
+            var lat = parseFloat(position.coords.latitude)
+            var long = parseFloat(position.coords.longitude)
+
+            var initialRegion = {
+                latitude: lat,
+                longitude: long
+            }
+
+            this.setState({ initialPosition: initialRegion })
+        }, (error) => alert(JSON.stringify(error)), { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 });
     }
 
     render() {
+        const containerStyle = {
+            position: 'relative',
+            width: '100%',
+            height: '100%'
+        }
         const styleCard = {
             backgroundImage: `url(${require('./img/wp1.jpg')})`,
             backgroundSize: 'cover'
         };
+
         return (
-            <div>
+            <>
                 <Menu />
 
                 <div className="p-4 bg-white shadow-sm">
@@ -61,24 +75,27 @@ export default class Home extends Component {
                         </Col>
                     </Row>
                 </div>
-                <div>
-                    {/* <Row>
-                        <Col className="p-0">
-                            <div className="rounded bg-white">
-                                <Image
-                                    src={require('./img/maps.png')}
-                                    className="w-100"
-                                    alt="Maps"
-                                />
-                            </div>
-                        </Col>
-                    </Row> */}
-                    <div className="p-4" style={{ margin: "0 0 0 250px" }}>
-                        <CardColumns>
-                            {this.state.listaLoja.sort(function (a, b) {
-                                return (a.nome > b.nome) ? 1 : ((b.nome > a.nome) ? -1 : 0);
-                            }).map(loja => {
-                                return (
+                <div style={{ margin: "0 0 0 250px", height: "450px" }}>
+                    <Map
+                        containerStyle={containerStyle}
+                        // initialCenter={this.state.initialPosition}
+                        google={this.props.google} zoom={16}
+                    >
+
+                        <Marker onClick={this.onMarkerClick}
+                            name={'Current location'} />
+
+                        <InfoWindow onClose={this.onInfoWindowClose}>
+                        </InfoWindow>
+                    </Map>
+                </div>
+                <div className="p-4" style={{ margin: "0 0 0 250px" }}>
+                    <CardColumns>
+                        {this.state.listaLoja.sort(function (a, b) {
+                            return (a.nome > b.nome) ? 1 : ((b.nome > a.nome) ? -1 : 0);
+                        }).map(loja => {
+                            return (
+                                <>
                                     <Card style={styleCard} className="border shadow-sm">
                                         <Card.Body className="w-75 ml-auto bg-white">
                                             <Card.Title className="text-primary">{loja.nome}</Card.Title>
@@ -92,25 +109,16 @@ export default class Home extends Component {
                                             <small className="text-muted">{loja.vendedor.email}</small>
                                         </Card.Footer>
                                     </Card>
-                                );
-                            })}
-                        </CardColumns>
-                    </div>
-                    {/* <div style={{ height: '100vh', width: '100%' }}>
-                            <GoogleMapReact
-                                bootstrapURLKeys={{ key: 'AIzaSyC1Ss07U7cpEDS_gqYwsw0amAGt3g-aD9c' }}
-                                defaultCenter={this.props.center}
-                                defaultZoom={this.props.zoom}
-                            >
-                                <AnyReactComponent
-                                    lat={59.955413}
-                                    lng={30.337844}
-                                    text="My Marker"
-                                />
-                            </GoogleMapReact>
-                        </div> */}
+                                </>
+                            );
+                        })}
+                    </CardColumns>
                 </div>
-            </div>
+            </>
         );
     }
 }
+
+export default GoogleApiWrapper({
+    apiKey: ("AIzaSyC1Ss07U7cpEDS_gqYwsw0amAGt3g-aD9c")
+})(Home)
