@@ -19,7 +19,8 @@ import {
     Button,
     Form,
     Table,
-    Spinner
+    Spinner,
+    Image
 } from 'react-bootstrap';
 
 //Icon
@@ -66,7 +67,7 @@ export default class Pedidos extends Component {
         this.setState({ loading: true });
         var cpfDoEntregador = "";
         for (let i = 0; i < this.state.listEntregadores.length; i++) {
-            if(this.state.listEntregadores[i].nome == this.state.entregadorPedido){
+            if (this.state.listEntregadores[i].nome == this.state.entregadorPedido) {
                 cpfDoEntregador = this.state.listEntregadores[i].cpf;
             }
         }
@@ -302,7 +303,6 @@ export default class Pedidos extends Component {
                     <Button
                         className="w-100"
                         variant="info"
-                        // onClick={onClickBtnPrimary}
                         disabled={this.state.loading}
                         size="sm"
                     >{this.state.loading ? (
@@ -313,7 +313,9 @@ export default class Pedidos extends Component {
                             role="status"
                             aria-hidden="true"
                         />
-                    ) : "Baixar Dados do Pedido"}</Button>
+                    ) : (
+                            <a className="text-white text-decoration-none" href={`http://navi--api.herokuapp.com/${pedido.loja == null ? "" : pedido.loja.vendedor.cnpj}/pedido/${pedido.id}`} download>Baixar Arquivo do Pedido</a>
+                        )}</Button>
                 </Col>
             </Row>
         )
@@ -424,7 +426,7 @@ export default class Pedidos extends Component {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    {sessionStorage.getItem('@NAVI/tipo') == "Vendedor" ? groupButtonsVendedor : sessionStorage.getItem('@NAVI/tipo') == "Entregador" ? groupButtonsEntregador : groupButtonsComprador}
+                    {sessionStorage.getItem('@NAVI/tipo') == "Vendedor" ? groupButtonsVendedor : sessionStorage.getItem('@NAVI/tipo') == "Entregador" ? groupButtonsEntregador : pedido.entregador != null ? groupButtonsComprador : ""}
                     <Row>
                         <Col>
                             <Form.Group className="mb-1">
@@ -670,7 +672,14 @@ export default class Pedidos extends Component {
                                 return (
                                     <Col lg={3}>
                                         <Card className="mb-3 shadow">
-                                            <Card.Img variant="top" src={require('./img/img-pedido.jpg')} />
+                                            <div className="w-100 bg-primary rounded-top" style={{ height: "50px" }}>
+                                                <Image
+                                                    src={require('./img/navi-logo-white.png')}
+                                                    width="40"
+                                                    height="40"
+                                                    className="ml-2 mt-1"
+                                                />
+                                            </div>
                                             <Card.Body>
                                                 <Card.Title className="text-primary">Pedido: {pedido.numeroDoPedido}</Card.Title>
                                                 <Card.Subtitle className="mb-3 text-muted desc-pedido">
@@ -731,7 +740,14 @@ export default class Pedidos extends Component {
                                 return (
                                     <Col lg={3}>
                                         <Card className="mb-3 shadow">
-                                            <Card.Img variant="top" src={require('./img/img-pedido.jpg')} />
+                                            <div className="w-100 bg-primary rounded-top" style={{ height: "50px" }}>
+                                                <Image
+                                                    src={require('./img/navi-logo-white.png')}
+                                                    width="35"
+                                                    height="35"
+                                                    className="ml-2 my-1"
+                                                />
+                                            </div>
                                             <Card.Body>
                                                 <Card.Title className="text-primary">Pedido: {pedido.numeroDoPedido}</Card.Title>
                                                 <Card.Subtitle className="mb-3 text-muted desc-pedido">
@@ -792,7 +808,14 @@ export default class Pedidos extends Component {
                                 return (
                                     <Col lg={3}>
                                         <Card className="mb-3 shadow">
-                                            <Card.Img variant="top" src={require('./img/img-pedido.jpg')} />
+                                            <div className="w-100 bg-primary rounded-top" style={{ height: "50px" }}>
+                                                <Image
+                                                    src={require('./img/navi-logo-white.png')}
+                                                    width="40"
+                                                    height="40"
+                                                    className="ml-2 mt-1"
+                                                />
+                                            </div>
                                             <Card.Body>
                                                 <Card.Title className="text-primary">Pedido: {pedido.numeroDoPedido}</Card.Title>
                                                 <Card.Subtitle className="mb-3 text-muted desc-pedido">
@@ -853,7 +876,14 @@ export default class Pedidos extends Component {
                                 return (
                                     <Col lg={3}>
                                         <Card className="mb-3 shadow">
-                                            <Card.Img variant="top" src={require('./img/img-pedido.jpg')} />
+                                            <div className="w-100 bg-primary rounded-top" style={{ height: "50px" }}>
+                                                <Image
+                                                    src={require('./img/navi-logo-white.png')}
+                                                    width="40"
+                                                    height="40"
+                                                    className="ml-2 mt-1"
+                                                />
+                                            </div>
                                             <Card.Body>
                                                 <Card.Title className="text-primary">Pedido: {pedido.numeroDoPedido}</Card.Title>
                                                 <Card.Subtitle className="mb-3 text-muted desc-pedido">

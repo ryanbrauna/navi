@@ -78,13 +78,12 @@ class Home extends Component {
                 <div style={{ margin: "0 0 0 250px", height: "450px" }}>
                     <Map
                         containerStyle={containerStyle}
-                        // initialCenter={this.state.initialPosition}
-                        google={this.props.google} zoom={16}
+                        initialCenter={{
+                            lat: -23.5489,
+                            lng: -46.6388
+                          }}
+                        google={this.props.google} zoom={10}
                     >
-
-                        <Marker onClick={this.onMarkerClick}
-                            name={'Current location'} />
-
                         <InfoWindow onClose={this.onInfoWindowClose}>
                         </InfoWindow>
                     </Map>
