@@ -300,22 +300,13 @@ export default class Pedidos extends Component {
         var groupButtonsComprador = (
             <Row className="justify-content-end">
                 <Col md={4}>
-                    <Button
-                        className="w-100"
-                        variant="info"
-                        disabled={this.state.loading}
-                        size="sm"
-                    >{this.state.loading ? (
-                        <Spinner
-                            as="span"
-                            animation="border"
-                            size="sm"
-                            role="status"
-                            aria-hidden="true"
-                        />
-                    ) : (
-                            <a className="text-white text-decoration-none" href={`http://navi--api.herokuapp.com/${pedido.loja == null ? "" : pedido.loja.vendedor.cnpj}/pedido/${pedido.id}`} download>Baixar Arquivo do Pedido</a>
-                        )}</Button>
+                    <Button className="w-100" variant="info" size="sm">
+                        <a
+                            className="text-white text-decoration-none"
+                            href={`http://navi--api.herokuapp.com/${pedido.loja == null ? "" : pedido.loja.vendedor.cnpj}/pedido/${pedido.id}`}
+                            download
+                        >Baixar Arquivo do Pedido</a>
+                    </Button>
                 </Col>
             </Row>
         )
@@ -356,7 +347,7 @@ export default class Pedidos extends Component {
                     <Col md={3}>
                         <Button
                             className="w-100"
-                            variant="primary"
+                            variant="info"
                             onClick={() => {
                                 this.setState({ loading: true });
                                 axios.put(`https://navi--api.herokuapp.com/vendedor/${pedido.loja.vendedor.cnpj}/pedidos/${pedido.id}?estado=Entregue`).then(response => {
@@ -743,9 +734,9 @@ export default class Pedidos extends Component {
                                             <div className="w-100 bg-primary rounded-top" style={{ height: "50px" }}>
                                                 <Image
                                                     src={require('./img/navi-logo-white.png')}
-                                                    width="35"
-                                                    height="35"
-                                                    className="ml-2 my-1"
+                                                    width="40"
+                                                    height="40"
+                                                    className="ml-2 mt-1"
                                                 />
                                             </div>
                                             <Card.Body>
