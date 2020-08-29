@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.Random;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -38,13 +38,19 @@ public class PedidoController {
     public ResponseEntity createPedido(
             @PathVariable String cnpj,
             @RequestParam(required = true) String cpf,
-            @RequestBody Pedido novoPedido) {
+            @RequestBody Pedido pedido) {
         if (vendedorRepository.findByCnpj(cnpj).isEmpty()) {
             return ResponseEntity.notFound().build();
         }
         else {
             Vendedor vendedor = vendedorRepository.findByCnpj(cnpj).get(0);
+            Pedido novoPedido = new Pedido();
+            Random random = new Random();
 
+            novoPedido.setNumeroDoPedido(random.nextInt(1000000000));
+            novoPedido.setDescricao(pedido.getDescricao());
+            novoPedido.setPreco(pedido.getPreco());
+            novoPedido.setAnotacoes(pedido.getAnotacoes());
             novoPedido.setEstado("Pedido Registrado");
             novoPedido.setLoja(lojaRepository.findByVendedor(vendedor));
             novoPedido.setEndereco(lojaRepository.findByVendedor(vendedor).getEndereco());
