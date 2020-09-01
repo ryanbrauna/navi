@@ -138,7 +138,6 @@ export default class Pedidos extends Component {
         btnDanger: "Excluir Pedido",
         btnPrimary: "Editar Pedido",
         hideFormCad: "d-none",
-        numeroPedido: "",
         cpfComprador: "",
         precoPedido: "",
         descPedido: "",
@@ -156,7 +155,6 @@ export default class Pedidos extends Component {
         this.setState({ loading: true });
 
         axios.post(`https://navi--api.herokuapp.com/vendedor/${sessionStorage.getItem('@NAVI/cod')}/pedidos/registrar?cpf=${this.state.cpfComprador}`, {
-            "numeroDoPedido": this.state.numeroPedido,
             "descricao": this.state.descPedido,
             "preco": this.state.precoPedido,
             "anotacoes": this.state.anotacaoPedido
@@ -239,10 +237,6 @@ export default class Pedidos extends Component {
                     <td>{pedido.comprador != null ? pedido.comprador.email : null}</td>
                 </tr>
                 <tr>
-                    <td>CPF:</td>
-                    <td>{pedido.comprador != null ? pedido.comprador.cpf : null}</td>
-                </tr>
-                <tr>
                     <td>Telefone:</td>
                     <td>{pedido.comprador != null ? pedido.comprador.telefone != "" ? pedido.comprador.telefone : (<i>Não registrado</i>) : null}</td>
                 </tr>
@@ -268,10 +262,10 @@ export default class Pedidos extends Component {
                     <td>Nome:</td>
                     <td>{pedido.loja != null ? pedido.loja.nome : null}</td>
                 </tr>
-                <tr>
+                {/* <tr>
                     <td>Descrição:</td>
                     <td>{pedido.loja != null ? pedido.loja.descricao : null}</td>
-                </tr>
+                </tr> */}
                 <tr>
                     <td>Endereço:</td>
                     {pedido.loja != null ? (
@@ -320,6 +314,15 @@ export default class Pedidos extends Component {
                         onClick={formDisabled ? () => this.excluirPedido(pedido.numeroDoPedido, pedido.id) : this.handleClose}
                         size="sm"
                     >{btnDanger}</Button>
+                </Col>
+                <Col md={4}>
+                    <Button className="w-100" variant="info" size="sm">
+                        <a
+                            className="text-white text-decoration-none"
+                            href={`http://navi--api.herokuapp.com/${pedido.loja == null ? "" : pedido.loja.vendedor.cnpj}/pedido/${pedido.id}`}
+                            download
+                        >Baixar Arquivo do Pedido</a>
+                    </Button>
                 </Col>
                 <Col md={3}>
                     <Button
@@ -428,7 +431,7 @@ export default class Pedidos extends Component {
                                     onChange={this.inputChange}
                                     disabled={formDisabled}
                                 >
-                                    <option>{pedido.estado}</option>
+                                    <option disabled>{pedido.estado}</option>
                                     <option>Em Andamento</option>
                                     <option>Entregue</option>
                                     <option>Cancelado</option>
@@ -505,7 +508,6 @@ export default class Pedidos extends Component {
             btnPrimary,
             onClickBtnPrimary,
             hideFormCad,
-            numeroPedido,
             cpfComprador,
             precoPedido,
             descPedido,
@@ -536,10 +538,11 @@ export default class Pedidos extends Component {
                                         <span>Registrar um novo pedido</span>
                                     </div>
                                     <div
-                                        className={"float-right " + hideFormCad}
+                                        className={"float-right text-danger " + hideFormCad}
                                         style={{ cursor: "pointer" }}
                                         onClick={() => { this.setState({ hideFormCad: "d-none" }) }}
                                     >
+                                        <span>Fechar</span>
                                         <CloseIcon className="icon" />
                                     </div>
                                 </Col>
@@ -547,17 +550,7 @@ export default class Pedidos extends Component {
                             <Row className={hideFormCad}>
                                 <Col>
                                     <Form className="mt-3" onSubmit={this.registrarPedido}>
-                                        <p className="my-2 text-danger text-atencao-cad">É necessário preencher todos os campos com " * " para realizar o registro.</p>
-                                        <Form.Group>
-                                            <Form.Label className="mb-0"><span className="text-danger">*</span> Numero do Pedido:</Form.Label>
-                                            <Form.Control required
-                                                type="number"
-                                                placeholder="Numero do Pedido"
-                                                name="numeroPedido"
-                                                value={numeroPedido}
-                                                onChange={this.inputChange}
-                                            />
-                                        </Form.Group>
+                                        <p className="my-2 text-danger text-atencao-cad">É necessário preencher todos os campos com " <b>*</b> " para realizar o registro.</p>
                                         <Row>
                                             <Col>
                                                 <Form.Group>
@@ -569,7 +562,7 @@ export default class Pedidos extends Component {
                                                         value={cpfComprador}
                                                         onChange={this.inputChange}
                                                     />
-                                                    <span className="text-danger">É necessario colocar o CPF de um comprador do nosso sistema</span>
+                                                    <span className="text-danger text-atencao-cad">O CPF do comprador deve estar cadastrado no nosso sistema</span>
                                                 </Form.Group>
                                             </Col>
                                             <Col>
@@ -582,7 +575,7 @@ export default class Pedidos extends Component {
                                                         value={precoPedido}
                                                         onChange={this.inputChange}
                                                     />
-                                                    <span className="text-danger">Por favor separe as casas decimais com "." (ex.: 1199.99)</span>
+                                                    <span className="text-danger text-atencao-cad">Por favor separe as casas decimais com "." (ex.: 1199.99)</span>
                                                 </Form.Group>
                                             </Col>
                                         </Row>
