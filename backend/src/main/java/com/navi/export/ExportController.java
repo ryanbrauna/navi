@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @RestController
+@CrossOrigin(origins = "ec2-52-0-161-170.compute-1.amazonaws.com")
 public class ExportController {
 
     @Autowired

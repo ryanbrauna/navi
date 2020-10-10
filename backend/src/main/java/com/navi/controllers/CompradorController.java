@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "ec2-52-0-161-170.compute-1.amazonaws.com")
 public class CompradorController {
 
     @Autowired

@@ -1,4 +1,4 @@
-package com.navi.mobile
+package br.com.navi.mobile
 
 import org.junit.Test
 

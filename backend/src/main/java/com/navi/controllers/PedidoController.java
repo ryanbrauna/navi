@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Random;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "ec2-52-0-161-170.compute-1.amazonaws.com")
 public class PedidoController {
 
     @Autowired
