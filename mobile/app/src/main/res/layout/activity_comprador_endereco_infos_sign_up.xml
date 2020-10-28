@@ -95,6 +95,7 @@
                     />
 
                 <EditText
+                    android:id="@+id/et_uf"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:layout_alignParentEnd="true"
@@ -162,6 +163,7 @@
 
 
                 <EditText
+                    android:id="@+id/et_numero"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:layout_alignParentEnd="true"

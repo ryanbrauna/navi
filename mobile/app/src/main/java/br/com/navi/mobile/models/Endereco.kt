@@ -4,25 +4,25 @@ import com.google.gson.annotations.SerializedName
 
 data class Endereco(
     @SerializedName("id")
-    var id : Int,
+    var id: Int?,
 
     @SerializedName("cep")
-    var cep : String,
+    var cep: String,
 
     @SerializedName("logradouro")
-    var logradouro : String,
+    var logradouro: String,
 
     @SerializedName("bairro")
-    var bairro : String,
+    var bairro: String,
 
     @SerializedName("localidade")
-    var localidade : String,
+    var localidade: String,
 
     @SerializedName("uf")
-    var uf : String,
+    var uf: String,
 
     @SerializedName("numero")
-    var numero : Int,
+    var numero: Int,
 
     @SerializedName("complememnto")
-    var complemento : String) {}
+    var complemento: String) {}

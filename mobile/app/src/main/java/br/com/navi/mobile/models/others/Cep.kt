@@ -4,16 +4,16 @@ import com.google.gson.annotations.SerializedName
 
 data class Cep (
     @SerializedName("cep")
-    var cep : String,
+    var cep : String?,
 
     @SerializedName("logradouro")
-    var logradouro : String,
+    var logradouro : String?,
 
     @SerializedName("bairro")
-    var bairro : String,
+    var bairro : String?,
 
     @SerializedName("localidade")
-    var localidade : String,
+    var localidade : String?,
 
     @SerializedName("uf")
-    var uf : String) {}
+    var uf : String?) {}
