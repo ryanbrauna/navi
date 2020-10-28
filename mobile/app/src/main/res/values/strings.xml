@@ -1,3 +1,37 @@
 <resources>
-    <string name="app_name">mobile</string>
+    <string name="app_name" translatable="false">Navi</string>
+
+    <!-- Button -->
+    <string name="str_bt_proximo">PRÓXIMO</string>
+    <string name="str_bt_validar_cep">validar CEP</string>
+
+    <!-- TextView -->
+    <string name="str_tv_cadastro">Cadastro</string>
+    <string name="str_tv_descricao_loja">Descrição da loja</string>
+    <string name="str_tv_endereco">Endereço</string>
+    <string name="str_tv_faca_login_para_acessar_o_navi">FAÇA LOGIN PARA ACESSAR O NAVI</string>
+    <string name="str_tv_nao_tem_conta_registre_se">Não tem conta ? Registre-se</string>
+    <string name="str_tv_voce_e">você é um...</string>
+    <string name="str_tv_vendedor">Vendedor</string>
+    <string name="str_tv_ou">ou</string>
+    <string name="str_tv_comprador">Comprador</string>
+
+    <!-- EditText -->
+    <string name="str_et_hint_nome">Nome</string>
+    <string name="str_et_hint_email">Email</string>
+    <string name="str_et_hint_cnpj">CNPJ</string>
+    <string name="str_et_hint_descricao">Descrição</string>
+    <string name="str_et_hint_telefone">Telefone</string>
+    <string name="str_et_hint_senha">Senha</string>
+    <string name="str_et_hint_confirmar_senha">Confirmar Senha</string>
+    <string name="str_et_hint_cep">CEP</string>
+    <string name="str_et_hint_logradouro">Logradouro</string>
+    <string name="str_et_hint_n">N°</string>
+    <string name="str_et_hint_complemeto">Complemeto</string>
+    <string name="str_et_hint_cidade">Cidade</string>
+    <string name="str_et_hint_bairro">Bairro</string>
+    <string name="str_et_hint_uf">UF</string>
+    <string name="str_et_hint_cpf">CPF</string>
+
+
 </resources>

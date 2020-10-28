@@ -2,7 +2,7 @@ package br.com.navi.mobile.models
 
 import com.google.gson.annotations.SerializedName
 
-data class Vendedor(
+data class Comprador(
     @SerializedName("id")
     var id: Int?,
 
@@ -18,9 +18,9 @@ data class Vendedor(
     @SerializedName("telefone")
     var telefone: String,
 
-    @SerializedName("cnpj")
-    var cnpj: String) {
+    @SerializedName("cpf")
+    var cpf: String,
 
-
-
+    @SerializedName("endereco")
+    var endereco : Endereco?){
 }

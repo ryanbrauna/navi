@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="str_bt_proximo" translatable="false">NEXT</string>
+    <string name="str_bt_validar_cep">validate ZIP Code</string>
+    <string name="str_tv_cadastro">Sing in</string>
+    <string name="str_tv_descricao_loja">Store Description</string>
+    <string name="str_tv_endereco">Address</string>
+    <string name="str_tv_faca_login_para_acessar_o_navi">SING UP TO ACCESS NAVI</string>
+    <string name="str_tv_nao_tem_conta_registre_se">" Don't have an account? Register"</string>
+    <string name="str_tv_voce_e">"you are a... "</string>
+    <string name="str_tv_vendedor">Salesman</string>
+    <string name="str_tv_ou">or</string>
+    <string name="str_tv_comprador">Buyer</string>
+    <string name="str_et_hint_nome">Name</string>
+    <string name="str_et_hint_email">Email</string>
+    <string name="str_et_hint_cnpj">CNPJ</string>
+    <string name="str_et_hint_descricao">Description</string>
+    <string name="str_et_hint_telefone">Phone Number</string>
+    <string name="str_et_hint_senha">Password</string>
+    <string name="str_et_hint_confirmar_senha">"Confirm password "</string>
+    <string name="str_et_hint_cep">ZIP code</string>
+    <string name="str_et_hint_logradouro">Street Name</string>
+    <string name="str_et_hint_n">N°</string>
+    <string name="str_et_hint_complemeto">Other Infomations</string>
+    <string name="str_et_hint_cidade">City</string>
+    <string name="str_et_hint_bairro">Country</string>
+    <string name="str_et_hint_uf">State</string>
+    <string name="str_et_hint_cpf">CPF</string>
+</resources>
