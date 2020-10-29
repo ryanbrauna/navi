@@ -7,7 +7,9 @@ import androidx.appcompat.app.AppCompatActivity
 import br.com.navi.mobile.R
 import br.com.navi.mobile.components.login.Login
 import br.com.navi.mobile.components.sign_up.comprador.CompradorInfos_SignUp
+import br.com.navi.mobile.components.vendedor.VendedorInfos_SignUp
 import br.com.navi.mobile.models.Comprador
+import br.com.navi.mobile.models.Vendedor
 
 open class SelectUserType_SignUp : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,6 +18,12 @@ open class SelectUserType_SignUp : AppCompatActivity() {
     }
 
     private var comprador : Comprador = Comprador(null, "", "", "", "", "", null)
+    private var vendedor : Vendedor = Vendedor(null, "", "", "", "","")
+
+    fun backToLogin(component : View) {
+        val previousScreen = Intent(this, Login::class.java)
+        startActivity(previousScreen)
+    }
 
     fun createComprador(view: View) : Comprador {
         val compradorInfosActivity = Intent(this, CompradorInfos_SignUp::class.java)
@@ -30,9 +38,19 @@ open class SelectUserType_SignUp : AppCompatActivity() {
         return this.comprador
     }
 
-    fun backToLogin(component : View) {
-        val previousScreen = Intent(this, Login::class.java)
-        startActivity(previousScreen)
+    fun createVendedor(view: View) : Vendedor {
+        val vendedorInfosActivity = Intent(this, VendedorInfos_SignUp::class.java)
+
+        vendedorInfosActivity.putExtra("nome", vendedor.nome)
+        vendedorInfosActivity.putExtra("email", vendedor.email)
+        vendedorInfosActivity.putExtra("senha", vendedor.senha)
+        vendedorInfosActivity.putExtra("telefone", vendedor.telefone)
+        vendedorInfosActivity.putExtra("cnpj", vendedor.cnpj)
+
+        startActivity(Intent(this, VendedorInfos_SignUp::class.java))
+        return this.vendedor
     }
+
+
 
 }

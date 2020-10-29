@@ -33,7 +33,7 @@ class CompradorInfos_SignUp : AppCompatActivity() {
     }
 
     fun addCompradorInfos(component: View) {
-        val compradorInfosActivity = Intent(this, CompradorInfos_SignUp::class.java)
+        val compradorOtherInfosActivity = Intent(this, CompradorOtherInfos_SignUp::class.java)
 
         this.comprador.nome = et_compradorNome.text.toString()
         this.comprador.email = et_compradorEmail.text.toString()
@@ -60,11 +60,11 @@ class CompradorInfos_SignUp : AppCompatActivity() {
         })
 
 
-        compradorInfosActivity.putExtra("nome", this.comprador.nome)
-        compradorInfosActivity.putExtra("email", this.comprador.email)
-        compradorInfosActivity.putExtra("senha", this.comprador.senha)
-        compradorInfosActivity.putExtra("telefone", this.comprador.telefone)
-        compradorInfosActivity.putExtra("cpf", this.comprador.cpf)
+        compradorOtherInfosActivity.putExtra("nome", this.comprador.nome)
+        compradorOtherInfosActivity.putExtra("email", this.comprador.email)
+        compradorOtherInfosActivity.putExtra("senha", this.comprador.senha)
+        compradorOtherInfosActivity.putExtra("telefone", this.comprador.telefone)
+        compradorOtherInfosActivity.putExtra("cpf", this.comprador.cpf)
 
         startActivity(Intent(this, CompradorOtherInfos_SignUp::class.java))
     }

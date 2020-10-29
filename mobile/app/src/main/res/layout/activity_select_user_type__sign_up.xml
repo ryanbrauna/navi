@@ -44,7 +44,7 @@
                 android:textAllCaps="true" />
 
             <ImageButton
-                android:id="@+id/select_comprador"
+                android:id="@+id/select_vendedor"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_gravity="center"
@@ -54,7 +54,7 @@
                 android:src="@drawable/vendedor_icone"
                 android:textAllCaps="true"
                 android:textColor="@color/Preto"
-                android:onClick="createComprador"/>
+                android:onClick="createVendedor"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -72,17 +72,18 @@
 
 
             <ImageButton
+                android:id="@+id/select_comprador"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/borda_button"
+                android:onClick="createComprador"
                 android:padding="28dp"
-                android:text="comprador"
                 android:src="@drawable/comprador_icone"
+                android:text="comprador"
                 android:textAllCaps="true"
-                android:textColor="@color/Preto"
-                android:onClick="createComprador"/>
+                android:textColor="@color/Preto" />
 
             <TextView
                 android:layout_width="wrap_content"

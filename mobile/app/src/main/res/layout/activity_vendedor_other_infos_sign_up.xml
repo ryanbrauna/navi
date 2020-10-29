@@ -5,15 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context=".components.vendedor.VendedorLojaInfos_SignUp">
+    tools:context=".components.sign_up.comprador.CompradorOtherInfos_SignUp">
+
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#FFFFFF"
         >
-
-
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -26,6 +25,7 @@
                 android:layout_height="40dp"
                 android:background="#FFFFFF"
                 android:src="@drawable/voltar_icone"
+                android:onClick="backToVendedorInfos"
                 />
 
 
@@ -38,36 +38,43 @@
                 />
 
             <TextView
-                android:id="@+id/tv_descricao_loja"
+                android:id="@+id/tv_cadastro"
                 android:layout_width="330dp"
                 android:layout_gravity="center"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:text="@string/str_tv_descricao_loja"
+                android:text="@string/str_tv_cadastro"
                 android:textSize="16sp"
                 />
 
             <EditText
-                android:id="@+id/et_lojaNome"
+                android:id="@+id/et_vendedorTelefone"
                 android:layout_width="330dp"
                 android:layout_gravity="center"
                 android:layout_height="50dp"
                 android:layout_marginTop="30dp"
                 android:background="@drawable/edit_text_border"
-                android:hint="@string/str_et_hint_nome"
+                android:hint="@string/str_et_hint_telefone"
                 />
 
             <EditText
-                android:id="@+id/et_LojaDescricao"
+                android:id="@+id/et_vendedorSenha"
                 android:layout_width="330dp"
                 android:layout_gravity="center"
-                android:layout_height="108dp"
-                android:layout_marginLeft="30dp"
+                android:layout_height="50dp"
                 android:layout_marginTop="30dp"
-                android:layout_marginRight="30dp"
-                android:hint="@string/str_et_hint_descricao"
-                android:gravity="top"
                 android:background="@drawable/edit_text_border"
+                android:hint="@string/str_et_hint_senha"
+                />
+
+            <EditText
+                android:id="@+id/et_vendedorConfirmar_senha"
+                android:layout_width="330dp"
+                android:layout_gravity="center"
+                android:layout_height="50dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/edit_text_border"
+                android:hint="@string/str_et_hint_confirmar_senha"
                 />
 
 
@@ -81,7 +88,9 @@
                 android:text="@string/str_bt_proximo"
                 android:textColor="#FFFFFF"
                 android:textSize="18sp"
+                android:onClick="addOtherVendedorInfos"
                 />
+
 
             <RelativeLayout
                 android:id="@+id/frame_bottom"
@@ -98,6 +107,7 @@
                     android:src="@mipmap/navi_icone_preto" />
 
             </RelativeLayout>
+
 
         </LinearLayout>
 
