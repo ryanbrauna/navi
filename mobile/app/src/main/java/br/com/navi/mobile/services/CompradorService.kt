@@ -7,7 +7,7 @@ import retrofit2.http.*
 interface CompradorService {
 
     @GET("/compradores")
-    fun getCompradores() : Call<Comprador>
+    fun getCompradores() : Call<List<Comprador>>
 
     @GET("/comprador/{cpf}")
     fun getComprador(@Path("cpf") cpf : String) : Call<Comprador>

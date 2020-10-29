@@ -11,9 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#FFFFFF"
+        android:layout_marginBottom="50dp"
         >
-
-
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -184,36 +183,30 @@
                 android:layout_gravity="center"
                 android:layout_height="50dp"
                 android:layout_marginTop="50dp"
+                android:layout_marginBottom="50dp"
                 android:background="@drawable/button_border"
                 android:text="@string/str_bt_proximo"
                 android:textColor="#FFFFFF"
                 android:textSize="18sp"
                 />
 
-
-
-            <RelativeLayout
-                android:id="@+id/frame_bottom"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="50dp"
-                android:background="#000000"
-                >
-
-                <ImageView
-                    android:id="@+id/navi_logo_pequena"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@mipmap/navi_icone_preto" />
-
-            </RelativeLayout>
-
-
-
         </LinearLayout>
 
-
-
     </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/frame_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#000000"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ImageView
+            android:id="@+id/navi_logo_pequena"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@mipmap/navi_icone_preto" />
+
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
