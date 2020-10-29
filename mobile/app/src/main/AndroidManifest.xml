@@ -11,13 +11,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".components.login.Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".components.SelectUserType_SignUp" />
+        <activity android:name=".components.sign_up.comprador.CompradorInfos_SignUp" />
+        <activity android:name=".components.sign_up.comprador.CompradorOtherInfos_SignUp" />
+        <activity android:name=".components.sign_up.comprador.CompradorEnderecoInfos_SignUp" />
+        <activity android:name=".components.vendedor.VendedorInfos_SignUp" />
+        <activity android:name=".components.vendedor.VendedorOtherInfos_SignUp" />
+        <activity android:name=".components.vendedor.VendedorLojaInfos_SignUp" />
+        <activity android:name=".components.vendedor.VendedorEnderecoInfos_SignUp" />
     </application>
 
 </manifest>
