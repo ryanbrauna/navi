@@ -44,26 +44,26 @@ class VendedorInfos_SignUp : AppCompatActivity() {
         this.vendedor.email = et_vendedorEmail.text.toString()
         this.vendedor.cnpj = et_vendedorCnpj.text.toString()
 
-        val call = ApiAccessUtils().vendedorService().getVendedor(this.vendedor.cnpj)
-        call.enqueue(object : Callback<Vendedor> {
-            override fun onResponse(call: Call<Vendedor>,
-                                    response: Response<Vendedor>
-            ) {
-                if (response.isSuccessful && response.code() == 200) {
-                    Toast.makeText(applicationContext, "Esse CNPJ já foi cadastrado!", Toast.LENGTH_SHORT).show()
-                    // Bloquear botão "Proximo"
-                }
-                else if (response.isSuccessful && response.code() == 404) {
-                    // Não sei o que fazer aqui :P
-
-                }
-            }
-
-            override fun onFailure(call: Call<Vendedor?>?,
-                                   t: Throwable?) {
-                Log.e("onFailure error", t?.message)
-            }
-        })
+//        val call = ApiAccessUtils().vendedorService().getVendedor(this.vendedor.cnpj)
+//        call.enqueue(object : Callback<Vendedor> {
+//            override fun onResponse(call: Call<Vendedor>,
+//                                    response: Response<Vendedor>
+//            ) {
+//                if (response.isSuccessful && response.code() == 200) {
+//                    Toast.makeText(applicationContext, "Esse CNPJ já foi cadastrado!", Toast.LENGTH_SHORT).show()
+//                    // Bloquear botão "Proximo"
+//                }
+//                else if (response.isSuccessful && response.code() == 404) {
+//                    // Não sei o que fazer aqui :P
+//
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<Vendedor?>?,
+//                                   t: Throwable?) {
+//                Log.e("onFailure error", t?.message)
+//            }
+//        })
 
 
         vendedorOtherInfosActivity.putExtra("nome", this.vendedor.nome)

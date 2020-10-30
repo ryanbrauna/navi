@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import br.com.navi.mobile.R
+import br.com.navi.mobile.components.SelectUserType_SignUp
 import br.com.navi.mobile.models.Comprador
 import br.com.navi.mobile.models.Vendedor
 import br.com.navi.mobile.services.CompradorService
@@ -21,6 +22,8 @@ class Login : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        et_registre.setOnClickListener { openCadastrar() }
     }
 
     fun logando(componente:View){
@@ -115,9 +118,9 @@ class Login : AppCompatActivity() {
         }
     }
 
-//    private fun openCadastrar(){
-//        val intent = Intent(this, VendedorOuComprador::class.java)
-//        startActivity(intent)
-//    }
+    private fun openCadastrar(){
+        val intent = Intent(this, SelectUserType_SignUp::class.java)
+        startActivity(intent)
+    }
 
 }

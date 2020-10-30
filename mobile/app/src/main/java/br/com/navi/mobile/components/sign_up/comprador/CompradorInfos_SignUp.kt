@@ -39,25 +39,25 @@ class CompradorInfos_SignUp : AppCompatActivity() {
         this.comprador.email = et_compradorEmail.text.toString()
         this.comprador.cpf = et_compradorCpf.text.toString()
 
-        val call = ApiAccessUtils().compradorService().getComprador(this.comprador.cpf)
-        call.enqueue(object : Callback<Comprador> {
-            override fun onResponse(call: Call<Comprador>,
-                                    response: Response<Comprador>) {
-                if (response.isSuccessful && response.code() == 200) {
-                    Toast.makeText(applicationContext, "Esse CPF já foi cadastrado!", Toast.LENGTH_SHORT).show()
-                    // Bloquear botão "Proximo"
-                }
-                else if (response.isSuccessful && response.code() == 404) {
-                    // Não sei o que fazer aqui :P
-
-                }
-            }
-
-            override fun onFailure(call: Call<Comprador?>?,
-                                   t: Throwable?) {
-                Log.e("onFailure error", t?.message)
-            }
-        })
+//        val call = ApiAccessUtils().compradorService().getComprador(this.comprador.cpf)
+//        call.enqueue(object : Callback<Comprador> {
+//            override fun onResponse(call: Call<Comprador>,
+//                                    response: Response<Comprador>) {
+//                if (response.isSuccessful && response.code() == 200) {
+//                    Toast.makeText(applicationContext, "Esse CPF já foi cadastrado!", Toast.LENGTH_SHORT).show()
+//                    // Bloquear botão "Proximo"
+//                }
+//                else if (response.isSuccessful && response.code() == 404) {
+//                    // Não sei o que fazer aqui :P
+//
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<Comprador?>?,
+//                                   t: Throwable?) {
+//                Log.e("onFailure error", t?.message)
+//            }
+//        })
 
 
         compradorOtherInfosActivity.putExtra("nome", this.comprador.nome)

@@ -196,14 +196,12 @@
                 />
 
 
-
             <RelativeLayout
                 android:id="@+id/frame_bottom"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="50dp"
-                android:background="#000000"
-                >
+                android:background="#000000">
 
                 <ImageView
                     android:id="@+id/navi_logo_pequena"
@@ -212,7 +210,6 @@
                     android:src="@mipmap/navi_icone_preto" />
 
             </RelativeLayout>
-
 
 
         </LinearLayout>

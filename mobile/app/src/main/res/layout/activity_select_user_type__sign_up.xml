@@ -7,24 +7,23 @@
     tools:context=".components.SelectUserType_SignUp">
 
     <ScrollView
+        android:id="@+id/scrollView3"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FFFFFF"
-        >
+        android:background="#FFFFFF">
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <ImageButton
                 android:id="@+id/bt_voltar"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:background="#FFFFFF"
-                android:src="@drawable/voltar_icone"
                 android:onClick="backToLogin"
-                />
+                android:src="@drawable/voltar_icone" />
 
 
             <ImageView
@@ -32,8 +31,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="154dp"
                 android:layout_marginTop="20dp"
-                android:src="@mipmap/navi_icone_branco"
-                />
+                android:src="@mipmap/navi_icone_branco" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -50,17 +48,17 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="30dp"
                 android:background="@drawable/borda_button"
+                android:onClick="createVendedor"
                 android:padding="28dp"
                 android:src="@drawable/vendedor_icone"
                 android:textAllCaps="true"
-                android:textColor="@color/Preto"
-                android:onClick="createVendedor"/>
+                android:textColor="@color/Preto" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/str_tv_vendedor"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                android:text="@string/str_tv_vendedor" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -88,29 +86,28 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/str_tv_comprador"
-                android:layout_gravity="center"/>
-
-            <RelativeLayout
-                android:id="@+id/frame_bottom"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="50dp"
-                android:background="#000000"
-                >
-
-                <ImageView
-                    android:id="@+id/navi_logo_pequena"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentEnd="true"
-                    android:src="@mipmap/navi_icone_preto" />
-
-            </RelativeLayout>
+                android:layout_gravity="center"
+                android:text="@string/str_tv_comprador" />
 
         </LinearLayout>
 
     </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/frame_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#000000"
+        app:layout_constraintBottom_toBottomOf="@+id/scrollView3">
+
+        <ImageView
+            android:id="@+id/navi_logo_pequena"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:src="@mipmap/navi_icone_preto" />
+
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
