@@ -116,7 +116,7 @@ class Login : AppCompatActivity() {
 //            })
 //        }
 
-        if (!autenticou && !resposta){
+        if (!autenticou && resposta){
             Toast.makeText(baseContext, "Seu email ou senha estão incorretos!", Toast.LENGTH_SHORT).show()
         }
     }
