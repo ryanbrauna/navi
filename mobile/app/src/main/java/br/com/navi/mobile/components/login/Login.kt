@@ -27,7 +27,8 @@ class Login : AppCompatActivity() {
     }
 
     fun logando(componente:View){
-        var autenticou = false;
+        var autenticou = false
+        var resposta = false
 
         val user = et_email.text.toString()
         val senha = et_senha.text.toString()
@@ -56,9 +57,10 @@ class Login : AppCompatActivity() {
                 response: Response<List<Comprador>>
             ) {
                 response.body()?.forEach {
+                    resposta = true
                     if(user==it.email &&  senha==it.senha) {
-                        Toast.makeText(baseContext, "Bem vindo Comprador ${it.nome}", Toast.LENGTH_SHORT).show()
                         autenticou = true
+                        Toast.makeText(baseContext, "Bem vindo Comprador ${it.nome}", Toast.LENGTH_SHORT).show()
                     } else {
                         autenticou = false
                     }
@@ -78,9 +80,10 @@ class Login : AppCompatActivity() {
                     response: Response<List<Vendedor>>
                 ) {
                     response.body()?.forEach {
+                        resposta = true
                         if(user==it.email &&  senha==it.senha) {
-                            Toast.makeText(baseContext, "Bem vindo Vendedor ${it.nome}", Toast.LENGTH_SHORT).show()
                             autenticou = true
+                            Toast.makeText(baseContext, "Bem vindo Vendedor ${it.nome}", Toast.LENGTH_SHORT).show()
                         } else {
                             autenticou = false
                         }
@@ -113,7 +116,7 @@ class Login : AppCompatActivity() {
 //            })
 //        }
 
-        if (!autenticou){
+        if (!autenticou && !resposta){
             Toast.makeText(baseContext, "Seu email ou senha estão incorretos!", Toast.LENGTH_SHORT).show()
         }
     }
