@@ -8,8 +8,10 @@ import androidx.appcompat.app.AppCompatActivity
 import br.com.navi.mobile.R
 import br.com.navi.mobile.components.SelectUserType_SignUp
 import br.com.navi.mobile.models.Comprador
+import br.com.navi.mobile.models.Entregador
 import br.com.navi.mobile.models.Vendedor
 import br.com.navi.mobile.services.CompradorService
+import br.com.navi.mobile.services.EntregadorService
 import br.com.navi.mobile.services.VendedorService
 import kotlinx.android.synthetic.main.activity_login.*
 import retrofit2.Call
@@ -44,8 +46,8 @@ class Login : AppCompatActivity() {
         val requestsVendedor = retrofit.create(VendedorService::class.java)
         val callVendedor = requestsVendedor.getVendedores()
 
-//        val requestsEntregador = retrofit.create(::class.java)
-//        val callEntregador = requestsEntregador.getEntregador()
+        val requestsEntregador = retrofit.create(EntregadorService::class.java)
+        val callEntregador = requestsEntregador.getEntregadores()
 
         callComprador.enqueue(object: Callback<List<Comprador>>{
             override fun onFailure(call: Call<List<Comprador>>, t: Throwable) {
@@ -60,7 +62,7 @@ class Login : AppCompatActivity() {
                     resposta = true
                     if(user==it.email &&  senha==it.senha) {
                         autenticou = true
-                        Toast.makeText(baseContext, "Bem vindo Comprador ${it.nome}", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(baseContext, getString(R.string.txt_bemvindo, it.nome), Toast.LENGTH_SHORT).show()
                     } else {
                         autenticou = false
                     }
@@ -83,7 +85,7 @@ class Login : AppCompatActivity() {
                         resposta = true
                         if(user==it.email &&  senha==it.senha) {
                             autenticou = true
-                            Toast.makeText(baseContext, "Bem vindo Vendedor ${it.nome}", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(baseContext, getString(R.string.txt_bemvindo, it.nome), Toast.LENGTH_SHORT).show()
                         } else {
                             autenticou = false
                         }
@@ -93,31 +95,31 @@ class Login : AppCompatActivity() {
             })
         }
 
-//        if (!autenticou){
-//            callEntregador.enqueue(object: Callback<List<Entregador>>{
-//                override fun onFailure(call: Call<List<Entregador>>, t: Throwable) {
-//                    TODO("Not yet implemented")
-//                }
-//
-//                override fun onResponse(
-//                    call: Call<List<Entregador>>,
-//                    response: Response<List<Entregador>>
-//                ) {
-//                    response.body()?.forEach {
-//                        if(user==it.email &&  senha==it.senha) {
-//                            Toast.makeText(baseContext, "Bem vindo Entregador ${it.nome}", Toast.LENGTH_SHORT).show()
-//                            autenticou = true
-//                        } else {
-//                            autenticou = false
-//                        }
-//                    }
-//                }
-//
-//            })
-//        }
+        if (!autenticou){
+            callEntregador.enqueue(object: Callback<List<Entregador>>{
+                override fun onFailure(call: Call<List<Entregador>>, t: Throwable) {
+                    TODO("Not yet implemented")
+                }
+
+                override fun onResponse(
+                    call: Call<List<Entregador>>,
+                    response: Response<List<Entregador>>
+                ) {
+                    response.body()?.forEach {
+                        if(user==it.email &&  senha==it.senha) {
+                            Toast.makeText(baseContext, getString(R.string.txt_bemvindo, it.nome), Toast.LENGTH_SHORT).show()
+                            autenticou = true
+                        } else {
+                            autenticou = false
+                        }
+                    }
+                }
+
+            })
+        }
 
         if (!autenticou && resposta){
-            Toast.makeText(baseContext, "Seu email ou senha estão incorretos!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(baseContext, R.string.txt_login_erro, Toast.LENGTH_SHORT).show()
         }
     }
 

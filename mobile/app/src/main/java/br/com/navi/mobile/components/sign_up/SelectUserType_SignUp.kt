@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import br.com.navi.mobile.R
 import br.com.navi.mobile.components.login.Login
 import br.com.navi.mobile.components.sign_up.comprador.CompradorInfos_SignUp
-import br.com.navi.mobile.components.vendedor.VendedorInfos_SignUp
+import br.com.navi.mobile.components.sign_up.vendedor.VendedorInfos_SignUp
 import br.com.navi.mobile.models.Comprador
 import br.com.navi.mobile.models.Vendedor
 

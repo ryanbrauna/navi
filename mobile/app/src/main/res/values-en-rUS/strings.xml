@@ -26,4 +26,7 @@
     <string name="str_et_hint_bairro">Country</string>
     <string name="str_et_hint_uf">State</string>
     <string name="str_et_hint_cpf">CPF</string>
+    <string name="txt_cadastrado">Registered successfully</string>
+    <string name="txt_bemvindo">Wellcome %1$s</string>
+    <string name="txt_login_erro">Your email or password is incorrect</string>
 </resources>

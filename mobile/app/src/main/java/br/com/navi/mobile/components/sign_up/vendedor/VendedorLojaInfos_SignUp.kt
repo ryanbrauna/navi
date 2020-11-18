@@ -1,21 +1,13 @@
-package br.com.navi.mobile.components.vendedor
+package br.com.navi.mobile.components.sign_up.vendedor
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import br.com.navi.mobile.R
-import br.com.navi.mobile.components.login.Login
-import br.com.navi.mobile.models.Comprador
 import br.com.navi.mobile.models.Loja
 import br.com.navi.mobile.models.Vendedor
-import br.com.navi.mobile.utils.ApiAccessUtils
-import kotlinx.android.synthetic.main.activity_comprador_endereco_infos_sign_up.*
 import kotlinx.android.synthetic.main.activity_vendedor_loja_infos_sign_up.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class VendedorLojaInfos_SignUp : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

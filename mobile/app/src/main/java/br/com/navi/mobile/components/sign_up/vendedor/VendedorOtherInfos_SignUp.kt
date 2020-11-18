@@ -1,4 +1,4 @@
-package br.com.navi.mobile.components.vendedor
+package br.com.navi.mobile.components.sign_up.vendedor
 
 import android.content.Intent
 import android.os.Bundle

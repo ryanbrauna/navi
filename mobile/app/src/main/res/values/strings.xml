@@ -32,7 +32,11 @@
     <string name="str_et_hint_bairro">Bairro</string>
     <string name="str_et_hint_uf">UF</string>
     <string name="str_et_hint_cpf">CPF</string>
-    <string name="txt_cadastrado" />
+
+    <!--Toast-->
+    <string name="txt_bemvindo">Bem-vindo %1$s</string>
+    <string name="txt_cadastrado">Cadastrado com sucesso</string>
+    <string name="txt_login_erro">Seu email ou senha estão incorretos</string>
 
 
 </resources>
