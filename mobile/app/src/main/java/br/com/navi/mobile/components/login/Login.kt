@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import br.com.navi.mobile.R
 import br.com.navi.mobile.components.SelectUserType_SignUp
+import br.com.navi.mobile.components.comprador.MainComprador
 import br.com.navi.mobile.models.Comprador
 import br.com.navi.mobile.models.Entregador
 import br.com.navi.mobile.models.Vendedor
@@ -26,9 +27,10 @@ class Login : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         et_registre.setOnClickListener { openCadastrar() }
+        bt_proximo.setOnClickListener { logando() }
     }
 
-    fun logando(componente:View){
+    fun logando(){
         var autenticou = false
         var resposta = false
 
@@ -46,8 +48,8 @@ class Login : AppCompatActivity() {
         val requestsVendedor = retrofit.create(VendedorService::class.java)
         val callVendedor = requestsVendedor.getVendedores()
 
-        val requestsEntregador = retrofit.create(EntregadorService::class.java)
-        val callEntregador = requestsEntregador.getEntregadores()
+//        val requestsEntregador = retrofit.create(EntregadorService::class.java)
+//        val callEntregador = requestsEntregador.getEntregadores()
 
         callComprador.enqueue(object: Callback<List<Comprador>>{
             override fun onFailure(call: Call<List<Comprador>>, t: Throwable) {
@@ -95,31 +97,34 @@ class Login : AppCompatActivity() {
             })
         }
 
+//        if (!autenticou){
+//            callEntregador.enqueue(object: Callback<List<Entregador>>{
+//                override fun onFailure(call: Call<List<Entregador>>, t: Throwable) {
+//                    TODO("Not yet implemented")
+//                }
+//
+//                override fun onResponse(
+//                    call: Call<List<Entregador>>,
+//                    response: Response<List<Entregador>>
+//                ) {
+//                    response.body()?.forEach {
+//                        resposta = true
+//                        if(user==it.email &&  senha==it.senha) {
+//                            Toast.makeText(baseContext, getString(R.string.txt_bemvindo, it.nome), Toast.LENGTH_SHORT).show()
+//                            autenticou = true
+//                        } else {
+//                            autenticou = false
+//                        }
+//                    }
+//                }
+//
+//            })
+//        }
+
         if (!autenticou){
-            callEntregador.enqueue(object: Callback<List<Entregador>>{
-                override fun onFailure(call: Call<List<Entregador>>, t: Throwable) {
-                    TODO("Not yet implemented")
-                }
-
-                override fun onResponse(
-                    call: Call<List<Entregador>>,
-                    response: Response<List<Entregador>>
-                ) {
-                    response.body()?.forEach {
-                        if(user==it.email &&  senha==it.senha) {
-                            Toast.makeText(baseContext, getString(R.string.txt_bemvindo, it.nome), Toast.LENGTH_SHORT).show()
-                            autenticou = true
-                        } else {
-                            autenticou = false
-                        }
-                    }
-                }
-
-            })
-        }
-
-        if (!autenticou && resposta){
-            Toast.makeText(baseContext, R.string.txt_login_erro, Toast.LENGTH_SHORT).show()
+            Toast.makeText(baseContext, getString(R.string.txt_login_erro), Toast.LENGTH_SHORT).show()
+        }else{
+            startActivity(Intent(this, MainComprador::class.java))
         }
     }
 

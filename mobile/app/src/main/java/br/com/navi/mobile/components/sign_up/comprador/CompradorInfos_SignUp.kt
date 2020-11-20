@@ -2,18 +2,12 @@ package br.com.navi.mobile.components.sign_up.comprador
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import br.com.navi.mobile.R
 import br.com.navi.mobile.components.SelectUserType_SignUp
 import br.com.navi.mobile.models.Comprador
-import br.com.navi.mobile.utils.ApiAccessUtils
 import kotlinx.android.synthetic.main.activity_comprador_infos_sign_up.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class CompradorInfos_SignUp : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -2,7 +2,6 @@ package br.com.navi.mobile.components.sign_up.comprador
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -10,7 +9,6 @@ import br.com.navi.mobile.R
 import br.com.navi.mobile.components.login.Login
 import br.com.navi.mobile.models.Comprador
 import br.com.navi.mobile.models.Endereco
-import br.com.navi.mobile.models.others.Cep
 import br.com.navi.mobile.utils.ApiAccessUtils
 import kotlinx.android.synthetic.main.activity_comprador_endereco_infos_sign_up.*
 import kotlinx.android.synthetic.main.activity_comprador_endereco_infos_sign_up.*

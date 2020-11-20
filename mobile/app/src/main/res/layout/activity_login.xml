@@ -78,7 +78,6 @@
                 android:layout_marginTop="50dp"
                 android:layout_marginRight="30dp"
                 android:background="@drawable/button_border"
-                android:onClick="logando"
                 android:text="@string/str_bt_proximo"
                 android:textColor="#FFFFFF"
                 android:textSize="18sp" />
@@ -91,6 +90,7 @@
                 android:layout_marginTop="15dp"
                 android:text="@string/str_tv_nao_tem_conta_registre_se"
                 android:textSize="17sp"
+                android:layout_marginBottom="20dp"
                 tools:layout_editor_absoluteX="30dp" />
 
 
