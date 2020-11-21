@@ -7,6 +7,39 @@
     android:layout_height="match_parent"
     tools:context=".components.comprador.MainComprador">
 
+  <RelativeLayout
+      android:id="@+id/frame_top"
+      android:layout_width="match_parent"
+      android:layout_height="50dp"
+      android:background="@color/AzulNavi"
+      android:paddingLeft="10dp"
+      tools:ignore="MissingConstraints">
+
+    <ImageView
+        android:id="@+id/navi_logo_pequena"
+        android:layout_width="40dp"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/tv_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:textColor="@color/Branco"
+        android:text="Navi"
+        android:gravity="center"
+        android:textSize="30dp"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/navi_logo_pequena" />
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_gravity="end"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/ic_account_circle" />
+  </RelativeLayout>
+
   <androidx.viewpager2.widget.ViewPager2
       android:id="@+id/viewpager"
       android:layout_width="0dp"
@@ -21,13 +54,13 @@
       android:id="@+id/tablayout"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      app:tabBackground="@color/Branco"
-      app:tabSelectedTextColor="@color/colorAccent"
-      app:tabIndicatorColor="@color/colorAccent"
-      app:tabTextColor="@color/CinzaEscuro"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      app:tabMode="fixed" />
+      app:layout_constraintTop_toBottomOf="@id/frame_top"
+      app:tabBackground="@color/Branco"
+      app:tabIndicatorColor="@color/AzulNavi"
+      app:tabMode="fixed"
+      app:tabSelectedTextColor="@color/AzulNavi"
+      app:tabTextColor="@color/Cinza" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

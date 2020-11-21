@@ -1,9 +1,11 @@
 package br.com.navi.mobile.components.comprador
 
 import android.os.Bundle
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import br.com.navi.mobile.R
+import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -13,6 +15,7 @@ class MainComprador : AppCompatActivity() {
         setContentView(R.layout.activity_comprador_main)
 
         grupoDeFragments()
+        carregandoGif()
     }
 
     private fun grupoDeFragments(){
@@ -25,5 +28,10 @@ class MainComprador : AppCompatActivity() {
         TabLayoutMediator(tabLayout,viewPager){tab,position ->
             tab.text = names[position]
         }.attach()
+    }
+
+    fun carregandoGif() {
+        val imageView: ImageView = findViewById(R.id.navi_logo_pequena)
+        Glide.with(this).load(R.drawable.navi_logo_white).into(imageView)
     }
 }
