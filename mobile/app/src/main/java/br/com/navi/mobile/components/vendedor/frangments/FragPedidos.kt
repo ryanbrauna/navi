@@ -13,7 +13,7 @@ class FragPedidos():Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.activity_comprador_frag_pedidos,container,false)
+        val view = inflater.inflate(R.layout.activity_vendedor_frag_pedidos,container,false)
         return view
     }
 }

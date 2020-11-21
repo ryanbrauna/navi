@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/Branco"
     tools:context=".components.comprador.MainComprador">
 
   <RelativeLayout
@@ -24,12 +24,12 @@
         android:id="@+id/tv_logo"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:textColor="@color/Branco"
-        android:text="Navi"
-        android:gravity="center"
-        android:textSize="30dp"
         android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@id/navi_logo_pequena" />
+        android:layout_toRightOf="@id/navi_logo_pequena"
+        android:gravity="center"
+        android:text="Navi"
+        android:textColor="@color/Branco"
+        android:textSize="30dp" />
 
     <ImageView
         android:id="@+id/icon_perfil"

@@ -19,14 +19,17 @@
             </intent-filter>
         </activity>
         <activity android:name=".components.comprador.MainComprador"/>
+        <activity android:name=".components.vendedor.MainVendedor"/>
+        <activity android:name=".components.entregador.MainEntregador"/>
+        //Telas Cadastro
         <activity android:name=".components.SelectUserType_SignUp" />
         <activity android:name=".components.sign_up.comprador.CompradorInfos_SignUp" />
         <activity android:name=".components.sign_up.comprador.CompradorOtherInfos_SignUp" />
         <activity android:name=".components.sign_up.comprador.CompradorEnderecoInfos_SignUp" />
-        <activity android:name="br.com.navi.mobile.components.sign_up.vendedor.VendedorInfos_SignUp" />
-        <activity android:name="br.com.navi.mobile.components.sign_up.vendedor.VendedorOtherInfos_SignUp" />
-        <activity android:name="br.com.navi.mobile.components.sign_up.vendedor.VendedorLojaInfos_SignUp" />
-        <activity android:name="br.com.navi.mobile.components.sign_up.vendedor.VendedorEnderecoInfos_SignUp" />
+        <activity android:name=".components.sign_up.vendedor.VendedorInfos_SignUp" />
+        <activity android:name=".components.sign_up.vendedor.VendedorOtherInfos_SignUp" />
+        <activity android:name=".components.sign_up.vendedor.VendedorLojaInfos_SignUp" />
+        <activity android:name=".components.sign_up.vendedor.VendedorEnderecoInfos_SignUp" />
     </application>
 
 </manifest>

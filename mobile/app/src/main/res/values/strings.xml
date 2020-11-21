@@ -2,7 +2,7 @@
     <string name="app_name" translatable="false">Navi</string>
 
     <!-- Button -->
-    <string name="str_bt_proximo">PRÓXIMO</string>
+    <string name="str_bt_proximo">PROXÍMO</string>
     <string name="str_bt_validar_cep">validar CEP</string>
 
     <!-- TextView -->
@@ -37,6 +37,7 @@
     <string name="txt_bemvindo">Bem-vindo %1$s</string>
     <string name="txt_cadastrado">Cadastrado com sucesso</string>
     <string name="txt_login_erro">Seu email ou senha estão incorretos</string>
+    <string name="txt_exit">Até logo</string>
 
 
 </resources>

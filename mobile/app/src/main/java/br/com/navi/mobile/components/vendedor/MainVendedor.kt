@@ -1,4 +1,4 @@
-package br.com.navi.mobile.components.comprador
+package br.com.navi.mobile.components.vendedor
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,12 +11,12 @@ import br.com.navi.mobile.components.login.Login
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import kotlinx.android.synthetic.main.activity_comprador_main.*
+import kotlinx.android.synthetic.main.activity_comprador_main.icon_perfil
 
-class MainComprador : AppCompatActivity() {
+class MainVendedor : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_comprador_main)
+        setContentView(R.layout.activity_vendedor_main)
 
         grupoDeFragments()
         carregandoGif()
@@ -29,11 +29,11 @@ class MainComprador : AppCompatActivity() {
 
     private fun grupoDeFragments(){
         var viewPager: ViewPager2 = findViewById(R.id.viewpager)
-        var adapter = CompradorStateAdapter(supportFragmentManager,lifecycle)
+        var adapter = VendedorStateAdapter(supportFragmentManager,lifecycle)
         viewPager.adapter = adapter
 
         var tabLayout: TabLayout = findViewById(R.id.tablayout)
-        var names:ArrayList<String> = arrayListOf("Lojas","Maps","Meus Pedidos")
+        var names:ArrayList<String> = arrayListOf("Pedidos","Entregadores")
         TabLayoutMediator(tabLayout,viewPager){tab,position ->
             tab.text = names[position]
         }.attach()

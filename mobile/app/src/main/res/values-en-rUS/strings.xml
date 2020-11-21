@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="str_bt_proximo" translatable="false">NEXT</string>
     <string name="str_bt_validar_cep">validate ZIP Code</string>
     <string name="str_tv_cadastro">Sing in</string>
     <string name="str_tv_descricao_loja">Store Description</string>
@@ -29,4 +28,6 @@
     <string name="txt_cadastrado">Registered successfully</string>
     <string name="txt_bemvindo">Wellcome %1$s</string>
     <string name="txt_login_erro">Your email or password is incorrect</string>
+    <string name="str_bt_proximo">NEXT</string>
+    <string name="txt_exit">See you later</string>
 </resources>

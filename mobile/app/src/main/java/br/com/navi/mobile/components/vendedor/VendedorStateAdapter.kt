@@ -1,4 +1,4 @@
-package br.com.navi.mobile.components.comprador
+package br.com.navi.mobile.components.vendedor
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -9,13 +9,12 @@ import br.com.navi.mobile.components.comprador.frangments.FragMaps
 import br.com.navi.mobile.components.comprador.frangments.FragMeusPedidos
 import br.com.navi.mobile.components.comprador.frangments.FragPedidos
 
-class CompradorStateAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
+class VendedorStateAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
     FragmentStateAdapter(fragmentManager, lifecycle) {
 
     var fragment:ArrayList<Fragment> = arrayListOf(
         FragPedidos(),
-        FragMaps(),
-        FragMeusPedidos()
+        FragEntregadores()
     )
 
     override fun getItemCount(): Int {
