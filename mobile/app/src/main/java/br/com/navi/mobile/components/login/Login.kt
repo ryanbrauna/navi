@@ -32,7 +32,6 @@ class Login : AppCompatActivity() {
 
     fun logando(){
         var autenticou = false
-        var resposta = false
 
         val user = et_email.text.toString()
         val senha = et_senha.text.toString()
@@ -51,51 +50,55 @@ class Login : AppCompatActivity() {
 //        val requestsEntregador = retrofit.create(EntregadorService::class.java)
 //        val callEntregador = requestsEntregador.getEntregadores()
 
-        callComprador.enqueue(object: Callback<List<Comprador>>{
+        callComprador.enqueue(object : Callback<List<Comprador>> {
             override fun onFailure(call: Call<List<Comprador>>, t: Throwable) {
                 TODO("Not yet implemented")
             }
 
+            // Comprador
             override fun onResponse(
-                call: Call<List<Comprador>>,
-                response: Response<List<Comprador>>
+                    call: Call<List<Comprador>>,
+                    response: Response<List<Comprador>>
             ) {
                 response.body()?.forEach {
-                    resposta = true
-                    if(user==it.email &&  senha==it.senha) {
+                    if (user == it.email && senha == it.senha) {
                         autenticou = true
                         Toast.makeText(baseContext, getString(R.string.txt_bemvindo, it.nome), Toast.LENGTH_SHORT).show()
+                        openCompradorMain()
+                        return
                     } else {
                         autenticou = false
                     }
                 }
+                if (!autenticou) {
+                    callVendedor.enqueue(object : Callback<List<Vendedor>> {
+                        override fun onFailure(call: Call<List<Vendedor>>, t: Throwable) {
+                            TODO("Not yet implemented")
+                        }
+
+                        // Vendedor
+                        override fun onResponse(
+                                call: Call<List<Vendedor>>,
+                                response: Response<List<Vendedor>>
+                        ) {
+                            response.body()?.forEach {
+                                if (user == it.email && senha == it.senha) {
+                                    autenticou = true
+                                    Toast.makeText(baseContext, getString(R.string.txt_bemvindo, it.nome), Toast.LENGTH_SHORT).show()
+                                } else {
+                                    autenticou = false
+                                }
+                            }
+                            if (!autenticou) {
+                                Toast.makeText(baseContext, getString(R.string.txt_login_erro), Toast.LENGTH_SHORT).show()
+                            }
+                        }
+
+                    })
+                }
             }
 
         })
-
-        if (!autenticou){
-            callVendedor.enqueue(object: Callback<List<Vendedor>>{
-                override fun onFailure(call: Call<List<Vendedor>>, t: Throwable) {
-                    TODO("Not yet implemented")
-                }
-
-                override fun onResponse(
-                    call: Call<List<Vendedor>>,
-                    response: Response<List<Vendedor>>
-                ) {
-                    response.body()?.forEach {
-                        resposta = true
-                        if(user==it.email &&  senha==it.senha) {
-                            autenticou = true
-                            Toast.makeText(baseContext, getString(R.string.txt_bemvindo, it.nome), Toast.LENGTH_SHORT).show()
-                        } else {
-                            autenticou = false
-                        }
-                    }
-                }
-
-            })
-        }
 
 //        if (!autenticou){
 //            callEntregador.enqueue(object: Callback<List<Entregador>>{
@@ -120,17 +123,14 @@ class Login : AppCompatActivity() {
 //
 //            })
 //        }
-
-        if (!autenticou){
-            Toast.makeText(baseContext, getString(R.string.txt_login_erro), Toast.LENGTH_SHORT).show()
-        }else{
-            startActivity(Intent(this, MainComprador::class.java))
-        }
     }
 
     private fun openCadastrar(){
         val intent = Intent(this, SelectUserType_SignUp::class.java)
         startActivity(intent)
+    }
+    private fun openCompradorMain(){
+        startActivity(Intent(this, MainComprador::class.java))
     }
 
 }
