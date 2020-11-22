@@ -22,8 +22,7 @@ class MainComprador : AppCompatActivity() {
         carregandoGif()
 
         icon_perfil.setOnClickListener {
-            startActivity(Intent(this, Login::class.java))
-            Toast.makeText(baseContext, getString(R.string.txt_exit), Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, PerfilUsuario::class.java))
         }
     }
 

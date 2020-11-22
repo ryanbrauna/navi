@@ -30,4 +30,9 @@
     <string name="txt_login_erro">Your email or password is incorrect</string>
     <string name="str_bt_proximo">NEXT</string>
     <string name="txt_exit">See you later</string>
+    <string name="str_tv_perfil">profile</string>
+    <string name="str_tv_editar_perfil">edit profile</string>
+    <string name="str_tv_loja">shop</string>
+    <string name="str_et_hint_cnh">CNH</string>
+    <string name="str_bt_sair">Exit</string>
 </resources>

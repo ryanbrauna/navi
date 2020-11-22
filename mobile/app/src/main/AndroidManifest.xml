@@ -19,8 +19,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".components.comprador.MainComprador"/>
+        <activity android:name=".components.comprador.PerfilUsuario"/>
         <activity android:name=".components.vendedor.MainVendedor"/>
+        <activity android:name=".components.vendedor.PerfilVendedor"/>
         <activity android:name=".components.entregador.MainEntregador"/>
+        <activity android:name=".components.entregador.PerfilEntregador"/>
         //Telas Cadastro
         <activity android:name=".components.SelectUserType_SignUp" />
         <activity android:name=".components.sign_up.comprador.CompradorInfos_SignUp" />

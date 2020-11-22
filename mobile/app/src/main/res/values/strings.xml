@@ -4,6 +4,7 @@
     <!-- Button -->
     <string name="str_bt_proximo">PROXÍMO</string>
     <string name="str_bt_validar_cep">validar CEP</string>
+    <string name="str_bt_sair">Sair</string>
 
     <!-- TextView -->
     <string name="str_tv_cadastro">Cadastro</string>
@@ -15,6 +16,9 @@
     <string name="str_tv_vendedor">Vendedor</string>
     <string name="str_tv_ou">ou</string>
     <string name="str_tv_comprador">Comprador</string>
+    <string name="str_tv_perfil">perfil</string>
+    <string name="str_tv_editar_perfil">editar perfil</string>
+    <string name="str_tv_loja">loja</string>
 
     <!-- EditText -->
     <string name="str_et_hint_nome">Nome</string>
@@ -32,6 +36,7 @@
     <string name="str_et_hint_bairro">Bairro</string>
     <string name="str_et_hint_uf">UF</string>
     <string name="str_et_hint_cpf">CPF</string>
+    <string name="str_et_hint_cnh">CNH</string>
 
     <!--Toast-->
     <string name="txt_bemvindo">Bem-vindo %1$s</string>
