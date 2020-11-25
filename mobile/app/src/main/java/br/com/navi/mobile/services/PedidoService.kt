@@ -11,7 +11,7 @@ interface PedidoService {
     fun getPedidosComprador(@Path("cpf") cpf : String) : Call<List<Pedido>>
 
     @GET("/vendedor/{cnpj}/pedidos")
-    fun getPedidosVendedor(@Path("cnpj") cnpj : String) : Call<List<Pedido>>
+    fun getPedidosLoja(@Path("cnpj") cnpj : String) : Call<List<Pedido>>
 
 //    @GET("/comprador/{cpf}")
 //    fun getComprador(@Path("cpf") cpf : String) : Call<Comprador>

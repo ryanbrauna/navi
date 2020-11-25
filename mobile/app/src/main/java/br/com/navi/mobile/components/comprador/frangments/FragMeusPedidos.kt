@@ -11,13 +11,13 @@ import androidx.core.content.res.ResourcesCompat.getColor
 import androidx.core.content.res.ResourcesCompat.getColorStateList
 import androidx.fragment.app.Fragment
 import br.com.navi.mobile.R
+import br.com.navi.mobile.models.Loja
 import br.com.navi.mobile.models.Pedido
+import br.com.navi.mobile.services.LojaService
 import br.com.navi.mobile.services.PedidoService
+import kotlinx.android.synthetic.main.activity_comprador_frag_lojas.*
 import kotlinx.android.synthetic.main.activity_comprador_frag_pedidos.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
+import retrofit2.*
 import retrofit2.converter.gson.GsonConverterFactory
 
 class FragMeusPedidos():Fragment() {
@@ -27,11 +27,11 @@ class FragMeusPedidos():Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.activity_comprador_frag_pedidos,container,false)
-        getAllPedidos()
+        getPedidosComprador()
         return view
     }
 
-    fun getAllPedidos() {
+    fun getPedidosComprador() {
         val retrofit = Retrofit.Builder()
                 .baseUrl("https://navi--api.herokuapp.com/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -45,7 +45,9 @@ class FragMeusPedidos():Fragment() {
                 response.body()?.forEach {
                     val newTv = TextView(context)
 
-                    newTv.text = "Numero do Pedido: ${it.numeroDoPedido} \nDescrição: ${it.descricao} \nPreço: ${it.preco}"
+                    newTv.text = "Nº do Pedido: ${it.numeroDoPedido} \n" +
+                            "Descrição: ${it.descricao} \n" +
+                            "Preço: ${it.preco}\n"
                     newTv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f)
                     newTv.setTextColor(Color.parseColor("#2196F3"))
                     newTv.setBackgroundColor(Color.parseColor("#FFFFFF"))

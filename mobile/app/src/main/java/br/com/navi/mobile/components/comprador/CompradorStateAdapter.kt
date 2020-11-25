@@ -4,16 +4,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import br.com.navi.mobile.components.comprador.frangments.FragEntregadores
-import br.com.navi.mobile.components.comprador.frangments.FragMaps
-import br.com.navi.mobile.components.comprador.frangments.FragMeusPedidos
-import br.com.navi.mobile.components.comprador.frangments.FragPedidos
+import br.com.navi.mobile.components.comprador.frangments.*
 
 class CompradorStateAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
     FragmentStateAdapter(fragmentManager, lifecycle) {
 
     var fragment:ArrayList<Fragment> = arrayListOf(
-        FragPedidos(),
+        FragLojas(),
         FragMaps(),
         FragMeusPedidos()
     )
