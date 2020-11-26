@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import br.com.navi.mobile.R
+import br.com.navi.mobile.components.login.codUser
 import br.com.navi.mobile.models.Pedido
 import br.com.navi.mobile.services.PedidoService
 import kotlinx.android.synthetic.main.activity_vendedor_frag_pedidos.*
@@ -36,7 +37,7 @@ class FragPedidos():Fragment() {
                 .build()
 
         val requestsPedido = retrofit.create(PedidoService::class.java)
-        val callPedidosVendedor = requestsPedido.getPedidosLoja("12345678901234")
+        val callPedidosVendedor = requestsPedido.getPedidosLoja(codUser)
 
         callPedidosVendedor.enqueue(object : Callback<List<Pedido>> {
             override fun onResponse(call: Call<List<Pedido>>, response: Response<List<Pedido>>) {

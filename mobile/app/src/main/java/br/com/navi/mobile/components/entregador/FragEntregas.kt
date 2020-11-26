@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import br.com.navi.mobile.R
+import br.com.navi.mobile.components.login.codUser
 import br.com.navi.mobile.models.Entregador
 import br.com.navi.mobile.models.Pedido
 import br.com.navi.mobile.services.EntregadorService
@@ -39,7 +40,7 @@ class FragEntregas():Fragment() {
                 .build()
 
         val requestsPedido = retrofit.create(PedidoService::class.java)
-        val callPedidosEntregador = requestsPedido.getPedidosLoja("12345678901234")
+        val callPedidosEntregador = requestsPedido.getPedidosLoja(codUser)
 
         callPedidosEntregador.enqueue(object : Callback<List<Pedido>> {
             override fun onResponse(call: Call<List<Pedido>>, response: Response<List<Pedido>>) {

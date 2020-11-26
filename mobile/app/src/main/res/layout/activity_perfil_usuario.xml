@@ -68,6 +68,7 @@
                 />
 
             <EditText
+                android:id="@+id/et_perfil_nome"
                 android:hint="@string/str_et_hint_nome"
                 android:layout_width="330dp"
                 android:layout_gravity="center"
@@ -77,6 +78,7 @@
                 />
 
             <EditText
+                android:id="@+id/et_perfil_email"
                 android:hint="@string/str_et_hint_email"
                 android:layout_width="330dp"
                 android:layout_gravity="center"
@@ -86,6 +88,7 @@
                 />
 
             <EditText
+                android:id="@+id/et_perfil_cpf"
                 android:hint="@string/str_et_hint_cpf"
                 android:layout_width="330dp"
                 android:layout_gravity="center"

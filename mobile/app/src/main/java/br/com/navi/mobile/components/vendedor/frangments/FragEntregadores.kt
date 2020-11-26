@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import br.com.navi.mobile.R
+import br.com.navi.mobile.components.login.codUser
 import br.com.navi.mobile.models.Entregador
 import br.com.navi.mobile.services.EntregadorService
 import kotlinx.android.synthetic.main.activity_vendedor_frag_entregadores.*
@@ -36,7 +37,7 @@ class FragEntregadores():Fragment() {
                 .build()
 
         val requestEntregador = retrofit.create(EntregadorService::class.java)
-        val callEntregadorService = requestEntregador.getEntregadoresLoja("12345678901234")
+        val callEntregadorService = requestEntregador.getEntregadoresLoja(codUser)
 
         callEntregadorService.enqueue(object : Callback<List<Entregador>> {
             override fun onResponse(call: Call<List<Entregador>>, response: Response<List<Entregador>>) {

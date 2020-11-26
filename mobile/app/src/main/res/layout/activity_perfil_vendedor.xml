@@ -69,6 +69,7 @@
                 />
 
             <EditText
+                android:id="@+id/et_perfil_nome"
                 android:hint="@string/str_et_hint_nome"
                 android:layout_width="330dp"
                 android:layout_gravity="center"
@@ -78,6 +79,7 @@
                 />
 
             <EditText
+                android:id="@+id/et_perfil_email"
                 android:hint="@string/str_et_hint_email"
                 android:layout_width="330dp"
                 android:layout_gravity="center"
@@ -87,6 +89,7 @@
                 />
 
             <EditText
+                android:id="@+id/et_perfil_cnpj"
                 android:hint="@string/str_et_hint_cnpj"
                 android:layout_width="330dp"
                 android:layout_gravity="center"
@@ -107,6 +110,7 @@
                 />
 
             <EditText
+                android:id="@+id/et_perfil_loja_nome"
                 android:hint="@string/str_et_hint_nome"
                 android:layout_width="330dp"
                 android:layout_gravity="center"
@@ -116,10 +120,11 @@
                 />
 
             <EditText
+                android:id="@+id/et_perfil_loja_desc"
                 android:hint="@string/str_et_hint_descricao"
                 android:layout_width="330dp"
                 android:layout_gravity="center"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:background="@drawable/edit_text_border"
                 />

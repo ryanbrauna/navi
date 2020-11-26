@@ -7,15 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.content.res.ResourcesCompat.getColor
-import androidx.core.content.res.ResourcesCompat.getColorStateList
 import androidx.fragment.app.Fragment
 import br.com.navi.mobile.R
-import br.com.navi.mobile.models.Loja
+import br.com.navi.mobile.components.login.codUser
 import br.com.navi.mobile.models.Pedido
-import br.com.navi.mobile.services.LojaService
 import br.com.navi.mobile.services.PedidoService
-import kotlinx.android.synthetic.main.activity_comprador_frag_lojas.*
 import kotlinx.android.synthetic.main.activity_comprador_frag_pedidos.*
 import retrofit2.*
 import retrofit2.converter.gson.GsonConverterFactory
@@ -38,7 +34,7 @@ class FragMeusPedidos():Fragment() {
                 .build()
 
         val requestsPedido = retrofit.create(PedidoService::class.java)
-        val callPedidosComprador = requestsPedido.getPedidosComprador("34857844898")
+        val callPedidosComprador = requestsPedido.getPedidosComprador(codUser)
 
         callPedidosComprador.enqueue(object : Callback<List<Pedido>> {
             override fun onResponse(call: Call<List<Pedido>>, response: Response<List<Pedido>>) {

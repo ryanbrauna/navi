@@ -22,6 +22,11 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+var codUser = ""
+var nomeUser = ""
+var emailUser = ""
+var cnhUser = ""
+
 class Login : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,10 +60,9 @@ class Login : AppCompatActivity() {
 
         callComprador.enqueue(object : Callback<List<Comprador>> {
             override fun onFailure(call: Call<List<Comprador>>, t: Throwable) {
-                TODO("Not yet implemented")
             }
 
-            // Comprador
+            // Comprador ------------------------------------------------------------------------
             override fun onResponse(
                     call: Call<List<Comprador>>,
                     response: Response<List<Comprador>>
@@ -66,6 +70,11 @@ class Login : AppCompatActivity() {
                 response.body()?.forEach {
                     if (user == it.email && senha == it.senha) {
                         autenticou = true
+
+                        nomeUser = it.nome
+                        emailUser = it.email
+                        codUser = it.cpf
+
                         Toast.makeText(baseContext, getString(R.string.txt_bemvindo, it.nome), Toast.LENGTH_SHORT).show()
                         openCompradorMain()
                         return
@@ -76,10 +85,9 @@ class Login : AppCompatActivity() {
                 if (!autenticou) {
                     callVendedor.enqueue(object : Callback<List<Vendedor>> {
                         override fun onFailure(call: Call<List<Vendedor>>, t: Throwable) {
-                            TODO("Not yet implemented")
                         }
 
-                        // Vendedor
+                        // Vendedor ------------------------------------------------------------------------
                         override fun onResponse(
                                 call: Call<List<Vendedor>>,
                                 response: Response<List<Vendedor>>
@@ -87,6 +95,11 @@ class Login : AppCompatActivity() {
                             response.body()?.forEach {
                                 if (user == it.email && senha == it.senha) {
                                     autenticou = true
+
+                                    nomeUser = it.nome
+                                    emailUser = it.email
+                                    codUser = it.cnpj
+
                                     Toast.makeText(baseContext, getString(R.string.txt_bemvindo, it.nome), Toast.LENGTH_SHORT).show()
                                     openVendedorMain()
                                     return
@@ -94,19 +107,26 @@ class Login : AppCompatActivity() {
                                     autenticou = false
                                 }
                             }
-                            if (!autenticou){
-                                callEntregador.enqueue(object: Callback<List<Entregador>>{
+                            if (!autenticou) {
+                                callEntregador.enqueue(object : Callback<List<Entregador>> {
                                     override fun onFailure(call: Call<List<Entregador>>, t: Throwable) {
-                                        TODO("Not yet implemented")
                                     }
-                                    // Entregador
+
+                                    // Entregador ------------------------------------------------------------------------
                                     override fun onResponse(
-                                        call: Call<List<Entregador>>,
-                                        response: Response<List<Entregador>>
+                                            call: Call<List<Entregador>>,
+                                            response: Response<List<Entregador>>
                                     ) {
                                         response.body()?.forEach {
-                                            if(user==it.email &&  senha==it.senha) {
+                                            if (user == it.email && senha == it.senha) {
                                                 autenticou = true
+
+                                                nomeUser = it.nome
+                                                emailUser = it.email
+                                                codUser = it.cpf
+                                                cnhUser = it.cnh
+
+                                                codUser = it.vendedor?.cnpj.toString()
                                                 Toast.makeText(baseContext, getString(R.string.txt_bemvindo, it.nome), Toast.LENGTH_SHORT).show()
                                                 openEntregadorMain()
                                                 return
