@@ -4,14 +4,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import br.com.navi.mobile.components.Entregador.frangments.FragEntregas
-import br.com.navi.mobile.components.comprador.frangments.*
+import br.com.navi.mobile.components.Entregador.frangments.FragPedidosEntregador
 
 class EntregadorStateAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
     FragmentStateAdapter(fragmentManager, lifecycle) {
 
     var fragment:ArrayList<Fragment> = arrayListOf(
-        FragEntregas()
+        FragPedidosEntregador()
     )
 
     override fun getItemCount(): Int {

@@ -15,17 +15,8 @@
             android:id="@+id/content_lojas"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="10dp"
             android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:background="@color/BrancoEscuro"
-                android:text="Fragment Lojas"
-                android:textColor="@color/AzulNavi"
-                android:textSize="24sp" />
 
         </LinearLayout>
 

@@ -1,4 +1,4 @@
-package br.com.navi.mobile.components.Entregador.frangments
+package br.com.navi.mobile.components.comprador.frangments
 
 import android.graphics.Color
 import android.os.Bundle
@@ -7,42 +7,40 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.view.marginTop
 import androidx.fragment.app.Fragment
 import br.com.navi.mobile.R
 import br.com.navi.mobile.components.login.codUser
-import br.com.navi.mobile.models.Entregador
 import br.com.navi.mobile.models.Pedido
-import br.com.navi.mobile.services.EntregadorService
 import br.com.navi.mobile.services.PedidoService
-import kotlinx.android.synthetic.main.activity_entregador_frag_pedidos.*
-import kotlinx.android.synthetic.main.activity_vendedor_frag_entregadores.*
+import kotlinx.android.synthetic.main.activity_vendedor_frag_pedidos.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class FragEntregas():Fragment() {
+class FragPedidosVendedor():Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.activity_entregador_frag_pedidos,container,false)
-        getPedidosEntregador()
+        val view = inflater.inflate(R.layout.activity_vendedor_frag_pedidos,container,false)
+        getPedidosVendedor()
         return view
     }
 
-    fun getPedidosEntregador() {
+    fun getPedidosVendedor() {
         val retrofit = Retrofit.Builder()
                 .baseUrl("https://navi--api.herokuapp.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
 
         val requestsPedido = retrofit.create(PedidoService::class.java)
-        val callPedidosEntregador = requestsPedido.getPedidosLoja(codUser)
+        val callPedidosVendedor = requestsPedido.getPedidosLoja(codUser)
 
-        callPedidosEntregador.enqueue(object : Callback<List<Pedido>> {
+        callPedidosVendedor.enqueue(object : Callback<List<Pedido>> {
             override fun onResponse(call: Call<List<Pedido>>, response: Response<List<Pedido>>) {
                 response.body()?.forEach {
                     val newTv = TextView(context)
@@ -52,7 +50,7 @@ class FragEntregas():Fragment() {
                             "Preço: ${it.preco}\n"
                     newTv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f)
                     newTv.setTextColor(Color.parseColor("#2196F3"))
-                    newTv.setBackgroundColor(Color.parseColor("#FFFFFF"))
+                    newTv.setBackgroundResource(R.drawable.edit_text_border)
 
                     content_pedidos.addView(newTv)
                 }

@@ -47,7 +47,7 @@ class FragLojas():Fragment() {
                             "Vendedor: ${it.vendedor?.nome}\n"
                     newTv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f)
                     newTv.setTextColor(Color.parseColor("#2196F3"))
-                    newTv.setBackgroundColor(Color.parseColor("#FFFFFF"))
+                    newTv.setBackgroundResource(R.drawable.edit_text_border)
 
                     content_lojas.addView(newTv)
                 }

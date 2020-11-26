@@ -5,6 +5,9 @@
     <string name="str_bt_proximo">PROXÍMO</string>
     <string name="str_bt_validar_cep">validar CEP</string>
     <string name="str_bt_sair">Sair</string>
+    <string name="str_bt_criar_pedido">Registrar Pedido</string>
+    <string name="str_bt_criar_entregador">Cadastrar Entregador</string>
+    <string name="str_bt_cancelar">Cancelar</string>
 
     <!-- TextView -->
     <string name="str_tv_cadastro">Cadastro</string>

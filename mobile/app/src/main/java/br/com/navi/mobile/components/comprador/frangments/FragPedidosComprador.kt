@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.activity_comprador_frag_pedidos.*
 import retrofit2.*
 import retrofit2.converter.gson.GsonConverterFactory
 
-class FragMeusPedidos():Fragment() {
+class FragPedidosComprador():Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -46,7 +46,7 @@ class FragMeusPedidos():Fragment() {
                             "Preço: ${it.preco}\n"
                     newTv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f)
                     newTv.setTextColor(Color.parseColor("#2196F3"))
-                    newTv.setBackgroundColor(Color.parseColor("#FFFFFF"))
+                    newTv.setBackgroundResource(R.drawable.edit_text_border)
 
                     content_pedidos.addView(newTv)
                 }
