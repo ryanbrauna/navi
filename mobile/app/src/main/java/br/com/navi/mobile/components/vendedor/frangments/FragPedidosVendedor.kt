@@ -52,7 +52,9 @@ class FragPedidosVendedor():Fragment() {
                     newTv.setTextColor(Color.parseColor("#2196F3"))
                     newTv.setBackgroundResource(R.drawable.edit_text_border)
 
-                    content_pedidos.addView(newTv)
+                    if (it.estado == "Em Andamento"){
+                        ll_pedido_em_andamento.addView(newTv)
+                    }
                 }
             }
 

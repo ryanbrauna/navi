@@ -65,8 +65,35 @@
             android:id="@+id/content_pedidos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
             android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/tab_em_andamento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/Branco"
+                android:padding="5dp"
+                android:onClick="tabPedidoEmAndamento">
+                <ImageView
+                    android:id="@+id/icon_tab_em_andamento"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_tab_open"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/str_tv_em_andamento"
+                    android:textSize="20sp"
+                    android:textColor="@color/AzulNavi"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_pedido_em_andamento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:orientation="vertical">
+            </LinearLayout>
+
 
         </LinearLayout>
 

@@ -63,6 +63,16 @@ class MainVendedor : AppCompatActivity() {
         }
     }
 
+    fun tabPedidoEmAndamento(component: View) {
+        if (ll_pedido_em_andamento.visibility == View.GONE) {
+            ll_pedido_em_andamento.visibility = View.VISIBLE
+            icon_tab_em_andamento.setImageResource(R.drawable.ic_tab_open)
+        } else {
+            ll_pedido_em_andamento.visibility = View.GONE
+            icon_tab_em_andamento.setImageResource(R.drawable.ic_tab_closed)
+        }
+    }
+
     fun showFormEntregador(component: View) {
         if (rl_form_entregador.visibility == View.GONE){
             rl_criar_entregador.background = null

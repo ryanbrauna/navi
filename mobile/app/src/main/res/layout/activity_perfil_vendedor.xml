@@ -9,23 +9,37 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:background="@color/AzulNavi"
         tools:ignore="MissingConstraints">
+
         <ImageButton
             android:id="@+id/bt_voltar"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:background="@color/AzulNavi"
             android:src="@drawable/voltar_icone_branco" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="30dp"
+            android:gravity="center"
+            android:text="@string/str_tv_perfil"
+            android:textAllCaps="true"
+            android:textSize="24sp"
+            android:textColor="@color/Branco"/>
+
     </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#FFFFFF"
-        android:layout_marginBottom="50dp"
-        android:layout_marginTop="40dp">
+        android:layout_marginTop="50dp">
 
 
         <LinearLayout
@@ -49,14 +63,6 @@
                     android:textAllCaps="true"
                     android:textSize="16sp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginStart="30dp"
-                    android:text="@string/str_tv_perfil"
-                    android:textAllCaps="true"
-                    android:textSize="16sp" />
             </RelativeLayout>
 
             <ImageView
@@ -146,21 +152,21 @@
 
     </ScrollView>
 
-    <RelativeLayout
-        android:id="@+id/frame_bottom"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="50dp"
-        android:background="@color/Preto"
-        app:layout_constraintBottom_toBottomOf="parent"
-        >
+<!--    <RelativeLayout-->
+<!--        android:id="@+id/frame_bottom"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:layout_marginTop="50dp"-->
+<!--        android:background="@color/Preto"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        >-->
 
-        <ImageView
-            android:id="@+id/navi_logo_pequena"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@mipmap/navi_icone_preto" />
+<!--        <ImageView-->
+<!--            android:id="@+id/navi_logo_pequena"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:src="@mipmap/navi_icone_preto" />-->
 
-    </RelativeLayout>
+<!--    </RelativeLayout>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

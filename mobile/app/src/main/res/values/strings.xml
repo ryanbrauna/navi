@@ -22,6 +22,7 @@
     <string name="str_tv_perfil">perfil</string>
     <string name="str_tv_editar_perfil">editar perfil</string>
     <string name="str_tv_loja">loja</string>
+    <string name="str_tv_em_andamento">Em Andamento</string>
 
     <!-- EditText -->
     <string name="str_et_hint_nome">Nome</string>

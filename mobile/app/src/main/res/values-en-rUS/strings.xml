@@ -38,4 +38,5 @@
     <string name="str_bt_criar_pedido">Register Item</string>
     <string name="str_bt_cancelar">Cancel</string>
     <string name="str_bt_criar_entregador">Register Deliver</string>
+    <string name="str_tv_em_andamento">In Progress</string>
 </resources>
