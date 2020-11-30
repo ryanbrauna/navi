@@ -10,9 +10,9 @@ import br.com.navi.mobile.R
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import kotlinx.android.synthetic.main.activity_comprador_main.icon_perfil
 import kotlinx.android.synthetic.main.activity_vendedor_frag_entregadores.*
 import kotlinx.android.synthetic.main.activity_vendedor_frag_pedidos.*
+import kotlinx.android.synthetic.main.activity_vendedor_main.*
 
 class MainVendedor : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

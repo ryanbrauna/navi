@@ -13,6 +13,11 @@ import br.com.navi.mobile.components.login.codUser
 import br.com.navi.mobile.models.Pedido
 import br.com.navi.mobile.services.PedidoService
 import kotlinx.android.synthetic.main.activity_comprador_frag_pedidos.*
+import kotlinx.android.synthetic.main.activity_comprador_frag_pedidos.ll_pedido_cancelado
+import kotlinx.android.synthetic.main.activity_comprador_frag_pedidos.ll_pedido_em_andamento
+import kotlinx.android.synthetic.main.activity_comprador_frag_pedidos.ll_pedido_entregue
+import kotlinx.android.synthetic.main.activity_comprador_frag_pedidos.ll_pedido_registrado
+import kotlinx.android.synthetic.main.activity_vendedor_frag_pedidos.*
 import retrofit2.*
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -48,7 +53,18 @@ class FragPedidosComprador():Fragment() {
                     newTv.setTextColor(Color.parseColor("#2196F3"))
                     newTv.setBackgroundResource(R.drawable.edit_text_border)
 
-                    content_pedidos.addView(newTv)
+                    if (it.estado == "Pedido Registrado"){
+                        ll_pedido_registrado.addView(newTv)
+                    }
+                    if (it.estado == "Em Andamento"){
+                        ll_pedido_em_andamento.addView(newTv)
+                    }
+                    if (it.estado == "Entregue"){
+                        ll_pedido_entregue.addView(newTv)
+                    }
+                    if (it.estado == "Cancelado"){
+                        ll_pedido_cancelado.addView(newTv)
+                    }
                 }
             }
 

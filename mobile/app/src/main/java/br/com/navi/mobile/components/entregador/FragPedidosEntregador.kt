@@ -15,7 +15,12 @@ import br.com.navi.mobile.models.Pedido
 import br.com.navi.mobile.services.EntregadorService
 import br.com.navi.mobile.services.PedidoService
 import kotlinx.android.synthetic.main.activity_entregador_frag_pedidos.*
+import kotlinx.android.synthetic.main.activity_entregador_frag_pedidos.ll_pedido_cancelado
+import kotlinx.android.synthetic.main.activity_entregador_frag_pedidos.ll_pedido_em_andamento
+import kotlinx.android.synthetic.main.activity_entregador_frag_pedidos.ll_pedido_entregue
+import kotlinx.android.synthetic.main.activity_entregador_frag_pedidos.ll_pedido_registrado
 import kotlinx.android.synthetic.main.activity_vendedor_frag_entregadores.*
+import kotlinx.android.synthetic.main.activity_vendedor_frag_pedidos.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -54,7 +59,18 @@ class FragPedidosEntregador():Fragment() {
                     newTv.setTextColor(Color.parseColor("#2196F3"))
                     newTv.setBackgroundResource(R.drawable.edit_text_border)
 
-                    content_pedidos.addView(newTv)
+                    if (it.estado == "Pedido Registrado"){
+                        ll_pedido_registrado.addView(newTv)
+                    }
+                    if (it.estado == "Em Andamento"){
+                        ll_pedido_em_andamento.addView(newTv)
+                    }
+                    if (it.estado == "Entregue"){
+                        ll_pedido_entregue.addView(newTv)
+                    }
+                    if (it.estado == "Cancelado"){
+                        ll_pedido_cancelado.addView(newTv)
+                    }
                 }
             }
 
