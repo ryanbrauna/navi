@@ -68,6 +68,15 @@ class MainVendedor : AppCompatActivity() {
         }
     }
 
+    fun tabPedidoRegistrado(component: View) {
+        if (ll_pedido_registrado.visibility == View.GONE) {
+            ll_pedido_registrado.visibility = View.VISIBLE
+            icon_tab_pedido_registrado.setImageResource(R.drawable.ic_tab_open)
+        } else {
+            ll_pedido_registrado.visibility = View.GONE
+            icon_tab_pedido_registrado.setImageResource(R.drawable.ic_tab_closed)
+        }
+    }
     fun tabPedidoEmAndamento(component: View) {
         if (ll_pedido_em_andamento.visibility == View.GONE) {
             ll_pedido_em_andamento.visibility = View.VISIBLE
@@ -75,6 +84,24 @@ class MainVendedor : AppCompatActivity() {
         } else {
             ll_pedido_em_andamento.visibility = View.GONE
             icon_tab_em_andamento.setImageResource(R.drawable.ic_tab_closed)
+        }
+    }
+    fun tabPedidoEntregue(component: View) {
+        if (ll_pedido_entregue.visibility == View.GONE) {
+            ll_pedido_entregue.visibility = View.VISIBLE
+            icon_tab_entregue.setImageResource(R.drawable.ic_tab_open)
+        } else {
+            ll_pedido_entregue.visibility = View.GONE
+            icon_tab_entregue.setImageResource(R.drawable.ic_tab_closed)
+        }
+    }
+    fun tabPedidoCancelado(component: View) {
+        if (ll_pedido_cancelado.visibility == View.GONE) {
+            ll_pedido_cancelado.visibility = View.VISIBLE
+            icon_tab_cancelado.setImageResource(R.drawable.ic_tab_open)
+        } else {
+            ll_pedido_cancelado.visibility = View.GONE
+            icon_tab_cancelado.setImageResource(R.drawable.ic_tab_closed)
         }
     }
 }

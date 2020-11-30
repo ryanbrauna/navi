@@ -39,4 +39,7 @@
     <string name="str_bt_cancelar">Cancel</string>
     <string name="str_tv_criar_entregador">Register Deliver</string>
     <string name="str_tv_em_andamento">In Progress</string>
+    <string name="str_tv_pedido_registrado">Registered Order</string>
+    <string name="str_tv_entregue">Delivered</string>
+    <string name="str_tv_cancelado">Canceled</string>
 </resources>

@@ -59,8 +59,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingBottom="50dp"
-        app:layout_constraintTop_toBottomOf="@id/rl_criar_pedido">
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:id="@+id/content_pedidos"
@@ -69,32 +68,123 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/tab_pedido_registrado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/tab_border"
+                android:onClick="tabPedidoRegistrado"
+                android:padding="5dp">
+
+                <ImageView
+                    android:id="@+id/icon_tab_pedido_registrado"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_tab_open" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/str_tv_pedido_registrado"
+                    android:textColor="@color/AzulNavi"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_pedido_registrado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp"></LinearLayout>
+
+
+            <LinearLayout
                 android:id="@+id/tab_em_andamento"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/tab_border"
-                android:padding="5dp"
-                android:onClick="tabPedidoEmAndamento">
+                android:onClick="tabPedidoEmAndamento"
+                android:padding="5dp">
+
                 <ImageView
                     android:id="@+id/icon_tab_em_andamento"
                     android:layout_width="40dp"
                     android:layout_height="match_parent"
-                    android:src="@drawable/ic_tab_open"/>
+                    android:src="@drawable/ic_tab_open" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="@string/str_tv_em_andamento"
-                    android:textSize="20sp"
-                    android:textColor="@color/AzulNavi"/>
+                    android:textColor="@color/AzulNavi"
+                    android:textSize="20sp" />
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/ll_pedido_em_andamento"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="10dp"></LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/tab_entregue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/tab_border"
+                android:onClick="tabPedidoEntregue"
+                android:padding="5dp">
+
+                <ImageView
+                    android:id="@+id/icon_tab_entregue"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_tab_closed" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/str_tv_entregue"
+                    android:textColor="@color/AzulNavi"
+                    android:textSize="20sp" />
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/ll_pedido_entregue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:visibility="gone"></LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/tab_cancelado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/tab_border"
+                android:onClick="tabPedidoCancelado"
+                android:padding="5dp">
+
+                <ImageView
+                    android:id="@+id/icon_tab_cancelado"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_tab_closed" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/str_tv_cancelado"
+                    android:textColor="@color/AzulNavi"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_pedido_cancelado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:visibility="gone"></LinearLayout>
 
         </LinearLayout>
 
@@ -112,6 +202,13 @@
         android:backgroundTint="@color/AzulNavi"
         tools:ignore="MissingConstraints"
         android:onClick="showFormPedido" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/Branco"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="gone"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

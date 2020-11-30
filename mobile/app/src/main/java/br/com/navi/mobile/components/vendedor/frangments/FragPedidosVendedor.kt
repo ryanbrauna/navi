@@ -52,8 +52,17 @@ class FragPedidosVendedor():Fragment() {
                     newTv.setTextColor(Color.parseColor("#2196F3"))
                     newTv.setBackgroundResource(R.drawable.edit_text_border)
 
+                    if (it.estado == "Pedido Registrado"){
+                        ll_pedido_registrado.addView(newTv)
+                    }
                     if (it.estado == "Em Andamento"){
                         ll_pedido_em_andamento.addView(newTv)
+                    }
+                    if (it.estado == "Entregue"){
+                        ll_pedido_entregue.addView(newTv)
+                    }
+                    if (it.estado == "Cancelado"){
+                        ll_pedido_cancelado.addView(newTv)
                     }
                 }
             }
