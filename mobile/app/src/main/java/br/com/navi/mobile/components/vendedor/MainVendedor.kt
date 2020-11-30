@@ -1,7 +1,6 @@
 package br.com.navi.mobile.components.vendedor
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
@@ -46,20 +45,14 @@ class MainVendedor : AppCompatActivity() {
     }
 
     fun showFormPedido(component: View) {
-        if (rl_form_pedido.visibility == View.GONE){
-            rl_criar_pedido.background = null
-            bt_criar_pedido.setBackgroundResource(R.drawable.button_border_red)
-            bt_criar_pedido.setTextColor(getColor(R.color.Branco))
-            bt_criar_pedido.text = getString(R.string.str_bt_cancelar)
-            rl_form_pedido.visibility = View.VISIBLE
+        if (rl_criar_pedido.visibility == View.GONE){
+            rl_criar_pedido.visibility = View.VISIBLE
             sv_pedidos.visibility = View.GONE
+            bt_add_pedido.visibility = View.GONE
         } else {
-            rl_criar_pedido.setBackgroundColor(getColor(R.color.AzulBg))
-            bt_criar_pedido.setBackgroundResource(R.drawable.button_border_outline)
-            bt_criar_pedido.setTextColor(getColor(R.color.AzulNavi))
-            bt_criar_pedido.text = getString(R.string.str_bt_criar_pedido)
-            rl_form_pedido.visibility = View.GONE
+            rl_criar_pedido.visibility = View.GONE
             sv_pedidos.visibility = View.VISIBLE
+            bt_add_pedido.visibility = View.VISIBLE
         }
     }
 

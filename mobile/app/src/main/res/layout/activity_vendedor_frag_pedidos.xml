@@ -10,30 +10,31 @@
         android:id="@+id/rl_criar_pedido"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/AzulBg"
         android:padding="10dp"
+        android:visibility="gone"
         tools:ignore="MissingConstraints">
 
         <Button
-            android:id="@+id/bt_criar_pedido"
+            android:id="@+id/bt_cancelar_pedido"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="10dp"
-            android:background="@drawable/button_border_outline"
-            android:text="@string/str_bt_criar_pedido"
-            android:textColor="@color/AzulNavi"
-            android:onClick="showFormPedido"/>
+            android:paddingRight="15dp"
+            android:background="@drawable/button_border_red"
+            android:textColor="@color/Branco"
+            android:drawableLeft="@drawable/ic_cancel"
+            android:text="@string/str_bt_cancelar"
+            android:onClick="showFormPedido" />
 
         <LinearLayout
-            android:id="@+id/rl_form_pedido"
+            android:id="@+id/ll_form_pedido"
             android:layout_marginTop="30dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="@drawable/edit_text_border"
-            android:padding="20dp"
-            android:visibility="gone">
+            android:padding="20dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -71,7 +72,7 @@
                 android:id="@+id/tab_em_andamento"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/Branco"
+                android:background="@drawable/tab_border"
                 android:padding="5dp"
                 android:onClick="tabPedidoEmAndamento">
                 <ImageView
@@ -98,5 +99,19 @@
         </LinearLayout>
 
     </ScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/bt_add_pedido"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_add"
+        android:backgroundTint="@color/AzulNavi"
+        tools:ignore="MissingConstraints"
+        android:onClick="showFormPedido" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
