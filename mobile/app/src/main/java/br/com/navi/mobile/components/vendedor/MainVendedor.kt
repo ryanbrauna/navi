@@ -56,6 +56,18 @@ class MainVendedor : AppCompatActivity() {
         }
     }
 
+    fun showFormEntregador(component: View) {
+        if (rl_criar_entregador.visibility == View.GONE){
+            rl_criar_entregador.visibility = View.VISIBLE
+            sv_entregadores.visibility = View.GONE
+            bt_add_entregador.visibility = View.GONE
+        } else {
+            rl_criar_entregador.visibility = View.GONE
+            sv_entregadores.visibility = View.VISIBLE
+            bt_add_entregador.visibility = View.VISIBLE
+        }
+    }
+
     fun tabPedidoEmAndamento(component: View) {
         if (ll_pedido_em_andamento.visibility == View.GONE) {
             ll_pedido_em_andamento.visibility = View.VISIBLE
@@ -63,24 +75,6 @@ class MainVendedor : AppCompatActivity() {
         } else {
             ll_pedido_em_andamento.visibility = View.GONE
             icon_tab_em_andamento.setImageResource(R.drawable.ic_tab_closed)
-        }
-    }
-
-    fun showFormEntregador(component: View) {
-        if (rl_form_entregador.visibility == View.GONE){
-            rl_criar_entregador.background = null
-            bt_criar_entregador.setBackgroundResource(R.drawable.button_border_red)
-            bt_criar_entregador.setTextColor(getColor(R.color.Branco))
-            bt_criar_entregador.text = getString(R.string.str_bt_cancelar)
-            rl_form_entregador.visibility = View.VISIBLE
-            sv_entregadores.visibility = View.GONE
-        } else {
-            rl_criar_entregador.setBackgroundColor(getColor(R.color.AzulBg))
-            bt_criar_entregador.setBackgroundResource(R.drawable.button_border_outline)
-            bt_criar_entregador.setTextColor(getColor(R.color.AzulNavi))
-            bt_criar_entregador.text = getString(R.string.str_bt_criar_pedido)
-            rl_form_entregador.visibility = View.GONE
-            sv_entregadores.visibility = View.VISIBLE
         }
     }
 }
