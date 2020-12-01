@@ -39,9 +39,12 @@ class FragLojas():Fragment() {
 
         callLojaService.enqueue(object : Callback<List<Loja>> {
             override fun onResponse(call: Call<List<Loja>>, response: Response<List<Loja>>) {
-                response.body()?.forEach {
-                    val newTv = TextView(context)
+                val lojas = response.body()
+                lojas?.sortedBy { it.nome }
+                lojas?.forEach {
+                    println(it)
 
+                    val newTv = TextView(context)
                     newTv.text = "Loja: ${it.nome}\n" +
                             "Descrição: ${it.descricao}\n" +
                             "Vendedor: ${it.vendedor?.nome}\n"
