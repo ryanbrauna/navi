@@ -27,7 +27,7 @@
         android:layout_marginLeft="10dp"
         android:layout_toRightOf="@id/navi_logo_pequena"
         android:gravity="center"
-        android:text="Navi"
+        android:text="@string/app_name"
         android:textColor="@color/Branco"
         android:textSize="30dp" />
 

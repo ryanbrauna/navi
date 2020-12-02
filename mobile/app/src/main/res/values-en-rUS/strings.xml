@@ -42,4 +42,10 @@
     <string name="str_tv_pedido_registrado">Registered Order</string>
     <string name="str_tv_entregue">Delivered</string>
     <string name="str_tv_cancelado">Canceled</string>
+    <string name="nav_meus_pedidos">My Orders</string>
+    <string name="nav_pedidos">Orders</string>
+    <string name="nav_entregadores">Delivers</string>
+    <string name="nav_lojas">Shops</string>
+    <string name="nav_maps">MAPS</string>
+    <string name="nav_pedidos_loja">Orders Shop</string>
 </resources>

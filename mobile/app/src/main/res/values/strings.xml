@@ -51,5 +51,12 @@
     <string name="txt_login_erro">Seu email ou senha estão incorretos</string>
     <string name="txt_exit">Até logo</string>
 
+    <!--Navegação-->
+    <string name="nav_meus_pedidos">Meus Pedidos</string>
+    <string name="nav_pedidos">Pedidos</string>
+    <string name="nav_pedidos_loja">Pedidos da Loja</string>
+    <string name="nav_entregadores">Entregadores</string>
+    <string name="nav_lojas">Lojas</string>
+    <string name="nav_maps">MAPS</string>
 
 </resources>
