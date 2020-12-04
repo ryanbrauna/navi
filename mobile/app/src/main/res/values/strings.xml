@@ -6,6 +6,7 @@
     <string name="str_bt_validar_cep">validar CEP</string>
     <string name="str_bt_sair">Sair</string>
     <string name="str_bt_cancelar">Cancelar</string>
+    <string name="str_bt_registrar">Registrar</string>
 
     <!-- TextView -->
     <string name="str_tv_cadastro">Cadastro</string>
@@ -26,6 +27,7 @@
     <string name="str_tv_cancelado">Cancelado</string>
     <string name="str_tv_criar_pedido">Registrar Pedido</string>
     <string name="str_tv_criar_entregador">Cadastrar Entregador</string>
+    <string name="str_tv_obrigatorio">* Esse campo é obrigatorio</string>
 
     <!-- EditText -->
     <string name="str_et_hint_nome">Nome</string>
@@ -44,12 +46,16 @@
     <string name="str_et_hint_uf">UF</string>
     <string name="str_et_hint_cpf">CPF</string>
     <string name="str_et_hint_cnh">CNH</string>
+    <string name="str_et_hint_nr_pedido">Nº do Pedido</string>
+    <string name="str_et_hint_anotacao">Anotações</string>
+    <string name="str_et_hint_preco">Preço</string>
 
     <!--Toast-->
     <string name="txt_bemvindo">Bem-vindo %1$s</string>
     <string name="txt_cadastrado">Cadastrado com sucesso</string>
     <string name="txt_login_erro">Seu email ou senha estão incorretos</string>
     <string name="txt_exit">Até logo</string>
+    <string name="txt_pedido_registrado">Pedido Registrado com Sucesso!</string>
 
     <!--Navegação-->
     <string name="nav_meus_pedidos">Meus Pedidos</string>

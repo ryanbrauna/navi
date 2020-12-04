@@ -1,19 +1,24 @@
 package br.com.navi.mobile.components.vendedor
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import br.com.navi.mobile.R
-import com.bumptech.glide.Glide
+import br.com.navi.mobile.components.login.codUser
+import br.com.navi.mobile.models.Pedido
+import br.com.navi.mobile.services.PedidoService
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import kotlinx.android.synthetic.main.activity_vendedor_frag_entregadores.*
 import kotlinx.android.synthetic.main.activity_vendedor_frag_pedidos.*
 import kotlinx.android.synthetic.main.activity_vendedor_main.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class MainVendedor : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,6 +54,39 @@ class MainVendedor : AppCompatActivity() {
             sv_pedidos.visibility = View.VISIBLE
             bt_add_pedido.visibility = View.VISIBLE
         }
+    }
+
+    fun createdPedido(component: View){
+        val retrofit = Retrofit.Builder()
+                .baseUrl("https://navi--api.herokuapp.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+
+        val requestsPedido = retrofit.create(PedidoService::class.java)
+        val newPedido = Pedido(
+                null,
+                numeroDoPedido = et_nr_pedido.text.toString(),
+                descricao = et_pedido_descricao.text.toString(),
+                anotacoes = et_pedido_anotacao.text.toString(),
+                preco = et_pedido_preco.text.toString(),
+                "Pedido Registrado",
+                null,
+                null,
+                null
+        )
+        val callNewPedido = requestsPedido.createPedido(newPedido, codUser, et_pedido_cpf.text.toString())
+        
+        callNewPedido.enqueue(object : Callback<Pedido> {
+            override fun onResponse(call: Call<Pedido>, response: Response<Pedido>) {
+                println(response.body())
+                Toast.makeText(baseContext, getString(R.string.txt_pedido_registrado), Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onFailure(call: Call<Pedido>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+
+        })
     }
 
 //    fun showFormEntregador(component: View) {

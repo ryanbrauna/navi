@@ -48,4 +48,10 @@
     <string name="nav_lojas">Shops</string>
     <string name="nav_maps">MAPS</string>
     <string name="nav_pedidos_loja">Orders Shop</string>
+    <string name="str_et_hint_anotacao">Notes</string>
+    <string name="str_et_hint_nr_pedido">Order Number</string>
+    <string name="str_tv_obrigatorio">* This field is mandatory</string>
+    <string name="str_bt_registrar">Register</string>
+    <string name="str_et_hint_preco">Price</string>
+    <string name="txt_pedido_registrado">Order successfully registered!</string>
 </resources>
