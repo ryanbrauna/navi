@@ -19,7 +19,7 @@ class MainEntregador : AppCompatActivity() {
         setContentView(R.layout.activity_entregador_main)
 
         grupoDeFragments()
-        carregandoGif()
+        //carregandoGif()
 
         icon_perfil.setOnClickListener {
             startActivity(Intent(this, PerfilEntregador::class.java))

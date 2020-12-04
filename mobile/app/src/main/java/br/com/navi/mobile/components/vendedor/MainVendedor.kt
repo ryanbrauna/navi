@@ -1,5 +1,6 @@
 package br.com.navi.mobile.components.vendedor
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -20,7 +21,6 @@ class MainVendedor : AppCompatActivity() {
         setContentView(R.layout.activity_vendedor_main)
 
         grupoDeFragments()
-        carregandoGif()
 
         icon_perfil.setOnClickListener {
             startActivity(Intent(this, PerfilVendedor::class.java))
@@ -39,11 +39,6 @@ class MainVendedor : AppCompatActivity() {
         }.attach()
     }
 
-    fun carregandoGif() {
-        val imageView: ImageView = findViewById(R.id.navi_logo_pequena)
-        Glide.with(this).load(R.drawable.navi_logo_white).into(imageView)
-    }
-
     fun showFormPedido(component: View) {
         if (rl_criar_pedido.visibility == View.GONE){
             rl_criar_pedido.visibility = View.VISIBLE
@@ -56,17 +51,17 @@ class MainVendedor : AppCompatActivity() {
         }
     }
 
-    fun showFormEntregador(component: View) {
-        if (rl_criar_entregador.visibility == View.GONE){
-            rl_criar_entregador.visibility = View.VISIBLE
-            sv_entregadores.visibility = View.GONE
-            bt_add_entregador.visibility = View.GONE
-        } else {
-            rl_criar_entregador.visibility = View.GONE
-            sv_entregadores.visibility = View.VISIBLE
-            bt_add_entregador.visibility = View.VISIBLE
-        }
-    }
+//    fun showFormEntregador(component: View) {
+//        if (rl_criar_entregador.visibility == View.GONE){
+//            rl_criar_entregador.visibility = View.VISIBLE
+//            sv_entregadores.visibility = View.GONE
+//            bt_add_entregador.visibility = View.GONE
+//        } else {
+//            rl_criar_entregador.visibility = View.GONE
+//            sv_entregadores.visibility = View.VISIBLE
+//            bt_add_entregador.visibility = View.VISIBLE
+//        }
+//    }
 
     fun tabPedidoRegistrado(component: View) {
         if (ll_pedido_registrado.visibility == View.GONE) {

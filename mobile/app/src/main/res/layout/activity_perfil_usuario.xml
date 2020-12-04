@@ -47,22 +47,22 @@
             android:orientation="vertical"
             android:paddingBottom="50dp">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                >
+<!--            <RelativeLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                >-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="30dp"
-                    android:text="@string/str_tv_editar_perfil"
-                    android:textAllCaps="true"
-                    android:textSize="16sp" />
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_alignParentEnd="true"-->
+<!--                    android:layout_marginEnd="30dp"-->
+<!--                    android:text="@string/str_tv_editar_perfil"-->
+<!--                    android:textAllCaps="true"-->
+<!--                    android:textSize="16sp" />-->
 
-            </RelativeLayout>
+<!--            </RelativeLayout>-->
 
             <ImageView
                 android:id="@+id/imageView_perfil"

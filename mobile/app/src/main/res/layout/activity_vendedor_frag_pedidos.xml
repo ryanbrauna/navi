@@ -6,6 +6,25 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_page">
 
+    <!--  Loading  -->
+    <RelativeLayout
+        android:id="@+id/loading_pedido"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_text_border"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone">
+        <ImageView
+            android:id="@+id/src_loading_pedido"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+    <!--  Formulario de registrar pedido  -->
     <RelativeLayout
         android:id="@+id/rl_criar_pedido"
         android:layout_width="match_parent"

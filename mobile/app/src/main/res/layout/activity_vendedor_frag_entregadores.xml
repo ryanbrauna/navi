@@ -6,53 +6,53 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_page">
 
-    <RelativeLayout
-        android:id="@+id/rl_criar_entregador"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:visibility="gone"
-        tools:ignore="MissingConstraints">
+<!--    <RelativeLayout-->
+<!--        android:id="@+id/rl_criar_entregador"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:padding="10dp"-->
+<!--        android:visibility="gone"-->
+<!--        tools:ignore="MissingConstraints">-->
 
-        <Button
-            android:id="@+id/bt_cancelar_entregador"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="10dp"
-            android:paddingRight="15dp"
-            android:background="@drawable/button_border_red"
-            android:textColor="@color/Branco"
-            android:drawableLeft="@drawable/ic_cancel"
-            android:text="@string/str_bt_cancelar"
-            android:onClick="showFormEntregador"/>
+<!--        <Button-->
+<!--            android:id="@+id/bt_cancelar_entregador"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_alignParentEnd="true"-->
+<!--            android:layout_marginEnd="10dp"-->
+<!--            android:paddingRight="15dp"-->
+<!--            android:background="@drawable/button_border_red"-->
+<!--            android:textColor="@color/Branco"-->
+<!--            android:drawableLeft="@drawable/ic_cancel"-->
+<!--            android:text="@string/str_bt_cancelar"-->
+<!--            android:onClick="showFormEntregador"/>-->
 
-        <LinearLayout
-            android:id="@+id/rl_form_entregador"
-            android:layout_marginTop="30dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@drawable/edit_text_border"
-            android:padding="20dp">
+<!--        <LinearLayout-->
+<!--            android:id="@+id/rl_form_entregador"-->
+<!--            android:layout_marginTop="30dp"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical"-->
+<!--            android:background="@drawable/edit_text_border"-->
+<!--            android:padding="20dp">-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/str_tv_criar_entregador"
-                android:textSize="25sp"
-                android:textColor="@color/AzulNavi"/>
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/str_tv_criar_entregador"-->
+<!--                android:textSize="25sp"-->
+<!--                android:textColor="@color/AzulNavi"/>-->
 
-            <EditText
-                android:layout_width="300dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="20dp"
-                android:layout_gravity="center"
-                android:background="@drawable/edit_text_border"
-                android:hint="@string/str_et_hint_descricao" />
+<!--            <EditText-->
+<!--                android:layout_width="300dp"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:background="@drawable/edit_text_border"-->
+<!--                android:hint="@string/str_et_hint_descricao" />-->
 
-        </LinearLayout>
-    </RelativeLayout>
+<!--        </LinearLayout>-->
+<!--    </RelativeLayout>-->
 
     <ScrollView
         android:id="@+id/sv_entregadores"
@@ -60,30 +60,30 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingBottom="50dp"
-        app:layout_constraintTop_toBottomOf="@id/rl_criar_entregador">
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:id="@+id/content_entregadores"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="10dp">
 
         </LinearLayout>
 
     </ScrollView>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/bt_add_entregador"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="30dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_add"
-        android:backgroundTint="@color/AzulNavi"
-        tools:ignore="MissingConstraints"
-        android:onClick="showFormEntregador" />
+<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--        android:id="@+id/bt_add_entregador"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginEnd="20dp"-->
+<!--        android:layout_marginBottom="30dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:srcCompat="@drawable/ic_add"-->
+<!--        android:backgroundTint="@color/AzulNavi"-->
+<!--        tools:ignore="MissingConstraints"-->
+<!--        android:onClick="showFormEntregador" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -41,7 +41,7 @@ class MainComprador : AppCompatActivity() {
         setContentView(R.layout.activity_comprador_main)
 
         grupoDeFragments()
-        carregandoGif()
+        //carregandoGif()
 
         icon_perfil.setOnClickListener {
             startActivity(Intent(this, PerfilUsuario::class.java))
@@ -58,11 +58,6 @@ class MainComprador : AppCompatActivity() {
         TabLayoutMediator(tabLayout,viewPager){tab,position ->
             tab.text = names[position]
         }.attach()
-    }
-
-    fun carregandoGif() {
-        val imageView: ImageView = findViewById(R.id.navi_logo_pequena)
-        Glide.with(this).load(R.drawable.navi_logo_white).into(imageView)
     }
 
     fun tabPedidoRegistrado(component: View) {
@@ -100,5 +95,10 @@ class MainComprador : AppCompatActivity() {
             ll_pedido_cancelado.visibility = View.GONE
             icon_tab_cancelado.setImageResource(R.drawable.ic_tab_closed)
         }
+    }
+
+    fun carregandoGif() {
+        val imageView: ImageView = findViewById(R.id.navi_logo_pequena)
+        Glide.with(this).load(R.drawable.navi_logo_white).into(imageView)
     }
 }
