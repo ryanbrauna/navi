@@ -1,9 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_page">
+
+    <RelativeLayout
+        android:id="@+id/form_conf_entrega"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/bt_cancelar_pedido"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:paddingRight="15dp"
+            android:text="@string/str_bt_cancelar"
+            android:textColor="@color/Branco"
+            android:background="@drawable/button_border_red"
+            android:drawableLeft="@drawable/ic_cancel"
+            android:onClick="showFormConfEntrega" />
+
+        <LinearLayout
+            android:id="@+id/ll_form_pedido"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/edit_text_border"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/str_bt_conf_entrega"
+                android:textColor="@color/AzulNavi"
+                android:textSize="25sp" />
+
+            <EditText
+                android:id="@+id/et_nr_pedido_confirmar_entrega"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/edit_text_border"
+                android:hint="@string/str_et_hint_nr_pedido" />
+
+            <Button
+                android:id="@+id/bt_confirmar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginTop="20dp"
+                android:paddingRight="15dp"
+                android:text="@string/str_bt_confirmar"
+                android:textColor="@color/Branco"
+                android:background="@drawable/button_border"
+                android:drawableLeft="@drawable/ic_check"
+                android:onClick="confEntrega" />
+
+        </LinearLayout>
+    </RelativeLayout>
 
     <ScrollView
         android:id="@+id/sv_pedidos"
@@ -135,5 +199,21 @@
         </LinearLayout>
 
     </ScrollView>
+
+    <Button
+        android:id="@+id/bt_conf_entrega"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="@string/str_bt_conf_entrega"
+        android:textColor="@color/Branco"
+        android:background="@drawable/button_border_rounded"
+        android:drawableLeft="@drawable/ic_check"
+        android:paddingRight="15dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:onClick="showFormConfEntrega"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
