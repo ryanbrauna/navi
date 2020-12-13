@@ -1,18 +1,18 @@
 package br.com.navi.mobile.components.comprador.frangments
 
-import android.graphics.Color
 import android.os.Bundle
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import br.com.navi.mobile.R
 import br.com.navi.mobile.components.login.codUser
 import br.com.navi.mobile.models.Entregador
 import br.com.navi.mobile.services.EntregadorService
-import kotlinx.android.synthetic.main.activity_vendedor_frag_entregadores.*
+import com.example.prototipos3.AdapterEntregador
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -25,39 +25,30 @@ class FragEntregadores():Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.activity_vendedor_frag_entregadores,container,false)
-        getEntregadores()
-        return view
-    }
+        val viewOfLayout = inflater.inflate(R.layout.activity_vendedor_frag_entregadores,container,false)
 
-    fun getEntregadores() {
+        val recyclerEntregadoresView: RecyclerView = viewOfLayout.findViewById(R.id.recyclerEntregadores)
+        recyclerEntregadoresView.layoutManager = LinearLayoutManager(context, LinearLayout.VERTICAL,false)
+
         val retrofit = Retrofit.Builder()
                 .baseUrl("https://navi--api.herokuapp.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
-
         val requestEntregador = retrofit.create(EntregadorService::class.java)
         val callEntregadorService = requestEntregador.getEntregadoresLoja(codUser)
-
         callEntregadorService.enqueue(object : Callback<List<Entregador>> {
             override fun onResponse(call: Call<List<Entregador>>, response: Response<List<Entregador>>) {
-                response.body()?.forEach {
-                    val newTv = TextView(context)
-
-                    newTv.text = "Entregador: ${it.nome}\n" +
-                            "E-mail: ${it.email}\n" +
-                            "CPF: ${it.cpf}\n"
-                    newTv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f)
-                    newTv.setTextColor(Color.parseColor("#2196F3"))
-                    newTv.setBackgroundResource(R.drawable.edit_text_border)
-
-                    content_entregadores.addView(newTv)
-                }
+                val listEntregadores = ArrayList<Entregador>()
+                val entregadores = response.body()
+                entregadores?.sortedBy { it.nome }?.forEach { listEntregadores.add(it) }
+                recyclerEntregadoresView.adapter = AdapterEntregador(listEntregadores)
             }
 
             override fun onFailure(call: Call<List<Entregador>>, t: Throwable) {
                 TODO("Not yet implemented")
             }
         })
+
+        return viewOfLayout
     }
 }

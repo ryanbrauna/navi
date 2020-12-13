@@ -49,7 +49,7 @@ class PerfilEntregador : AppCompatActivity() {
 
     fun imgPerfil() {
         val imageView: ImageView = findViewById(R.id.imageView_perfil)
-        Glide.with(this).load(R.drawable.entregador).circleCrop().into(imageView)
+        Glide.with(this).load(R.drawable.perfil_entregador).circleCrop().into(imageView)
     }
 
 

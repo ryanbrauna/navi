@@ -156,12 +156,13 @@
             </LinearLayout>
         </RelativeLayout>
     </ScrollView>
+
     <ScrollView
         android:id="@+id/sv_pedidos"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/rl_criar_pedido">
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:id="@+id/content_pedidos"
@@ -195,7 +196,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="10dp"></LinearLayout>
+                android:padding="10dp">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerPedidoRegistrado"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/tab_em_andamento"
@@ -223,7 +229,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="10dp"></LinearLayout>
+                android:padding="10dp">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerPedidoEmAndamento"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/tab_entregue"
@@ -252,7 +263,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="10dp"
-                android:visibility="gone"></LinearLayout>
+                android:visibility="gone">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerPedidoEntregue"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/tab_cancelado"
@@ -281,7 +297,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="10dp"
-                android:visibility="gone"></LinearLayout>
+                android:visibility="gone">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerPedidoCancelado"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </LinearLayout>
 
         </LinearLayout>
 

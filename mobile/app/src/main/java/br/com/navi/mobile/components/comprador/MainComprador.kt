@@ -1,24 +1,23 @@
 package br.com.navi.mobile.components.comprador
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
-import android.util.TypedValue
 import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import br.com.navi.mobile.R
-import br.com.navi.mobile.components.login.Login
+import br.com.navi.mobile.components.login.codUser
+import br.com.navi.mobile.models.Loja
 import br.com.navi.mobile.models.Pedido
-import br.com.navi.mobile.services.CompradorService
+import br.com.navi.mobile.services.LojaService
 import br.com.navi.mobile.services.PedidoService
-import com.bumptech.glide.Glide
+import com.example.prototipos3.AdapterLoja
+import com.example.prototipos3.AdapterPedido
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import kotlinx.android.synthetic.main.activity_comprador_frag_pedidos.*
 import kotlinx.android.synthetic.main.activity_comprador_frag_pedidos.icon_tab_cancelado
 import kotlinx.android.synthetic.main.activity_comprador_frag_pedidos.icon_tab_em_andamento
 import kotlinx.android.synthetic.main.activity_comprador_frag_pedidos.icon_tab_entregue
@@ -28,7 +27,6 @@ import kotlinx.android.synthetic.main.activity_comprador_frag_pedidos.ll_pedido_
 import kotlinx.android.synthetic.main.activity_comprador_frag_pedidos.ll_pedido_entregue
 import kotlinx.android.synthetic.main.activity_comprador_frag_pedidos.ll_pedido_registrado
 import kotlinx.android.synthetic.main.activity_comprador_main.*
-import kotlinx.android.synthetic.main.activity_vendedor_frag_pedidos.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -41,7 +39,7 @@ class MainComprador : AppCompatActivity() {
         setContentView(R.layout.activity_comprador_main)
 
         grupoDeFragments()
-        //carregandoGif()
+        getPedidosComprador()
 
         icon_perfil.setOnClickListener {
             startActivity(Intent(this, PerfilUsuario::class.java))
@@ -60,6 +58,7 @@ class MainComprador : AppCompatActivity() {
         }.attach()
     }
 
+    // Controle dos agrupamentos po estadodo pedido
     fun tabPedidoRegistrado(component: View) {
         if (ll_pedido_registrado.visibility == View.GONE) {
             ll_pedido_registrado.visibility = View.VISIBLE
@@ -97,8 +96,63 @@ class MainComprador : AppCompatActivity() {
         }
     }
 
-    fun carregandoGif() {
-        val imageView: ImageView = findViewById(R.id.navi_logo_pequena)
-        Glide.with(this).load(R.drawable.navi_logo_white).into(imageView)
+    fun getPedidosComprador() {
+        val retrofit = Retrofit.Builder()
+                .baseUrl("https://navi--api.herokuapp.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+
+        val requestsPedido = retrofit.create(PedidoService::class.java)
+        val callPedidosComprador = requestsPedido.getPedidosComprador(codUser)
+
+        callPedidosComprador.enqueue(object : Callback<List<Pedido>> {
+            override fun onResponse(call: Call<List<Pedido>>, response: Response<List<Pedido>>) {
+
+                // PEDIDOS REGISTRADO
+                val recyclerPedidoRegistradoView: RecyclerView = findViewById(R.id.recyclerPedidoRegistrado)
+                recyclerPedidoRegistradoView.layoutManager = LinearLayoutManager(baseContext, LinearLayout.VERTICAL,false)
+                val pedidoRegistrado = ArrayList<Pedido>()
+
+                // PEDIDOS EM ANDAMENTO
+                val recyclerPedidoEmAndamentoView: RecyclerView = findViewById(R.id.recyclerPedidoEmAndamento)
+                recyclerPedidoEmAndamentoView.layoutManager = LinearLayoutManager(baseContext, LinearLayout.VERTICAL,false)
+                val pedidoEmAndamento = ArrayList<Pedido>()
+
+                // PEDIDOS ENTREGUE
+                val recyclerPedidoEntregueView: RecyclerView = findViewById(R.id.recyclerPedidoEntregue)
+                recyclerPedidoEntregueView.layoutManager = LinearLayoutManager(baseContext, LinearLayout.VERTICAL,false)
+                val pedidoEntregue = ArrayList<Pedido>()
+
+                // PEDIDOS CANCELADO
+                val recyclerPedidoCanceladoView: RecyclerView = findViewById(R.id.recyclerPedidoCancelado)
+                recyclerPedidoCanceladoView.layoutManager = LinearLayoutManager(baseContext, LinearLayout.VERTICAL,false)
+                val pedidoCancelado = ArrayList<Pedido>()
+
+                response.body()?.forEach {
+                    if (it.estado == "Pedido Registrado"){
+                        pedidoRegistrado.add(it)
+                    }
+                    if (it.estado == "Em Andamento"){
+                        pedidoEmAndamento.add(it)
+                    }
+                    if (it.estado == "Entregue"){
+                        pedidoEntregue.add(it)
+                    }
+                    if (it.estado == "Cancelado"){
+                        pedidoCancelado.add(it)
+                    }
+                }
+
+                recyclerPedidoRegistradoView.adapter = AdapterPedido(pedidoRegistrado)
+                recyclerPedidoEmAndamentoView.adapter = AdapterPedido(pedidoEmAndamento)
+                recyclerPedidoEntregueView.adapter = AdapterPedido(pedidoEntregue)
+                recyclerPedidoCanceladoView.adapter = AdapterPedido(pedidoCancelado)
+            }
+
+            override fun onFailure(call: Call<List<Pedido>>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+
+        })
     }
 }
