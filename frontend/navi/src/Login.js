@@ -33,13 +33,13 @@ export default class Login extends Component {
     }
 
     componentDidMount() {
-        axios.get("http://navi--api.herokuapp.com/compradores").then((data) => {
+        axios.get("https://navi--api.herokuapp.com/compradores").then((data) => {
             this.setState({ compradores: data.data })
         });
-        axios.get("http://navi--api.herokuapp.com/vendedores").then((data) => {
+        axios.get("https://navi--api.herokuapp.com/vendedores").then((data) => {
             this.setState({ vendedores: data.data })
         });
-        axios.get("http://navi--api.herokuapp.com/entregadores").then((data) => {
+        axios.get("https://navi--api.herokuapp.com/entregadores").then((data) => {
             this.setState({ entregadores: data.data })
         });
     }

@@ -41,21 +41,21 @@ export default class Pedidos extends Component {
 
     componentDidMount() {
         if (sessionStorage.getItem('@NAVI/tipo') == "Comprador") {
-            axios.get(`http://navi--api.herokuapp.com/comprador/${sessionStorage.getItem('@NAVI/cod')}/pedidos`).then((data) => {
+            axios.get(`https://navi--api.herokuapp.com/comprador/${sessionStorage.getItem('@NAVI/cod')}/pedidos`).then((data) => {
                 this.setState({ listPedidos: data.data });
                 console.log(this.state.listPedidos);
             });
         } else if (sessionStorage.getItem('@NAVI/tipo') == "Vendedor") {
-            axios.get(`http://navi--api.herokuapp.com/vendedor/${sessionStorage.getItem('@NAVI/cod')}/pedidos`).then((data) => {
+            axios.get(`https://navi--api.herokuapp.com/vendedor/${sessionStorage.getItem('@NAVI/cod')}/pedidos`).then((data) => {
                 this.setState({ listPedidos: data.data });
                 console.log(this.state.listPedidos);
             });
-            axios.get(`http://navi--api.herokuapp.com/${sessionStorage.getItem('@NAVI/cod')}/entregadores`).then((data) => {
+            axios.get(`https://navi--api.herokuapp.com/${sessionStorage.getItem('@NAVI/cod')}/entregadores`).then((data) => {
                 this.setState({ listEntregadores: data.data });
                 console.log(this.state.listEntregadores);
             });
         } else {
-            axios.get(`http://navi--api.herokuapp.com/vendedor/${sessionStorage.getItem('@NAVI/loja')}/pedidos`).then((data) => {
+            axios.get(`https://navi--api.herokuapp.com/vendedor/${sessionStorage.getItem('@NAVI/loja')}/pedidos`).then((data) => {
                 this.setState({ listPedidos: data.data });
                 console.log(this.state.listPedidos);
             });
@@ -73,7 +73,7 @@ export default class Pedidos extends Component {
         }
         axios.put(`https://navi--api.herokuapp.com/vendedor/${sessionStorage.getItem('@NAVI/cod')}/pedidos/${this.state.pedidoModal.id}?estado=${this.state.statusModal == "" ? this.state.pedidoModal.estado : this.state.statusModal}`).then(response => {
             if (response.data != null) {
-                axios.put(`http://navi--api.herokuapp.com/entregador/${cpfDoEntregador}/pedidos/${this.state.pedidoModal.id}`);
+                axios.put(`https://navi--api.herokuapp.com/entregador/${cpfDoEntregador}/pedidos/${this.state.pedidoModal.id}`);
                 axios.post(`https://navi--api.herokuapp.com/enviar/${this.state.pedidoModal.comprador.cpf}/${this.state.pedidoModal.numeroDoPedido}`).then(r => console.log("SMS enviado:" + r));
                 swal({
                     title: "Sucesso!",
@@ -297,7 +297,7 @@ export default class Pedidos extends Component {
                     <Button className="w-100" variant="info" size="sm">
                         <a
                             className="text-white text-decoration-none"
-                            href={`http://navi--api.herokuapp.com/${pedido.loja == null ? "" : pedido.loja.vendedor.cnpj}/pedido/${pedido.id}`}
+                            href={`https://navi--api.herokuapp.com/${pedido.loja == null ? "" : pedido.loja.vendedor.cnpj}/pedido/${pedido.id}`}
                             download
                         >Baixar Arquivo do Pedido</a>
                     </Button>
@@ -385,7 +385,7 @@ export default class Pedidos extends Component {
                             variant="info"
                             onClick={() => {
                                 this.setState({ loading: true });
-                                axios.put(`http://navi--api.herokuapp.com/entregador/${sessionStorage.getItem('@NAVI/cod')}/pedidos/${pedido.id}`).then(response => {
+                                axios.put(`https://navi--api.herokuapp.com/entregador/${sessionStorage.getItem('@NAVI/cod')}/pedidos/${pedido.id}`).then(response => {
                                     if (response.data != null) {
                                         swal({
                                             title: "Sucesso!",

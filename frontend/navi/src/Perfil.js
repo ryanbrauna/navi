@@ -62,7 +62,7 @@ export default class Perfil extends Component {
 
     componentDidMount() {
         if (sessionStorage.getItem('@NAVI/tipo') == "Comprador") {
-            axios.get(`http://navi--api.herokuapp.com/comprador/${sessionStorage.getItem('@NAVI/cod')}`).then((data) => {
+            axios.get(`https://navi--api.herokuapp.com/comprador/${sessionStorage.getItem('@NAVI/cod')}`).then((data) => {
                 this.setState({
                     // Dados pessoais
                     user: data.data,
@@ -88,7 +88,7 @@ export default class Perfil extends Component {
                 console.log(this.state.endereco);
             });
         } else if (sessionStorage.getItem('@NAVI/tipo') == "Vendedor") {
-            axios.get(`http://navi--api.herokuapp.com/vendedor/${sessionStorage.getItem('@NAVI/cod')}/lojas`).then((data) => {
+            axios.get(`https://navi--api.herokuapp.com/vendedor/${sessionStorage.getItem('@NAVI/cod')}/lojas`).then((data) => {
                 this.setState({
                     // Dados pessoais
                     user: data.data.vendedor,
@@ -117,7 +117,7 @@ export default class Perfil extends Component {
                 console.log(this.state.loja);
             });
         } else {
-            axios.get(`http://navi--api.herokuapp.com/${sessionStorage.getItem('@NAVI/loja')}/entregadores/${sessionStorage.getItem('@NAVI/cod')}`).then((data) => {
+            axios.get(`https://navi--api.herokuapp.com/${sessionStorage.getItem('@NAVI/loja')}/entregadores/${sessionStorage.getItem('@NAVI/cod')}`).then((data) => {
                 this.setState({
                     user: data.data,
                     userName: data.data.nome,

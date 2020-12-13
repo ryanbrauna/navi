@@ -36,7 +36,7 @@ class Home extends Component {
         if (sessionStorage.getItem('@NAVI/tipo') != "Comprador") {
             window.location = "/pedidos"
         }
-        axios.get("http://navi--api.herokuapp.com/lojas").then(data => {
+        axios.get("https://navi--api.herokuapp.com/lojas").then(data => {
             this.setState({ listaLoja: data.data });
             console.log(this.state.listaLoja);
         });

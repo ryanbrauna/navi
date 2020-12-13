@@ -69,7 +69,7 @@ class Cadastro extends Component {
 
         if (this.state.senha == this.state.confSenha) {
             if (this.state.tipo == "C") {
-                axios.post("http://navi--api.herokuapp.com/cadastro/comprador", {
+                axios.post("https://navi--api.herokuapp.com/cadastro/comprador", {
                     "nome": this.state.nome,
                     "email": this.state.email,
                     "senha": this.state.senha,
@@ -78,7 +78,7 @@ class Cadastro extends Component {
                 }).then(responseCA => {
                     if (responseCA.data != null) {
                         console.log("Dados Pessoais do Comprador cadastrado!");
-                        axios.post(`http://navi--api.herokuapp.com/cadastro/comprador/${this.state.cod}/endereco`, {
+                        axios.post(`https://navi--api.herokuapp.com/cadastro/comprador/${this.state.cod}/endereco`, {
                             "cep": this.state.cep,
                             "logradouro": this.state.logradouro,
                             "bairro": this.state.bairro,
@@ -107,7 +107,7 @@ class Cadastro extends Component {
                     }
                 });
             } else {
-                axios.post("http://navi--api.herokuapp.com/cadastro/vendedor", {
+                axios.post("https://navi--api.herokuapp.com/cadastro/vendedor", {
                     "nome": this.state.nome,
                     "email": this.state.email,
                     "senha": this.state.senha,
@@ -115,13 +115,13 @@ class Cadastro extends Component {
                 }).then(responseVA => {
                     if (responseVA.data != null) {
                         console.log("Dados Pessoais do Vendedor cadastrado!");
-                        axios.post(`http://navi--api.herokuapp.com/cadastro/vendedor/${this.state.cod}/loja`, {
+                        axios.post(`https://navi--api.herokuapp.com/cadastro/vendedor/${this.state.cod}/loja`, {
                             "nome": this.state.nomeLoja,
                             "descricao": this.state.descLoja
                         }).then(responseVB => {
                             if (responseVB.data != null) {
                                 console.log("Loja do Vendedor cadastrada!");
-                                axios.post(`http://navi--api.herokuapp.com/cadastro/vendedor/${this.state.cod}/loja/endereco`, {
+                                axios.post(`https://navi--api.herokuapp.com/cadastro/vendedor/${this.state.cod}/loja/endereco`, {
                                     "cep": this.state.cep,
                                     "logradouro": this.state.logradouro,
                                     "bairro": this.state.bairro,
