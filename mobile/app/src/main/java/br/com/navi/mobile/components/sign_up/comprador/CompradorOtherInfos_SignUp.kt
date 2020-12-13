@@ -27,7 +27,7 @@ class CompradorOtherInfos_SignUp : AppCompatActivity() {
     }
 
     fun addOtherCompradorInfos(component: View) {
-        val compradorInfosActivity = Intent(this, CompradorInfos_SignUp::class.java)
+        val compradorEnderecoInfosActivity = Intent(this, CompradorEnderecoInfos_SignUp::class.java)
 
         this.comprador.nome = intent.getStringExtra("nome")
         this.comprador.email = intent.getStringExtra("email")
@@ -35,18 +35,18 @@ class CompradorOtherInfos_SignUp : AppCompatActivity() {
         this.comprador.telefone = et_compradorTelefone.text.toString()
         if (et_compradorSenha.text.toString() != et_compradorConfirmar_senha.text.toString()) {
             Toast.makeText(applicationContext, "As senhas não se coincidem", Toast.LENGTH_SHORT).show()
-            // Bloquear o botão
+            bt_proximo.isEnabled = false
         }
         else {
             this.comprador.senha = et_compradorSenha.text.toString()
         }
 
 
-        compradorInfosActivity.putExtra("nome", this.comprador.nome)
-        compradorInfosActivity.putExtra("email", this.comprador.email)
-        compradorInfosActivity.putExtra("senha", this.comprador.senha)
-        compradorInfosActivity.putExtra("telefone", this.comprador.telefone)
-        compradorInfosActivity.putExtra("cpf", this.comprador.cpf)
+        compradorEnderecoInfosActivity.putExtra("nome", this.comprador.nome)
+        compradorEnderecoInfosActivity.putExtra("email", this.comprador.email)
+        compradorEnderecoInfosActivity.putExtra("senha", this.comprador.senha)
+        compradorEnderecoInfosActivity.putExtra("telefone", this.comprador.telefone)
+        compradorEnderecoInfosActivity.putExtra("cpf", this.comprador.cpf)
 
         startActivity(Intent(this, CompradorEnderecoInfos_SignUp::class.java))
     }
