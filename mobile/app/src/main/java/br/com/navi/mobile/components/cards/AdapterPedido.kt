@@ -1,5 +1,6 @@
 package com.example.prototipos3
 
+import android.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +21,14 @@ class AdapterPedido(var list: ArrayList<Pedido>):RecyclerView.Adapter<AdapterPed
             nrPedido.text = "Nº do Pedido: ${data.numeroDoPedido}"
             descPedido.text = "Descrição: ${data.descricao}"
             precoPedido.text = "Preço: ${data.preco}"
+
+            itemView.setOnClickListener {
+                val dialog = AlertDialog.Builder(it.context)
+                val dialogView = View.inflate(it.context,R.layout.activity_dialog_pedidos,null)
+                dialog.setView(dialogView)
+                val customDialog = dialog.create()
+                customDialog.show()
+            }
         }
     }
 
