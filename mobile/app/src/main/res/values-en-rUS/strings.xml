@@ -37,7 +37,7 @@
     <string name="str_bt_sair">Exit</string>
     <string name="str_tv_criar_pedido">Register Item</string>
     <string name="str_bt_cancelar">Cancel</string>
-    <string name="str_tv_criar_entregador">Register Deliver</string>
+    <string name="str_tv_criar_entregador">Register Deliveryman</string>
     <string name="str_tv_em_andamento">In Progress</string>
     <string name="str_tv_pedido_registrado">Registered Order</string>
     <string name="str_tv_entregue">Delivered</string>
@@ -56,5 +56,11 @@
     <string name="txt_pedido_registrado">Order successfully registered!</string>
     <string name="str_bt_conf_entrega">Confirm Delivery</string>
     <string name="str_bt_confirmar">Confirmar</string>
+    <string name="str_tv_estado">Status</string>
+    <string name="str_tv_preco">Price: $</string>
+    <string name="str_tv_nr_pedido">Order number:</string>
+    <string name="str_tv_desc">Description:</string>
+    <string name="str_tv_anot">Anotation:</string>
+    <string name="str_tv_endereco_card">Address:</string>
 
 </resources>

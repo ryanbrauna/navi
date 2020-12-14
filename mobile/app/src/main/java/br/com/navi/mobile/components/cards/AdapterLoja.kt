@@ -18,8 +18,12 @@ class AdapterLoja(var list: ArrayList<Loja>):RecyclerView.Adapter<AdapterLoja.Vi
             var vendedorLoja:TextView = itemView.findViewById(R.id.card_loja_vendedor)
 
             nomeLoja.text = data.nome
-            descLoja.text = "Descrição: ${data.descricao}"
-            vendedorLoja.text = "Vendedor: ${data.vendedor?.nome}"
+            descLoja.text = data.descricao
+            vendedorLoja.text = "${data.endereco?.logradouro}, " +
+                    "${data.endereco?.numero}, " +
+                    "${data.endereco?.bairro}, " +
+                    "${data.endereco?.localidade} - " +
+                    "${data.endereco?.uf}"
         }
     }
 

@@ -30,6 +30,14 @@
     <string name="str_tv_criar_pedido">Registrar Pedido</string>
     <string name="str_tv_criar_entregador">Cadastrar Entregador</string>
     <string name="str_tv_obrigatorio">* Esse campo é obrigatorio</string>
+    <string name="str_tv_nr_pedido">Nº do Pedido:</string>
+    <string name="str_tv_desc">Descrição:</string>
+    <string name="str_tv_anot">Anotação:</string>
+    <string name="str_tv_preco">Preço:</string>
+    <string name="str_tv_estado">Estado:</string>
+    <string name="str_tv_email" translatable="false">E-mail:</string>
+    <string name="str_tv_cpf" translatable="false">CPF:</string>
+    <string name="str_tv_endereco_card">Endereço:</string>
 
     <!-- EditText -->
     <string name="str_et_hint_nome">Nome</string>

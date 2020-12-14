@@ -19,8 +19,8 @@ class AdapterEntregador(var list: ArrayList<Entregador>):RecyclerView.Adapter<Ad
             var cpfEntregador:TextView = itemView.findViewById(R.id.card_entregador_cpf)
 
             nomeEntregador.text = data.nome
-            emailEntregador.text = "E-mail: ${data.email}"
-            cpfEntregador.text = "CPF: ${data.cpf}"
+            emailEntregador.text = data.email
+            cpfEntregador.text = data.cpf
         }
     }
 

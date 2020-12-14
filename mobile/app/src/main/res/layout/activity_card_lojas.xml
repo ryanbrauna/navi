@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="380dp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardElevation="4dp"
     app:cardCornerRadius="4dp"
     app:cardUseCompatPadding="true"
     android:layout_gravity="center"
-    android:layout_marginRight="10dp"
-    android:layout_marginLeft="10dp"
+    android:layout_marginHorizontal="7dp"
     >
 
     <LinearLayout
@@ -25,43 +24,69 @@
             android:background="@drawable/lojas"
             />
 
-        <TextView
-            android:id="@+id/card_loja_nome"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:text="Loja:"
-            android:textSize="18sp"
-            android:textColor="#2196F3"
-            />
+            android:paddingLeft="10dp">
+            <TextView
+                android:id="@+id/card_loja_nome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nome da loja"
+                android:textSize="21sp"
+                android:textColor="@color/AzulNavi"
+                android:textStyle="bold"
+                />
+        </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="7dp"
+            android:paddingLeft="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/str_tv_desc"
+                android:textSize="18sp"
+                android:textColor="@color/AzulNavi"
+                android:layout_marginRight="5dp"
+                />
+            <TextView
+                android:id="@+id/card_loja_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="..."
+                android:textSize="18sp"
+                android:textColor="@color/Preto"
+                />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/card_loja_desc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:text="Descrição:"
-            android:textSize="18sp"
-            android:textColor="#2196F3"
-            />
-
-        <TextView
-            android:id="@+id/card_loja_vendedor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="7dp"
             android:layout_marginBottom="10dp"
-            android:text="Vendedor:"
-            android:textSize="18sp"
-            android:textColor="#2196F3"
-            />
+            android:paddingLeft="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/str_tv_endereco_card"
+                android:textSize="18sp"
+                android:textColor="@color/AzulNavi"
+                android:layout_marginRight="5dp"
+                />
+            <TextView
+                android:id="@+id/card_loja_vendedor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="..."
+                android:textSize="18sp"
+                android:textColor="@color/Preto"
+                android:textStyle="italic"
+                />
+        </LinearLayout>
 
     </LinearLayout>
 

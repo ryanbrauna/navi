@@ -14,19 +14,32 @@ class AdapterPedido(var list: ArrayList<Pedido>):RecyclerView.Adapter<AdapterPed
 
     class ViewHolder(view:View):RecyclerView.ViewHolder(view){
         fun bindItems(data:Pedido){
-            var nrPedido:TextView = itemView.findViewById(R.id.card_nr_pedido)
-            var descPedido:TextView = itemView.findViewById(R.id.card_pedido_desc)
-            var precoPedido:TextView = itemView.findViewById(R.id.card_pedido_preco)
+            val nrPedido:TextView = itemView.findViewById(R.id.card_nr_pedido)
+            val descPedido:TextView = itemView.findViewById(R.id.card_pedido_desc)
+            val precoPedido:TextView = itemView.findViewById(R.id.card_pedido_preco)
 
-            nrPedido.text = "Nº do Pedido: ${data.numeroDoPedido}"
-            descPedido.text = "Descrição: ${data.descricao}"
-            precoPedido.text = "Preço: ${data.preco}"
+            nrPedido.text = data.numeroDoPedido
+            descPedido.text = data.descricao
+            precoPedido.text = data.preco
 
             itemView.setOnClickListener {
                 val dialog = AlertDialog.Builder(it.context)
                 val dialogView = View.inflate(it.context,R.layout.activity_dialog_pedidos,null)
                 dialog.setView(dialogView)
                 val customDialog = dialog.create()
+
+                val nrPedidoDialog:TextView = dialogView.findViewById(R.id.dialog_nr_pedido)
+                val descPedidoDialog:TextView = dialogView.findViewById(R.id.dialog_pedido_desc)
+                val anotacaoPedidoDialog:TextView = dialogView.findViewById(R.id.dialog_pedido_anotacao)
+                val precoPedidoDialog:TextView = dialogView.findViewById(R.id.dialog_pedido_preco)
+                val estadoPedidoDialog:TextView = dialogView.findViewById(R.id.dialog_pedido_estado)
+
+                nrPedidoDialog.text = data.numeroDoPedido
+                descPedidoDialog.text = data.descricao
+                anotacaoPedidoDialog.text = data.anotacoes
+                precoPedidoDialog.text = data.preco
+                estadoPedidoDialog.text = data.estado
+
                 customDialog.show()
             }
         }

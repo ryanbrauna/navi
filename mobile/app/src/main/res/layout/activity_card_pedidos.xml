@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="380dp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardElevation="4dp"
     app:cardCornerRadius="4dp"
     app:cardUseCompatPadding="true"
     android:layout_gravity="center"
+    android:layout_marginHorizontal="7dp"
     android:id="@+id/card_pedidos">
 
     <LinearLayout
@@ -23,43 +24,77 @@
             android:background="@drawable/materiais"
             />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/str_tv_nr_pedido"
+                android:textSize="18sp"
+                android:textColor="@color/AzulNavi"
+                android:layout_marginRight="5dp"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:id="@+id/card_nr_pedido"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="..."
+                android:textSize="18sp"
+                android:textColor="@color/Preto"
+                android:textStyle="bold"
+                />
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="7dp"
+        android:paddingLeft="10dp">
         <TextView
-            android:id="@+id/card_nr_pedido"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:text="Nº do Pedido:"
+            android:layout_marginRight="5dp"
+            android:text="@string/str_tv_desc"
             android:textSize="18sp"
-            android:textColor="#2196F3"
+            android:textColor="@color/AzulNavi"
             />
-
-
         <TextView
             android:id="@+id/card_pedido_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:text="Descrição:"
+            android:text="..."
+            android:textSize="18sp"
+            android:textColor="@color/Preto"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="10dp"
+        android:paddingLeft="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:text="@string/str_tv_preco"
             android:textSize="18sp"
             android:textColor="#2196F3"
             />
-
         <TextView
             android:id="@+id/card_pedido_preco"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
-            android:text="Preço:"
+            android:text="..."
             android:textSize="18sp"
-            android:textColor="#2196F3"
+            android:textColor="@color/Preto"
             />
+    </LinearLayout>
 
     </LinearLayout>
 
