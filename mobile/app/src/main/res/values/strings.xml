@@ -75,4 +75,6 @@
     <string name="nav_lojas">Lojas</string>
     <string name="nav_maps">MAPS</string>
 
+    <string name="access_token" translatable="false">pk.eyJ1IjoicmNicmF1bmEiLCJhIjoiY2tpZWxucDhlMTN2azJzcXg3a2UwNThuMyJ9.nTcXqxJCxCjFMieoZC3AdA</string>
+
 </resources>
