@@ -9,6 +9,7 @@
     <string name="str_bt_registrar">Registrar</string>
     <string name="str_bt_conf_entrega">Confirmar Entrega</string>
     <string name="str_bt_confirmar">Confirmar</string>
+    <string name="str_bt_abrir_mapa">Abrir Mapa</string>
 
     <!-- TextView -->
     <string name="str_tv_cadastro">Cadastro</string>
@@ -73,7 +74,6 @@
     <string name="nav_pedidos_loja">Pedidos da Loja</string>
     <string name="nav_entregadores">Entregadores</string>
     <string name="nav_lojas">Lojas</string>
-    <string name="nav_maps" translatable="false">MAPS</string>
     <string name="nav_entregas">Minhas Entregas</string>
 
     <string name="access_token" translatable="false">pk.eyJ1IjoicmNicmF1bmEiLCJhIjoiY2tpZWxucDhlMTN2azJzcXg3a2UwNThuMyJ9.nTcXqxJCxCjFMieoZC3AdA</string>

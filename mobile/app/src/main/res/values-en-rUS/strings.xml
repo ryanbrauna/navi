@@ -57,5 +57,6 @@
     <string name="str_tv_anot">Anotation:</string>
     <string name="str_tv_endereco_card">Address:</string>
     <string name="nav_entregas">My Delivers</string>
+    <string name="str_bt_abrir_mapa">Open Maps</string>
 
 </resources>

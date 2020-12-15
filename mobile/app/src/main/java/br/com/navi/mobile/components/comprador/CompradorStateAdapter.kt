@@ -11,8 +11,7 @@ class CompradorStateAdapter(fragmentManager: FragmentManager, lifecycle: Lifecyc
 
     var fragment:ArrayList<Fragment> = arrayListOf(
         FragPedidosComprador(),
-        FragLojas(),
-        FragMaps()
+        FragLojas()
     )
 
     override fun getItemCount(): Int {

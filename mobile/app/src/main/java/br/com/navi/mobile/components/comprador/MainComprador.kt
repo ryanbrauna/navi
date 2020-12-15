@@ -53,7 +53,7 @@ class MainComprador : AppCompatActivity() {
         viewPager.adapter = adapter
 
         var tabLayout: TabLayout = findViewById(R.id.tablayout)
-        var names:ArrayList<String> = arrayListOf(getString(R.string.nav_meus_pedidos),getString(R.string.nav_lojas),getString(R.string.nav_maps))
+        var names:ArrayList<String> = arrayListOf(getString(R.string.nav_meus_pedidos),getString(R.string.nav_lojas))
         TabLayoutMediator(tabLayout,viewPager){tab,position ->
             tab.text = names[position]
         }.attach()
