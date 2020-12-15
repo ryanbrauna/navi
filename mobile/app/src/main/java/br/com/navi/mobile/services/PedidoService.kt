@@ -17,6 +17,6 @@ interface PedidoService {
     fun createPedido(@Body pedido: Pedido, @Path("cnpj") cnpj: String, @Path("cpf") cpf: String) : Call<Pedido>
 
     @PUT("/vendedor/{cnpj}/pedidos/{idPedido}?estado=Entregue")
-    fun confirmarEntrega(@Path("cnpj") cnpj: String, @Path("idPedido") idPedido: String) : Call<Pedido>
+    fun confirmarEntrega(@Path("cnpj") cnpj: String, @Path("idPedido") idPedido: Int) : Call<Pedido>
 
 }

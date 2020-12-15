@@ -1,17 +1,17 @@
 package br.com.navi.mobile.components.entregador
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import br.com.navi.mobile.R
+import br.com.navi.mobile.components.login.cnhUser
 import br.com.navi.mobile.components.login.codUser
 import br.com.navi.mobile.models.Pedido
 import br.com.navi.mobile.services.PedidoService
@@ -110,19 +110,51 @@ class MainEntregador : AppCompatActivity() {
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
             val requestsPedido = retrofit.create(PedidoService::class.java)
-            val callPedido = requestsPedido.confirmarEntrega(codUser, et_nr_pedido_confirmar_entrega.text.toString())
+            val callBuscarPedido = requestsPedido.getPedidosLoja(codUser)
 
-            callPedido.enqueue(object : Callback<Pedido> {
-                override fun onResponse(call: Call<Pedido>, response: Response<Pedido>) {
-                    Toast.makeText(baseContext, "Entrega do pedido confirmada!", Toast.LENGTH_SHORT).show()
-                    println("Entrega do pedido confirmada!")
-                    restartActivity()
+            callBuscarPedido.enqueue(object : Callback<List<Pedido>> {
+                override fun onResponse(
+                    call: Call<List<Pedido>>,
+                    response: Response<List<Pedido>>
+                ) {
+                    response.body()?.forEach {
+                        if (et_nr_pedido_confirmar_entrega.text.toString() == it.numeroDoPedido && cnhUser == it.entregador?.cnh) {
+                            val pedido = it.id
+                            val callPedido =
+                                pedido?.let { idPedido ->
+                                    requestsPedido.confirmarEntrega(codUser, idPedido)
+                                }
+                            callPedido?.enqueue(object : Callback<Pedido> {
+                                override fun onResponse(
+                                    call: Call<Pedido>,
+                                    response: Response<Pedido>
+                                ) {
+                                    Toast.makeText(
+                                        baseContext,
+                                        "Entrega do pedido confirmada!",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    restartActivity()
+                                }
+
+                                override fun onFailure(call: Call<Pedido>, t: Throwable) {
+                                    Toast.makeText(
+                                        baseContext,
+                                        "Numero do pedido incorreto.",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    restartActivity()
+                                }
+
+                            })
+                        } else {
+                            Toast.makeText(baseContext, getString(R.string.txt_pedido_nao_encontrado), Toast.LENGTH_SHORT).show()
+                        }
+                    }
                 }
 
-                override fun onFailure(call: Call<Pedido>, t: Throwable) {
-                    Toast.makeText(baseContext, "Numero do pedido incorreto.", Toast.LENGTH_SHORT).show()
-                    println("Numero do pedido incorreto.")
-                    restartActivity()
+                override fun onFailure(call: Call<List<Pedido>>, t: Throwable) {
+                    TODO("Not yet implemented")
                 }
 
             })
@@ -139,6 +171,7 @@ class MainEntregador : AppCompatActivity() {
         val callPedidosEntregador = requestsPedido.getPedidosLoja(codUser)
 
         callPedidosEntregador.enqueue(object : Callback<List<Pedido>> {
+            @SuppressLint("WrongConstant")
             override fun onResponse(call: Call<List<Pedido>>, response: Response<List<Pedido>>) {
 
                 // PEDIDOS REGISTRADO

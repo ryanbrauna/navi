@@ -47,7 +47,7 @@
     <string name="str_tv_obrigatorio">* This field is mandatory</string>
     <string name="str_bt_registrar">Register</string>
     <string name="str_et_hint_preco">Price</string>
-    <string name="txt_pedido_registrado">Order successfully registered!</string>
+    <string name="txt_pedido_nao_encontrado">Order not found in your deliveries</string>
     <string name="str_bt_conf_entrega">Confirm Delivery</string>
     <string name="str_bt_confirmar">Confirmar</string>
     <string name="str_tv_estado">Status</string>
