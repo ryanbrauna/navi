@@ -1,5 +1,6 @@
-package br.com.navi.mobile.components.comprador.frangments
+package br.com.navi.mobile.components.comprador.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +21,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class FragEntregadores():Fragment() {
+    @SuppressLint("WrongConstant")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -27,7 +29,7 @@ class FragEntregadores():Fragment() {
     ): View? {
         val viewOfLayout = inflater.inflate(R.layout.activity_vendedor_frag_entregadores,container,false)
 
-        val recyclerEntregadoresView: RecyclerView = viewOfLayout.findViewById(R.id.recyclerEntregadores)
+        val recyclerEntregadoresView: RecyclerView = viewOfLayout.findViewById(R.id.recyclerEntregas)
         recyclerEntregadoresView.layoutManager = LinearLayoutManager(context, LinearLayout.VERTICAL,false)
 
         val retrofit = Retrofit.Builder()

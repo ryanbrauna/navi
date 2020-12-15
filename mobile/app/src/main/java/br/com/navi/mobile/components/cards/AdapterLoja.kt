@@ -15,11 +15,11 @@ class AdapterLoja(var list: ArrayList<Loja>):RecyclerView.Adapter<AdapterLoja.Vi
         fun bindItems(data:Loja){
             var nomeLoja:TextView = itemView.findViewById(R.id.card_loja_nome)
             var descLoja:TextView = itemView.findViewById(R.id.card_loja_desc)
-            var vendedorLoja:TextView = itemView.findViewById(R.id.card_loja_vendedor)
+            var enderecoLoja:TextView = itemView.findViewById(R.id.card_loja_endereco)
 
             nomeLoja.text = data.nome
             descLoja.text = data.descricao
-            vendedorLoja.text = "${data.endereco?.logradouro}, " +
+            enderecoLoja.text = "${data.endereco?.logradouro}, " +
                     "${data.endereco?.numero}, " +
                     "${data.endereco?.bairro}, " +
                     "${data.endereco?.localidade} - " +

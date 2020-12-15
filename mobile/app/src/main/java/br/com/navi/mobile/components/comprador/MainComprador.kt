@@ -1,5 +1,6 @@
 package br.com.navi.mobile.components.comprador
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -106,6 +107,7 @@ class MainComprador : AppCompatActivity() {
         val callPedidosComprador = requestsPedido.getPedidosComprador(codUser)
 
         callPedidosComprador.enqueue(object : Callback<List<Pedido>> {
+            @SuppressLint("WrongConstant")
             override fun onResponse(call: Call<List<Pedido>>, response: Response<List<Pedido>>) {
 
                 // PEDIDOS REGISTRADO

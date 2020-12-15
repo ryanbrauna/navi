@@ -1,4 +1,4 @@
-package br.com.navi.mobile.components.comprador.frangments
+package br.com.navi.mobile.components.comprador.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater

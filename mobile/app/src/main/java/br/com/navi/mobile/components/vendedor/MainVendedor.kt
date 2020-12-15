@@ -1,5 +1,6 @@
 package br.com.navi.mobile.components.vendedor
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -50,49 +51,49 @@ class MainVendedor : AppCompatActivity() {
     }
 
     // Controle dos formularios de criar pedido
-    fun showFormPedido(component: View) {
-        if (rl_criar_pedido.visibility == View.GONE){
-            rl_criar_pedido.visibility = View.VISIBLE
-            sv_pedidos.visibility = View.GONE
-            bt_add_pedido.visibility = View.GONE
-        } else {
-            rl_criar_pedido.visibility = View.GONE
-            sv_pedidos.visibility = View.VISIBLE
-            bt_add_pedido.visibility = View.VISIBLE
-        }
-    }
-    fun createdPedido(component: View){
-        val retrofit = Retrofit.Builder()
-                .baseUrl("https://navi--api.herokuapp.com/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-
-        val requestsPedido = retrofit.create(PedidoService::class.java)
-        val newPedido = Pedido(
-                null,
-                numeroDoPedido = et_nr_pedido.text.toString(),
-                descricao = et_pedido_descricao.text.toString(),
-                anotacoes = et_pedido_anotacao.text.toString(),
-                preco = et_pedido_preco.text.toString(),
-                "Pedido Registrado",
-                null,
-                null,
-                null
-        )
-        val callNewPedido = requestsPedido.createPedido(newPedido, codUser, et_pedido_cpf.text.toString())
-        
-        callNewPedido.enqueue(object : Callback<Pedido> {
-            override fun onResponse(call: Call<Pedido>, response: Response<Pedido>) {
-                println(response.body())
-                Toast.makeText(baseContext, getString(R.string.txt_pedido_registrado), Toast.LENGTH_SHORT).show()
-            }
-
-            override fun onFailure(call: Call<Pedido>, t: Throwable) {
-                TODO("Not yet implemented")
-            }
-
-        })
-    }
+//    fun showFormPedido(component: View) {
+//        if (rl_criar_pedido.visibility == View.GONE){
+//            rl_criar_pedido.visibility = View.VISIBLE
+//            sv_pedidos.visibility = View.GONE
+//            bt_add_pedido.visibility = View.GONE
+//        } else {
+//            rl_criar_pedido.visibility = View.GONE
+//            sv_pedidos.visibility = View.VISIBLE
+//            bt_add_pedido.visibility = View.VISIBLE
+//        }
+//    }
+//    fun createdPedido(component: View){
+//        val retrofit = Retrofit.Builder()
+//                .baseUrl("https://navi--api.herokuapp.com/")
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build()
+//
+//        val requestsPedido = retrofit.create(PedidoService::class.java)
+//        val newPedido = Pedido(
+//                null,
+//                numeroDoPedido = et_nr_pedido.text.toString(),
+//                descricao = et_pedido_descricao.text.toString(),
+//                anotacoes = et_pedido_anotacao.text.toString(),
+//                preco = et_pedido_preco.text.toString(),
+//                "Pedido Registrado",
+//                null,
+//                null,
+//                null
+//        )
+//        val callNewPedido = requestsPedido.createPedido(newPedido, codUser, et_pedido_cpf.text.toString())
+//
+//        callNewPedido.enqueue(object : Callback<Pedido> {
+//            override fun onResponse(call: Call<Pedido>, response: Response<Pedido>) {
+//                println(response.body())
+//                Toast.makeText(baseContext, getString(R.string.txt_pedido_registrado), Toast.LENGTH_SHORT).show()
+//            }
+//
+//            override fun onFailure(call: Call<Pedido>, t: Throwable) {
+//                TODO("Not yet implemented")
+//            }
+//
+//        })
+//    }
 
 //    fun showFormEntregador(component: View) {
 //        if (rl_criar_entregador.visibility == View.GONE){
@@ -154,6 +155,7 @@ class MainVendedor : AppCompatActivity() {
         val callPedidosVendedor = requestsPedido.getPedidosLoja(codUser)
 
         callPedidosVendedor.enqueue(object : Callback<List<Pedido>> {
+            @SuppressLint("WrongConstant")
             override fun onResponse(call: Call<List<Pedido>>, response: Response<List<Pedido>>) {
 
                 // PEDIDOS REGISTRADO

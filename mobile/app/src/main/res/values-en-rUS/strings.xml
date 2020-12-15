@@ -11,20 +11,16 @@
     <string name="str_tv_ou">or</string>
     <string name="str_tv_comprador">Buyer</string>
     <string name="str_et_hint_nome">Name</string>
-    <string name="str_et_hint_email">Email</string>
-    <string name="str_et_hint_cnpj">CNPJ</string>
     <string name="str_et_hint_descricao">Description</string>
     <string name="str_et_hint_telefone">Phone Number</string>
     <string name="str_et_hint_senha">Password</string>
     <string name="str_et_hint_confirmar_senha">"Confirm password "</string>
     <string name="str_et_hint_cep">ZIP code</string>
     <string name="str_et_hint_logradouro">Street Name</string>
-    <string name="str_et_hint_n">N°</string>
     <string name="str_et_hint_complemeto">Other Infomations</string>
     <string name="str_et_hint_cidade">City</string>
     <string name="str_et_hint_bairro">Country</string>
     <string name="str_et_hint_uf">State</string>
-    <string name="str_et_hint_cpf">CPF</string>
     <string name="txt_cadastrado">Registered successfully</string>
     <string name="txt_bemvindo">Wellcome %1$s</string>
     <string name="txt_login_erro">Your email or password is incorrect</string>
@@ -33,11 +29,10 @@
     <string name="str_tv_perfil">profile</string>
     <string name="str_tv_editar_perfil">edit profile</string>
     <string name="str_tv_loja">shop</string>
-    <string name="str_et_hint_cnh">CNH</string>
     <string name="str_bt_sair">Exit</string>
     <string name="str_tv_criar_pedido">Register Item</string>
     <string name="str_bt_cancelar">Cancel</string>
-    <string name="str_tv_criar_entregador">Register Deliveryman</string>
+    <string name="str_tv_pedido_entregador">Deliveryman:</string>
     <string name="str_tv_em_andamento">In Progress</string>
     <string name="str_tv_pedido_registrado">Registered Order</string>
     <string name="str_tv_entregue">Delivered</string>
@@ -46,7 +41,6 @@
     <string name="nav_pedidos">Orders</string>
     <string name="nav_entregadores">Delivers</string>
     <string name="nav_lojas">Shops</string>
-    <string name="nav_maps">MAPS</string>
     <string name="nav_pedidos_loja">Orders Shop</string>
     <string name="str_et_hint_anotacao">Notes</string>
     <string name="str_et_hint_nr_pedido">Order Number</string>
@@ -57,10 +51,11 @@
     <string name="str_bt_conf_entrega">Confirm Delivery</string>
     <string name="str_bt_confirmar">Confirmar</string>
     <string name="str_tv_estado">Status</string>
-    <string name="str_tv_preco">Price: $</string>
+    <string name="str_tv_preco">Price:</string>
     <string name="str_tv_nr_pedido">Order number:</string>
     <string name="str_tv_desc">Description:</string>
     <string name="str_tv_anot">Anotation:</string>
     <string name="str_tv_endereco_card">Address:</string>
+    <string name="nav_entregas">My Delivers</string>
 
 </resources>

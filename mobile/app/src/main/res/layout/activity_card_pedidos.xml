@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"
-            android:paddingLeft="10dp">
+            android:paddingHorizontal="10dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -44,57 +44,86 @@
                 android:layout_height="wrap_content"
                 android:text="..."
                 android:textSize="18sp"
-                android:textColor="@color/Preto"
+                android:textColor="@color/PretoTexto"
                 android:textStyle="bold"
                 />
         </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="7dp"
-        android:paddingLeft="10dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="5dp"
-            android:text="@string/str_tv_desc"
-            android:textSize="18sp"
-            android:textColor="@color/AzulNavi"
-            />
-        <TextView
-            android:id="@+id/card_pedido_desc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="..."
-            android:textSize="18sp"
-            android:textColor="@color/Preto"
-            />
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="7dp"
+            android:paddingHorizontal="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:text="@string/str_tv_desc"
+                android:textSize="18sp"
+                android:textColor="@color/AzulNavi"
+                />
+            <TextView
+                android:id="@+id/card_pedido_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="..."
+                android:textSize="18sp"
+                android:textColor="@color/PretoTexto"
+                />
+        </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="7dp"
-        android:layout_marginBottom="10dp"
-        android:paddingLeft="10dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="10dp"
+            android:paddingHorizontal="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:text="@string/str_tv_preco"
+                android:textSize="18sp"
+                android:textColor="@color/AzulNavi"
+                />
+            <TextView
+                android:id="@+id/card_pedido_preco"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="..."
+                android:textSize="18sp"
+                android:textColor="@color/PretoTexto"
+                />
+        </LinearLayout>
+
         <TextView
+            android:id="@+id/ic_card_pedido_registrado"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="5dp"
-            android:text="@string/str_tv_preco"
-            android:textSize="18sp"
-            android:textColor="#2196F3"
+            android:layout_gravity="end"
+            android:text="Pedido Registrado"
+            android:background="@drawable/button_border_green"
+            android:textSize="15sp"
+            android:textColor="@color/Branco"
+            android:paddingVertical="2dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:visibility="gone"
             />
         <TextView
-            android:id="@+id/card_pedido_preco"
+            android:id="@+id/ic_card_pedido_andamento"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="..."
-            android:textSize="18sp"
-            android:textColor="@color/Preto"
+            android:layout_gravity="end"
+            android:text="Em Andamento"
+            android:background="@drawable/button_border_yelow"
+            android:textSize="15sp"
+            android:paddingVertical="2dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/PretoTexto"
+            android:visibility="gone"
             />
-    </LinearLayout>
 
     </LinearLayout>
 

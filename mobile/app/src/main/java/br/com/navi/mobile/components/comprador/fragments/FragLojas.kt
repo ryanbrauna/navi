@@ -1,5 +1,6 @@
-package br.com.navi.mobile.components.comprador.frangments
+package br.com.navi.mobile.components.comprador.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +20,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class FragLojas:Fragment() {
+    @SuppressLint("WrongConstant")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

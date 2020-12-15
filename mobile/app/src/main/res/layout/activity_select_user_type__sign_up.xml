@@ -52,7 +52,7 @@
                 android:padding="28dp"
                 android:src="@drawable/vendedor_icone"
                 android:textAllCaps="true"
-                android:textColor="@color/Preto" />
+                android:textColor="@color/PretoTexto" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -81,7 +81,7 @@
                 android:src="@drawable/comprador_icone"
                 android:text="comprador"
                 android:textAllCaps="true"
-                android:textColor="@color/Preto" />
+                android:textColor="@color/PretoTexto" />
 
             <TextView
                 android:layout_width="wrap_content"

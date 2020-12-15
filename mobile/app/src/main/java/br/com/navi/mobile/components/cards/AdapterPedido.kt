@@ -22,6 +22,16 @@ class AdapterPedido(var list: ArrayList<Pedido>):RecyclerView.Adapter<AdapterPed
             descPedido.text = data.descricao
             precoPedido.text = data.preco
 
+            val icRegistrado:TextView = itemView.findViewById(R.id.ic_card_pedido_registrado)
+            val icAndamento:TextView = itemView.findViewById(R.id.ic_card_pedido_andamento)
+
+            if (data.estado == "Pedido Registrado"){
+                icRegistrado.visibility = View.VISIBLE
+            }
+            if (data.estado == "Em Andamento"){
+                icAndamento.visibility = View.VISIBLE
+            }
+
             itemView.setOnClickListener {
                 val dialog = AlertDialog.Builder(it.context)
                 val dialogView = View.inflate(it.context,R.layout.activity_dialog_pedidos,null)
@@ -33,12 +43,20 @@ class AdapterPedido(var list: ArrayList<Pedido>):RecyclerView.Adapter<AdapterPed
                 val anotacaoPedidoDialog:TextView = dialogView.findViewById(R.id.dialog_pedido_anotacao)
                 val precoPedidoDialog:TextView = dialogView.findViewById(R.id.dialog_pedido_preco)
                 val estadoPedidoDialog:TextView = dialogView.findViewById(R.id.dialog_pedido_estado)
+                val enderecoPedidoDialog:TextView = dialogView.findViewById(R.id.dialog_pedido_endereco)
+                val entregadorPedidoDialog:TextView = dialogView.findViewById(R.id.dialog_pedido_entregador)
 
                 nrPedidoDialog.text = data.numeroDoPedido
                 descPedidoDialog.text = data.descricao
                 anotacaoPedidoDialog.text = data.anotacoes
                 precoPedidoDialog.text = data.preco
                 estadoPedidoDialog.text = data.estado
+                enderecoPedidoDialog.text = "${data.comprador?.endereco?.logradouro}, " +
+                        "${data.comprador?.endereco?.numero}, " +
+                        "${data.comprador?.endereco?.bairro}, " +
+                        "${data.comprador?.endereco?.localidade} - " +
+                        "${data.comprador?.endereco?.uf}"
+                entregadorPedidoDialog.text = data.entregador?.nome
 
                 customDialog.show()
             }

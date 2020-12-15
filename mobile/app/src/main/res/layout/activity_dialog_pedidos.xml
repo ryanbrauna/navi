@@ -70,7 +70,7 @@
                     android:layout_height="wrap_content"
                     android:text="..."
                     android:textSize="18sp"
-                    android:textColor="@color/Preto"
+                    android:textColor="@color/PretoTexto"
                     />
             </LinearLayout>
 
@@ -92,7 +92,7 @@
                     android:layout_height="wrap_content"
                     android:text="..."
                     android:textSize="18sp"
-                    android:textColor="@color/Preto"
+                    android:textColor="@color/PretoTexto"
                     />
             </LinearLayout>
 
@@ -115,7 +115,7 @@
                     android:layout_height="wrap_content"
                     android:text="..."
                     android:textSize="18sp"
-                    android:textColor="@color/Preto"
+                    android:textColor="@color/PretoTexto"
                     android:textStyle="bold"
                     />
             </LinearLayout>
@@ -138,7 +138,52 @@
                     android:layout_height="wrap_content"
                     android:text="..."
                     android:textSize="18sp"
-                    android:textColor="@color/Preto"
+                    android:textColor="@color/PretoTexto"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_tv_endereco_card"
+                    android:textSize="18sp"
+                    android:textColor="@color/AzulBg"
+                    android:layout_marginRight="5dp"
+                    />
+                <TextView
+                    android:id="@+id/dialog_pedido_endereco"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="..."
+                    android:textSize="18sp"
+                    android:textColor="@color/PretoTexto"
+                    android:textStyle="italic"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_tv_pedido_entregador"
+                    android:textSize="18sp"
+                    android:textColor="@color/AzulBg"
+                    android:layout_marginRight="5dp"
+                    />
+                <TextView
+                    android:id="@+id/dialog_pedido_entregador"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="..."
+                    android:textSize="18sp"
+                    android:textColor="@color/PretoTexto"
                     />
             </LinearLayout>
 

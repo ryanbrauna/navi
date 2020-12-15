@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <shape android:shape="rectangle">
+
+            <corners
+                android:radius="50dp"/>  <!-- valor do arredondamento das bordas -->
+
+            <solid
+                android:color="@color/Amarelo" /> <!-- cor do sólido -->
+
+            <padding
+                android:bottom="8dp"
+                android:left="8dp"
+                android:right="8dp"
+                android:top="8dp"/>
+
+            <!--            <gradient-->
+            <!--                android:startColor="#fff"-->
+            <!--                android:endColor="#363636"-->
+            <!--                android:angle="45"-->
+            <!--                android:centerColor="#2196F3"/>-->
+        </shape>
+
+    </item>
+</selector>

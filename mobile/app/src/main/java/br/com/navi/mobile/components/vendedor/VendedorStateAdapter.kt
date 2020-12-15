@@ -4,8 +4,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import br.com.navi.mobile.components.comprador.frangments.FragEntregadores
-import br.com.navi.mobile.components.comprador.frangments.FragPedidosVendedor
+import br.com.navi.mobile.components.comprador.fragments.FragEntregadores
+import br.com.navi.mobile.components.comprador.fragments.FragPedidosVendedor
 
 class VendedorStateAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
     FragmentStateAdapter(fragmentManager, lifecycle) {

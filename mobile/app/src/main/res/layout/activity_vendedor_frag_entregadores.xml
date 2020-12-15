@@ -55,21 +55,20 @@
 <!--    </RelativeLayout>-->
 
     <ScrollView
-        android:id="@+id/sv_entregadores"
+        android:id="@+id/sv_entregas"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:paddingBottom="50dp"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:id="@+id/content_entregadores"
+            android:id="@+id/content_entregas"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="10dp">
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerEntregadores"
+                android:id="@+id/recyclerEntregas"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
         </LinearLayout>

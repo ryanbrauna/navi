@@ -1,4 +1,4 @@
-package br.com.navi.mobile.components.Entregador.frangments
+package br.com.navi.mobile.components.entregador.fragments
 
 import android.graphics.Color
 import android.os.Bundle

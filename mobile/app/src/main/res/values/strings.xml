@@ -28,7 +28,6 @@
     <string name="str_tv_entregue">Entregue</string>
     <string name="str_tv_cancelado">Cancelado</string>
     <string name="str_tv_criar_pedido">Registrar Pedido</string>
-    <string name="str_tv_criar_entregador">Cadastrar Entregador</string>
     <string name="str_tv_obrigatorio">* Esse campo é obrigatorio</string>
     <string name="str_tv_nr_pedido">Nº do Pedido:</string>
     <string name="str_tv_desc">Descrição:</string>
@@ -38,24 +37,25 @@
     <string name="str_tv_email" translatable="false">E-mail:</string>
     <string name="str_tv_cpf" translatable="false">CPF:</string>
     <string name="str_tv_endereco_card">Endereço:</string>
+    <string name="str_tv_pedido_entregador">Entregador:</string>
 
     <!-- EditText -->
     <string name="str_et_hint_nome">Nome</string>
-    <string name="str_et_hint_email">Email</string>
-    <string name="str_et_hint_cnpj">CNPJ</string>
+    <string name="str_et_hint_email" translatable="false">Email</string>
+    <string name="str_et_hint_cnpj" translatable="false">CNPJ</string>
     <string name="str_et_hint_descricao">Descrição</string>
     <string name="str_et_hint_telefone">Telefone</string>
     <string name="str_et_hint_senha">Senha</string>
     <string name="str_et_hint_confirmar_senha">Confirmar Senha</string>
     <string name="str_et_hint_cep">CEP</string>
     <string name="str_et_hint_logradouro">Logradouro</string>
-    <string name="str_et_hint_n">N°</string>
+    <string name="str_et_hint_n" translatable="false">N°</string>
     <string name="str_et_hint_complemeto">Complemeto</string>
     <string name="str_et_hint_cidade">Cidade</string>
     <string name="str_et_hint_bairro">Bairro</string>
     <string name="str_et_hint_uf">UF</string>
-    <string name="str_et_hint_cpf">CPF</string>
-    <string name="str_et_hint_cnh">CNH</string>
+    <string name="str_et_hint_cpf" translatable="false">CPF</string>
+    <string name="str_et_hint_cnh" translatable="false">CNH</string>
     <string name="str_et_hint_nr_pedido">Nº do Pedido</string>
     <string name="str_et_hint_anotacao">Anotações</string>
     <string name="str_et_hint_preco">Preço</string>
@@ -73,7 +73,8 @@
     <string name="nav_pedidos_loja">Pedidos da Loja</string>
     <string name="nav_entregadores">Entregadores</string>
     <string name="nav_lojas">Lojas</string>
-    <string name="nav_maps">MAPS</string>
+    <string name="nav_maps" translatable="false">MAPS</string>
+    <string name="nav_entregas">Minhas Entregas</string>
 
     <string name="access_token" translatable="false">pk.eyJ1IjoicmNicmF1bmEiLCJhIjoiY2tpZWxucDhlMTN2azJzcXg3a2UwNThuMyJ9.nTcXqxJCxCjFMieoZC3AdA</string>
 

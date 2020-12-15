@@ -9,9 +9,11 @@
     <color name="Roxo">#6200EE</color>
     <color name="RoxoEscuro">#3700B3</color>
     <color name="Rosa">#DA03D6</color>
-    <color name="Verde">#46D84C</color>
+    <color name="Verde">#8BC34A</color>
+    <color name="Amarelo">#FFEB3B</color>
     <color name="Branco">#FFFFFF</color>
     <color name="BrancoEscuro">#EDEDED</color>
+    <color name="PretoTexto">#202020</color>
     <color name="Preto">#000000</color>
     <color name="Cinza">#616161</color>
     <color name="AzulNavi">#2196F3</color>
