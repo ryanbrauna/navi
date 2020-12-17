@@ -1,11 +1,14 @@
 package br.com.navi.mobile.components.maps
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import br.com.navi.mobile.R
+import br.com.navi.mobile.components.comprador.MainComprador
 import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.mapboxsdk.maps.MapView
 import com.mapbox.mapboxsdk.maps.Style
+import kotlinx.android.synthetic.main.activity_maps_navigation.*
 
 class MapsNavigationActivity : AppCompatActivity() {
 
@@ -15,11 +18,16 @@ class MapsNavigationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         Mapbox.getInstance(applicationContext, getString(R.string.access_token))
         setContentView(R.layout.activity_maps_navigation)
-
+        mapView = mapsView
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync { mapboxMap ->
             mapboxMap.setStyle(Style.MAPBOX_STREETS)
         }
+
+        bt_voltar.setOnClickListener {
+            startActivity(Intent(this, MainComprador::class.java))
+        }
+
     }
 
     public override fun onResume() {

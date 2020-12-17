@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import br.com.navi.mobile.R
 import br.com.navi.mobile.components.login.codUser
+import br.com.navi.mobile.components.maps.MapsNavigationActivity
 import br.com.navi.mobile.models.Loja
 import br.com.navi.mobile.models.Pedido
 import br.com.navi.mobile.services.LojaService
@@ -44,6 +45,10 @@ class MainComprador : AppCompatActivity() {
 
         icon_perfil.setOnClickListener {
             startActivity(Intent(this, PerfilUsuario::class.java))
+        }
+        bt_abrir_mapa.setOnClickListener {
+            startActivity(Intent(this, MapsNavigationActivity::class.java))
+
         }
     }
 
@@ -157,4 +162,5 @@ class MainComprador : AppCompatActivity() {
 
         })
     }
+
 }

@@ -7,12 +7,36 @@
     android:layout_height="match_parent"
     tools:context=".components.maps.MapsNavigationActivity">
 
-    <com.mapbox.mapboxsdk.maps.MapView
-    android:id="@+id/mapView"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    mapbox:mapbox_cameraTargetLat="-23.55731"
-    mapbox:mapbox_cameraTargetLng="-46.66020"
-    mapbox:mapbox_cameraZoom="11"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/AzulNavi"
+        tools:ignore="MissingConstraints">
+
+        <ImageButton
+            android:id="@+id/bt_voltar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@color/AzulNavi"
+            android:src="@drawable/voltar_icone_branco" />
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp">
+
+        <com.mapbox.mapboxsdk.maps.MapView
+            android:id="@+id/mapsView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            mapbox:mapbox_cameraTargetLat="-23.55731"
+            mapbox:mapbox_cameraTargetLng="-46.66020"
+            mapbox:mapbox_cameraZoom="11"/>
+
+    </FrameLayout>
 
 </FrameLayout>

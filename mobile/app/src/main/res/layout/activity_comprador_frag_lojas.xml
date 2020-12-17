@@ -27,20 +27,4 @@
 
     </ScrollView>
 
-    <Button
-        android:id="@+id/bt_abrir_mapa"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:text="@string/str_bt_abrir_mapa"
-        android:textColor="@color/Branco"
-        android:background="@drawable/button_border_rounded"
-        android:drawableLeft="@drawable/ic_map"
-        android:paddingRight="15dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="30dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:onClick="showFormConfEntrega"/>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,7 @@
 package br.com.navi.mobile.components.comprador.fragments
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,9 +11,11 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.navi.mobile.R
+import br.com.navi.mobile.components.maps.MapsNavigationActivity
 import br.com.navi.mobile.models.Loja
 import br.com.navi.mobile.services.LojaService
 import com.example.prototipos3.AdapterLoja
+import kotlinx.android.synthetic.main.activity_comprador_frag_lojas.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -53,4 +56,5 @@ class FragLojas:Fragment() {
 
         return viewOfLayout
     }
+
 }
